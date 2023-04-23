@@ -20,4 +20,4 @@ async function bootstrap() {
     .then(() => new LoggerService().info(`server listening at port ${port}`));
 }
 
-bootstrap();
+bootstrap(1);
