@@ -2,5 +2,5 @@
 . "$(dirname -- "$0")/_/husky.sh"
 
 cd server
-npm run format
-npm run lint 
+yarn run format
+yarn run lint 
