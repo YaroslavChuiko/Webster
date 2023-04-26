@@ -41,8 +41,11 @@ function Navbar() {
                                 Current user data
                             </Text>
                             <MenuItem>
-                                <SmallAddIcon mr={2}/>
-                                Create new design
+                                <label htmlFor="file-input">
+                                    <SmallAddIcon mr={2}/>
+                                    Create new design
+                                </label>
+                                <input id="file-input" type="file" accept="image/png" style={{ display: 'none' }} />
                             </MenuItem>
                             <MenuItem>
                                 <ExternalLinkIcon mr={2}/>
