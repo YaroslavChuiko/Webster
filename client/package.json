@@ -8,7 +8,8 @@
     "build": "tsc && vite build",
     "lint": "eslint src --ext ts,tsx --report-unused-disable-directives --max-warnings 0",
     "format": "prettier --write \"src/**/*.{js,jsx,ts,tsx,css,md,json}\" --config ./.prettierrc",
-    "preview": "vite preview"
+    "preview": "vite preview",
+    "prepare": "cd .. && husky install client/.husky"
   },
   "dependencies": {
     "@chakra-ui/icons": "^2.0.19",
