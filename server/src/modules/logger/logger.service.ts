@@ -4,6 +4,8 @@ import { utilities as nestWinstonModuleUtilities } from 'nest-winston/dist/winst
 
 @Injectable()
 export class LoggerService {
+  private context?: string;
+
   private logger = winston.createLogger({
     level: 'info',
     format: winston.format.combine(
@@ -26,19 +28,30 @@ export class LoggerService {
     ],
   });
 
-  info(message: string) {
-    this.logger.info(message);
+  public info(message: any, context?: string) {
+    return this.logger.info(message, { context: context || this.context });
   }
 
-  error(message: string, trace: string) {
-    this.logger.error(message, trace);
+  public error(message: any, trace?: string, context?: string): any {
+    return this.logger.error(message, {
+      trace,
+      context: context || this.context,
+    });
   }
 
-  warn(message: string) {
-    this.logger.warn(message);
+  public warn(message: any, context?: string): any {
+    return this.logger.warn(message, { context: context || this.context });
   }
 
-  debug(message: string) {
-    this.logger.debug(message);
+  public debug(message: any, context?: string): any {
+    return this.logger.debug(message, { context: context || this.context });
+  }
+
+  public verbose(message: any, context?: string): any {
+    return this.logger.verbose(message, { context: context || this.context });
+  }
+
+  public setContext(context: string) {
+    this.context = context;
   }
 }
