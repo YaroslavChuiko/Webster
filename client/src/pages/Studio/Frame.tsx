@@ -15,8 +15,8 @@ const Frame = ({ stageRef }: IProps) => {
     const containerCenterPaddings = 40;
     const toolbar = document.querySelector('#toolbar') as HTMLElement;
     if (toolbar) {
-      let wScale = (window.innerWidth - toolbar.offsetWidth - containerCenterPaddings) / width;
-      let hScale = (window.innerHeight - containerCenterPaddings) / height;
+      const wScale = (window.innerWidth - toolbar.offsetWidth - containerCenterPaddings) / width;
+      const hScale = (window.innerHeight - containerCenterPaddings) / height;
       if (wScale < hScale) {
         setScale(wScale);
       } else {

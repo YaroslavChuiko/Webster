@@ -100,12 +100,12 @@ const Resize = () => {
   const [height, setHeight] = useState<string>(`${frameHight}`);
 
   const handleChangeWidth = (event: React.SyntheticEvent) => {
-    let w = (event.target as HTMLInputElement).value;
+    const w = (event.target as HTMLInputElement).value;
     setWidth(w);
   };
 
   const handleChangeHeight = (event: React.SyntheticEvent) => {
-    let h = (event.target as HTMLInputElement).value;
+    const h = (event.target as HTMLInputElement).value;
     setHeight(h);
   };
 
