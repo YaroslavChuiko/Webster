@@ -14,9 +14,10 @@ const Frame = ({ stageRef }: IProps) => {
   useEffect(() => {
     const containerCenterPaddings = 40;
     const toolbar = document.querySelector('#toolbar') as HTMLElement;
-    if (toolbar) {
+    const navbar = document.querySelector('#navbar') as HTMLElement;
+    if (toolbar && navbar) {
       let wScale = (window.innerWidth - toolbar.offsetWidth - containerCenterPaddings) / width;
-      let hScale = (window.innerHeight - containerCenterPaddings) / height;
+      let hScale = (window.innerHeight - navbar.offsetHeight - containerCenterPaddings) / height;
       if (wScale < hScale) {
         setScale(wScale);
       } else {
