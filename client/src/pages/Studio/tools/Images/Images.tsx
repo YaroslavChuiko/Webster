@@ -6,6 +6,8 @@ import { unsplash } from '~/utils/unsplash-api';
 import SearchForm from './SearchForm';
 import { DEFAULT_IMG_QUERY, UNSPLASH_URL } from '~/consts/images';
 import InfiniteWrapper from './InfiniteWrapper';
+import useStageObject from '~/hooks/use-stage-object';
+import { DEFAULT_IMAGE_OBJECT } from '~/consts/stage-object';
 
 export type Photo = {
   id: string;
@@ -18,6 +20,15 @@ const Images = () => {
   const [query, setQuery] = useState<string>('');
   const [page, setPage] = useState<number>(1);
   const [queryReset, setQueryReset] = useState<boolean>(false);
+
+  const { createOne } = useStageObject();
+
+  const addImageToStage = (img: Photo) => {
+    createOne({
+      src: img.urls.regular,
+      ...DEFAULT_IMAGE_OBJECT,
+    });
+  };
 
   const fetchImages = async () => {
     try {
@@ -76,7 +87,7 @@ const Images = () => {
           <InfiniteWrapper fetchItems={fetchImages} count={images?.length || 10}>
             <SimpleGrid spacingY={4}>
               {images?.map((img, i) => (
-                <Image key={i} src={img.urls.regular} />
+                <Image key={i} src={img.urls.regular} rounded="md" onClick={() => addImageToStage(img)} />
               ))}
             </SimpleGrid>
           </InfiniteWrapper>

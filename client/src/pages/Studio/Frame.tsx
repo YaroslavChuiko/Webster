@@ -1,13 +1,18 @@
 import React, { useState, useEffect } from 'react';
 import Konva from 'konva';
-import { Stage, Layer, Text } from 'react-konva';
+import { Stage, Layer } from 'react-konva';
 import { useAppSelector } from '~/hooks/use-app-selector';
+import ImageObject from './objects/ImageObject/ImageObject';
+import useStageObject from '~/hooks/use-stage-object';
+import { StageObject, StageObjectType } from '~/types/stage-object';
 
 type IProps = {
   stageRef: React.RefObject<Konva.Stage> | null;
 };
 
 const Frame = ({ stageRef }: IProps) => {
+  const { stageObjects } = useStageObject();
+
   const [scale, setScale] = useState(1);
   const { width, height } = useAppSelector((state) => state.frame);
 
@@ -26,6 +31,16 @@ const Frame = ({ stageRef }: IProps) => {
     }
   }, [width, height]);
 
+  const renderStageObject = (obj: StageObject) => {
+    const data = obj.data;
+    switch (data.type) {
+      case StageObjectType.IMAGE:
+        return <ImageObject src={data.src} data={data} />;
+      default:
+        return null;
+    }
+  };
+
   return (
     <Stage
       width={width * scale}
@@ -36,7 +51,9 @@ const Frame = ({ stageRef }: IProps) => {
       ref={stageRef}
     >
       <Layer>
-        <Text text="Some text" />
+        {stageObjects.map((obj) => (
+          <React.Fragment key={obj.id}>{renderStageObject(obj)}</React.Fragment>
+        ))}
       </Layer>
     </Stage>
   );
