@@ -13,7 +13,7 @@ const useObjectSelect = ({ transformer }: Props) => {
       return;
     }
 
-    if (e.target.getType() === 'Stage') {
+    if (target.getType() === 'Stage') {
       transformer.current?.nodes([]);
       transformer.current?.getLayer()?.batchDraw();
       return;
