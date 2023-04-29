@@ -3,7 +3,7 @@ import { KonvaEventObject } from 'konva/lib/Node';
 import { useEffect, useRef } from 'react';
 import { Text, Transformer } from 'react-konva';
 import useDragHandlers from '~/hooks/use-drag-handlers';
-import useStageObject from '~/hooks/use-stage-object';
+// import useStageObject from '~/hooks/use-stage-object';
 import { StageObject } from '~/types/stage-object';
 
 type TProps = {
@@ -14,7 +14,7 @@ type TProps = {
 };
 
 const ResizableText = ({ shapeProps, isSelected, onSelect, onDoubleClick }: TProps) => {
-  const { updateOne } = useStageObject();
+  // const { updateOne } = useStageObject();
   const { onDragEnd } = useDragHandlers();
   const { id, data } = shapeProps;
 
@@ -32,7 +32,7 @@ const ResizableText = ({ shapeProps, isSelected, onSelect, onDoubleClick }: TPro
     if (textRef.current !== null) {
       const textNode = textRef.current;
       const newWidth = textNode.width() * textNode.scaleX();
-      const newHeight = textNode.height() * textNode.scaleY();
+      // const newHeight = textNode.height() * textNode.scaleY();
       textNode.setAttrs({
         width: newWidth,
         // height: newHeight,
@@ -40,7 +40,7 @@ const ResizableText = ({ shapeProps, isSelected, onSelect, onDoubleClick }: TPro
         scaleX: 1,
         scaleY: 1,
       });
-      updateOne({ id, data: { width: newWidth, height: newHeight } });
+      // updateOne({ id, data: { width: newWidth, height: newHeight } });
     }
   };
 
