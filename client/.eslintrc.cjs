@@ -14,5 +14,7 @@ module.exports = {
   plugins: ['react-refresh', 'react-hooks', '@typescript-eslint', 'jsx-a11y', 'prettier'],
   rules: {
     'react-refresh/only-export-components': 'warn',
+    'react-hooks/exhaustive-deps': 'off',
+    '@typescript-eslint/no-explicit-any': 'off',
   },
 };
