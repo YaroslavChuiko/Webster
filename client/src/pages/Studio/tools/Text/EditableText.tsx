@@ -1,25 +1,19 @@
-import Konva from 'konva';
 import { KeyboardEvent, useEffect, useState } from 'react';
-import { StageObjectData } from '~/types/stage-object';
+import { StageObject } from '~/types/stage-object';
 import EditableTextInput from './EditableTextInput';
 import ResizableText from './ResizableText';
+import { KonvaEventObject } from 'konva/lib/Node';
 
 const RETURN_KEY = 'Enter';
 const ESCAPE_KEY = 'Escape';
 
 type TProps = {
-  shapeProps: StageObjectData;
+  shapeProps: StageObject;
   isSelected: boolean;
-  onChange: (text: Konva.TextConfig) => void;
-  onSelect: () => void;
+  onSelect: (e: KonvaEventObject<MouseEvent>) => void;
 };
 
-const EditableText = ({ shapeProps, isSelected, onChange, onSelect }: TProps) => {
-  const [x, setX] = useState(shapeProps.x);
-  const [y, setY] = useState(shapeProps.y);
-  const [text, setText] = useState(shapeProps.text || '');
-  const [width, setWidth] = useState(shapeProps.width);
-  const [height, setHeight] = useState(shapeProps.height);
+const EditableText = ({ shapeProps, isSelected, onSelect }: TProps) => {
   const [isEditing, setIsEditing] = useState(false);
 
   useEffect(() => {
@@ -33,11 +27,6 @@ const EditableText = ({ shapeProps, isSelected, onChange, onSelect }: TProps) =>
     setIsEditing(!isEditing);
   };
 
-  const onResize = (newWidth: number, newHeight: number) => {
-    setWidth(newWidth);
-    setHeight(newHeight);
-  };
-
   const handleEscapeKeys = (e: KeyboardEvent<HTMLTextAreaElement>) => {
     if ((e.key === RETURN_KEY && !e.shiftKey) || e.key === ESCAPE_KEY) {
       setIsEditing(false);
@@ -45,38 +34,10 @@ const EditableText = ({ shapeProps, isSelected, onChange, onSelect }: TProps) =>
   };
 
   if (isEditing) {
-    return (
-      <EditableTextInput
-        x={x}
-        y={y}
-        height={height}
-        width={width}
-        value={text}
-        onChange={(e) => setText(e.currentTarget.value)}
-        handleEscapeKeys={handleEscapeKeys}
-      />
-    );
+    return <EditableTextInput shapeProps={shapeProps} handleEscapeKeys={handleEscapeKeys} />;
   }
   return (
-    <ResizableText
-      x={x}
-      y={y}
-      width={width}
-      text={text}
-      isSelected={isSelected}
-      onResize={onResize}
-      onDragEnd={(e) => {
-        onChange({
-          // ...textProps,
-          x: e.target.x(),
-          y: e.target.y(),
-        });
-        setX(e.target.x());
-        setY(e.target.y());
-      }}
-      onSelect={onSelect}
-      onDoubleClick={onToggleEdit}
-    />
+    <ResizableText shapeProps={shapeProps} isSelected={isSelected} onSelect={onSelect} onDoubleClick={onToggleEdit} />
   );
 };
 

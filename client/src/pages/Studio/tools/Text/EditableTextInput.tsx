@@ -1,13 +1,10 @@
-import { CSSProperties, ChangeEvent, KeyboardEvent, useEffect, useRef } from 'react';
+import { CSSProperties, KeyboardEvent, useEffect, useRef } from 'react';
 import { Html } from 'react-konva-utils';
+import useStageObject from '~/hooks/use-stage-object';
+import { StageObject } from '~/types/stage-object';
 
 type TEditableTextInput = {
-  x: number;
-  y: number;
-  width: number;
-  height: number;
-  value: string;
-  onChange: (e: ChangeEvent<HTMLTextAreaElement>) => void;
+  shapeProps: StageObject;
   handleEscapeKeys: (e: KeyboardEvent<HTMLTextAreaElement>) => void;
 };
 
@@ -39,7 +36,10 @@ function getStyle(width: number, height: number) {
   };
 }
 
-const EditableTextInput = ({ x, y, width, height, value, onChange, handleEscapeKeys }: TEditableTextInput) => {
+const EditableTextInput = ({ shapeProps, handleEscapeKeys }: TEditableTextInput) => {
+  const { updateOne } = useStageObject();
+  const { id, data } = shapeProps;
+  const { x, y, width, height, text } = data;
   const style = getStyle(width, height);
 
   const areaRef = useRef<HTMLTextAreaElement | null>(null);
@@ -63,7 +63,14 @@ const EditableTextInput = ({ x, y, width, height, value, onChange, handleEscapeK
 
   return (
     <Html groupProps={{ x, y }} divProps={{ style: { opacity: 1 } }}>
-      <textarea ref={areaRef} value={value} onKeyDown={onKeyDown} onChange={onChange} style={style} autoFocus />
+      <textarea
+        ref={areaRef}
+        value={text}
+        onKeyDown={onKeyDown}
+        onChange={(e) => updateOne({ id, data: { text: e.currentTarget.value } })}
+        style={style}
+        autoFocus
+      />
     </Html>
   );
 };

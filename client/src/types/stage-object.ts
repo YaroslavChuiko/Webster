@@ -11,7 +11,6 @@ export type StageObjectData = {
   x: number;
   y: number;
   draggable: boolean;
-  text?: string;
 } & Record<string, any>;
 
 export type StageObject = {
@@ -21,6 +20,10 @@ export type StageObject = {
 
 export type StageImageData = {
   src: string;
+} & StageObjectData;
+
+export type StageTextData = {
+  text: string;
 } & StageObjectData;
 
 export type StageObjectPartial = {

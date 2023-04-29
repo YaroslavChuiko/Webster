@@ -2,20 +2,22 @@ import Konva from 'konva';
 import { KonvaEventObject } from 'konva/lib/Node';
 import { useEffect, useRef } from 'react';
 import { Text, Transformer } from 'react-konva';
+import useDragHandlers from '~/hooks/use-drag-handlers';
+import useStageObject from '~/hooks/use-stage-object';
+import { StageObject } from '~/types/stage-object';
 
 type TProps = {
-  x: number;
-  y: number;
-  text: string;
-  width: number;
+  shapeProps: StageObject;
   isSelected: boolean;
-  onResize: (width: number, height: number) => void;
   onDoubleClick: (e: KonvaEventObject<MouseEvent>) => void;
-  onSelect: () => void;
-  onDragEnd: (e: KonvaEventObject<DragEvent>) => void;
+  onSelect: (e: KonvaEventObject<MouseEvent>) => void;
 };
 
-const ResizableText = ({ x, y, width, text, isSelected, onDragEnd, onSelect, onResize, onDoubleClick }: TProps) => {
+const ResizableText = ({ shapeProps, isSelected, onSelect, onDoubleClick }: TProps) => {
+  const { updateOne } = useStageObject();
+  const { onDragEnd } = useDragHandlers();
+  const { id, data } = shapeProps;
+
   const textRef = useRef<Konva.Text | null>(null);
   const transformerRef = useRef<Konva.Transformer | null>(null);
 
@@ -38,18 +40,19 @@ const ResizableText = ({ x, y, width, text, isSelected, onDragEnd, onSelect, onR
         scaleX: 1,
         scaleY: 1,
       });
-      onResize(newWidth, newHeight);
+      updateOne({ id, data: { width: newWidth, height: newHeight } });
     }
   };
 
   return (
     <>
       <Text
-        text={text}
-        width={width}
-        x={x}
-        y={y}
-        draggable={true}
+        id={id}
+        text={data.text}
+        width={data.width}
+        x={data.x}
+        y={data.y}
+        draggable={data.draggable}
         ref={textRef}
         fill="black"
         fontFamily="sans-serif"
@@ -59,7 +62,7 @@ const ResizableText = ({ x, y, width, text, isSelected, onDragEnd, onSelect, onR
         onTransform={handleResize}
         onClick={onSelect}
         onTap={onSelect}
-        onDragEnd={onDragEnd}
+        onDragEnd={(e) => onDragEnd(e, id)}
         onDblClick={onDoubleClick}
         onDblTap={onDoubleClick}
       />
