@@ -3,10 +3,29 @@ import Konva from 'konva';
 import { Stage, Layer, Text } from 'react-konva';
 import { useAppSelector } from '~/hooks/use-app-selector';
 import EditableText from './tools/EditableText/EditableText';
+import { KonvaEventObject } from 'konva/lib/Node';
 
 type IProps = {
   stageRef: React.RefObject<Konva.Stage> | null;
 };
+
+export type TTextInitialProps = {
+  x: number;
+  y: number;
+  width: number;
+  height: number;
+  text: string;
+} & Konva.TextConfig;
+
+const initialTexts: TTextInitialProps[] = [
+  {
+    x: 50,
+    y: 50,
+    width: 300,
+    height: 100,
+    text: 'Click to resize. Double click to edit.',
+  },
+];
 
 const Frame = ({ stageRef }: IProps) => {
   const [scale, setScale] = useState(1);
@@ -27,8 +46,16 @@ const Frame = ({ stageRef }: IProps) => {
     }
   }, [width, height]);
 
-  const [text, setText] = useState('Click to resize. Double click to edit.');
-  const [selected, setSelected] = useState(false);
+  const [texts, setTexts] = useState(initialTexts);
+  const [selectedId, selectShape] = useState<string | null>(null);
+
+  const checkDeselect = (e: KonvaEventObject<MouseEvent> | KonvaEventObject<TouchEvent>) => {
+    // deselect when clicked on empty area
+    const clickedOnEmpty = e.target === e.target.getStage();
+    if (clickedOnEmpty) {
+      selectShape(null);
+    }
+  };
 
   return (
     <Stage
@@ -38,52 +65,27 @@ const Frame = ({ stageRef }: IProps) => {
       scaleX={scale}
       scaleY={scale}
       ref={stageRef}
-      onClick={(e) => {
-        if (e.target === stageRef?.current?.getStage()) {
-          setSelected(false);
-        }
-      }}
+      onMouseDown={checkDeselect}
+      onTouchStart={checkDeselect}
     >
       <Layer>
         <Text text="Some text" />
-        <EditableText
-          x={50}
-          y={50}
-          text={text}
-          onChange={(value) => setText(value)}
-          // width={width}
-          // height={height}
-          selected={selected}
-          // onResize={(newWidth, newHeight) => {
-          //   setWidth(newWidth);
-          //   setHeight(newHeight);
-          // }}
-          // onClick={() => {
-          //   setSelected(!selected);
-          // }}
-          onClick={(newSelected) => {
-            setSelected(newSelected);
-          }}
-        />
-        <EditableText
-          x={250}
-          y={250}
-          text={text}
-          onChange={(value) => setText(value)}
-          // width={width}
-          // height={height}
-          selected={selected}
-          // onResize={(newWidth, newHeight) => {
-          //   setWidth(newWidth);
-          //   setHeight(newHeight);
-          // }}
-          // onClick={() => {
-          //   setSelected(!selected);
-          // }}
-          onClick={(newSelected) => {
-            setSelected(newSelected);
-          }}
-        />
+        {texts.map((item, i) => (
+          <EditableText
+            key={i}
+            shapeProps={item}
+            isSelected={`text${i}` === selectedId}
+            onSelect={() => {
+              selectShape(`text${i}`);
+            }}
+            onChange={(newAttrs: Konva.TextConfig) => {
+              const newTexts = texts.slice();
+              newTexts[i] = newAttrs as TTextInitialProps;
+              setTexts(newTexts);
+              console.log(texts);
+            }}
+          />
+        ))}
       </Layer>
     </Stage>
   );

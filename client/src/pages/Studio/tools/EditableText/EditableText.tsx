@@ -1,88 +1,81 @@
-import { ChangeEvent, useEffect, useState } from 'react';
+import Konva from 'konva';
+import { KeyboardEvent, useEffect, useState } from 'react';
+import EditableTextInput from './EditableTextInput';
 import ResizableText from './ResizableText';
-// import { EditableTextInput } from "./EditableTextInput";
+import { TTextInitialProps } from '../../Frame';
 
-const RETURN_KEY = '13';
-const ESCAPE_KEY = '27';
+const RETURN_KEY = 'Enter';
+const ESCAPE_KEY = 'Escape';
 
 type TProps = {
-  x: number;
-  y: number;
-  selected: boolean;
-  // onToggleEdit: (e: KonvaEventObject<MouseEvent>) => void;
-  // onToggleTransform: (e: KonvaEventObject<Event>) => void;
-  onChange: (text: string) => void;
-  // onResize: (width: number, height: number) => void;
-  onClick: (isEditing: boolean) => void;
-  text: string;
-  // width: number;
-  // height: number;
+  shapeProps: TTextInitialProps;
+  isSelected: boolean;
+  onChange: (text: Konva.TextConfig) => void;
+  onSelect: () => void;
 };
 
-const EditableText = ({ x, y, selected, onChange, onClick, text }: TProps) => {
+const EditableText = ({ shapeProps, isSelected, onChange, onSelect }: TProps) => {
+  const [x, setX] = useState(shapeProps.x);
+  const [y, setY] = useState(shapeProps.y);
+  const [text, setText] = useState(shapeProps.text || '');
+  const [width, setWidth] = useState(shapeProps.width);
+  const [height, setHeight] = useState(shapeProps.height);
   const [isEditing, setIsEditing] = useState(false);
-  const [isTransforming, setIsTransforming] = useState(false);
-  const [width, setWidth] = useState(200);
-  // eslint-disable-next-line @typescript-eslint/no-unused-vars
-  const [height, setHeight] = useState(200);
 
   useEffect(() => {
-    if (!selected && isEditing) {
+    if (!isSelected && isEditing) {
       setIsEditing(false);
-    } else if (!selected && isTransforming) {
-      setIsTransforming(false);
     }
-  }, [selected, isEditing, isTransforming]);
+  }, [isSelected, isEditing]);
 
-  function onToggleEdit() {
+  const onToggleEdit = () => {
+    if (!isSelected) return;
     setIsEditing(!isEditing);
-    onClick(!isEditing);
-  }
+  };
 
-  function onToggleTransform() {
-    setIsTransforming(!isTransforming);
-    onClick(!isTransforming);
-  }
-
-  function onResize(newWidth: number, newHeight: number) {
+  const onResize = (newWidth: number, newHeight: number) => {
     setWidth(newWidth);
     setHeight(newHeight);
-  }
+  };
 
-  // eslint-disable-next-line @typescript-eslint/no-unused-vars
-  function handleEscapeKeys(e: KeyboardEvent) {
+  const handleEscapeKeys = (e: KeyboardEvent<HTMLTextAreaElement>) => {
     if ((e.key === RETURN_KEY && !e.shiftKey) || e.key === ESCAPE_KEY) {
-      onToggleEdit();
+      setIsEditing(false);
     }
-  }
-  // eslint-disable-next-line @typescript-eslint/no-unused-vars
-  function handleTextChange(e: ChangeEvent<HTMLInputElement>) {
-    onChange(e.currentTarget.value);
-  }
+  };
 
-  // if (isEditing) {
-  //   return (
-  //     <EditableTextInput
-  //       x={x}
-  //       y={y}
-  //       width={width}
-  //       height={height}
-  //       value={text}
-  //       onChange={handleTextChange}
-  //       onKeyDown={handleEscapeKeys}
-  //     />
-  //   );
-  // }
+  if (isEditing) {
+    return (
+      <EditableTextInput
+        x={x}
+        y={y}
+        height={height}
+        width={width}
+        value={text}
+        onChange={(e) => setText(e.currentTarget.value)}
+        handleEscapeKeys={handleEscapeKeys}
+      />
+    );
+  }
   return (
     <ResizableText
       x={x}
       y={y}
-      isSelected={isTransforming}
-      onClick={onToggleTransform}
-      onDoubleClick={onToggleEdit}
-      onResize={onResize}
-      text={text}
       width={width}
+      text={text}
+      isSelected={isSelected}
+      onResize={onResize}
+      onDragEnd={(e) => {
+        onChange({
+          // ...textProps,
+          x: e.target.x(),
+          y: e.target.y(),
+        });
+        setX(e.target.x());
+        setY(e.target.y());
+      }}
+      onSelect={onSelect}
+      onDoubleClick={onToggleEdit}
     />
   );
 };
