@@ -4,7 +4,7 @@ import Export from './tools/Export';
 import Images from './tools/Images/Images';
 import Konva from 'konva';
 import { NAVBAR_HEIGHT, TABS } from '~/consts/components';
-import Texts from './tools/EditableText/Texts';
+import Texts from './tools/Text/Texts';
 
 type Props = {
   stageRef: React.RefObject<Konva.Stage>;

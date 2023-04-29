@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import Konva from 'konva';
 import { Stage, Layer } from 'react-konva';
 import { useAppSelector } from '~/hooks/use-app-selector';
-import EditableText from './tools/EditableText/EditableText';
+import EditableText from './tools/Text/EditableText';
 import { KonvaEventObject } from 'konva/lib/Node';
 import ImageObject from './objects/ImageObject/ImageObject';
 import useStageObject from '~/hooks/use-stage-object';
