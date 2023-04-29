@@ -1,10 +1,12 @@
 import React, { useState, useEffect } from 'react';
 import Konva from 'konva';
-import { Stage, Layer } from 'react-konva';
+import { Stage, Layer, Transformer } from 'react-konva';
 import { useAppSelector } from '~/hooks/use-app-selector';
 import ImageObject from './objects/ImageObject/ImageObject';
 import useStageObject from '~/hooks/use-stage-object';
 import { StageObject, StageObjectType } from '~/types/stage-object';
+import useTransformer from '~/hooks/use-transformer';
+import useObjectSelect from '~/hooks/use-object-select';
 
 type IProps = {
   stageRef: React.RefObject<Konva.Stage> | null;
@@ -12,6 +14,9 @@ type IProps = {
 
 const Frame = ({ stageRef }: IProps) => {
   const { stageObjects } = useStageObject();
+  const { transformer, onTransformerEnd } = useTransformer();
+
+  const { onObjectSelect } = useObjectSelect({ transformer });
 
   const [scale, setScale] = useState(1);
   const { width, height } = useAppSelector((state) => state.frame);
@@ -35,7 +40,7 @@ const Frame = ({ stageRef }: IProps) => {
     const data = obj.data;
     switch (data.type) {
       case StageObjectType.IMAGE:
-        return <ImageObject src={data.src} data={data} />;
+        return <ImageObject onSelect={onObjectSelect} obj={obj} />;
       default:
         return null;
     }
@@ -49,11 +54,13 @@ const Frame = ({ stageRef }: IProps) => {
       scaleX={scale}
       scaleY={scale}
       ref={stageRef}
+      onClick={onObjectSelect}
     >
       <Layer>
         {stageObjects.map((obj) => (
           <React.Fragment key={obj.id}>{renderStageObject(obj)}</React.Fragment>
         ))}
+        <Transformer ref={transformer} onTransformEnd={onTransformerEnd} />
       </Layer>
     </Stage>
   );

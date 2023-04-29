@@ -1,15 +1,33 @@
 import { nanoid } from '@reduxjs/toolkit';
-import { useDispatch, useSelector } from 'react-redux';
+import { useDispatch } from 'react-redux';
 import { stageObjectSelector, stateObjectActions } from '~/store/slices/stage-object-slice';
-import { StageObject, StageObjectData } from '~/types/stage-object';
+import { StageObject, StageObjectData, StageObjectPartial } from '~/types/stage-object';
+import { useAppSelector } from './use-app-selector';
 
 const useStageObject = () => {
   const dispatch = useDispatch();
-  const stageObjects = useSelector(stageObjectSelector.selectAll);
+  const stageObjects = useAppSelector(stageObjectSelector.selectAll);
 
   const createOne = (data: StageObjectData) => {
     const payload: StageObject = { id: nanoid(), data };
     dispatch(stateObjectActions.addOne(payload));
+  };
+
+  const updateOne = (obj: StageObjectPartial) => {
+    const { id, data } = obj;
+    if (!id || !data) {
+      return;
+    }
+
+    const target = stageObjects.find((s) => s.id === id);
+    if (!target) {
+      console.error(`A target with the id ${id} does not exist.`);
+      return;
+    }
+
+    const payload = { ...target.data, ...data };
+    payload.image && delete payload.image;
+    dispatch(stateObjectActions.updateOne({ id, data: payload }));
   };
 
   const removeOne = (id: string) => {
@@ -23,6 +41,7 @@ const useStageObject = () => {
   return {
     stageObjects,
     createOne,
+    updateOne,
     removeOne,
     resetAll,
   };

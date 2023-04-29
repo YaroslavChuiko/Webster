@@ -16,7 +16,7 @@ export const stageObjectSlice = createSlice({
     updateOne(state, { payload }) {
       stageObjectEntity.updateOne(state, {
         id: payload.id,
-        changes: payload.data,
+        changes: payload,
       });
     },
     removeOne(state, { payload }) {
