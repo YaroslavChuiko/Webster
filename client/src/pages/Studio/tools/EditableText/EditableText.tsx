@@ -1,14 +1,14 @@
 import Konva from 'konva';
 import { KeyboardEvent, useEffect, useState } from 'react';
+import { StageObjectData } from '~/types/stage-object';
 import EditableTextInput from './EditableTextInput';
 import ResizableText from './ResizableText';
-import { TTextInitialProps } from '../../Frame';
 
 const RETURN_KEY = 'Enter';
 const ESCAPE_KEY = 'Escape';
 
 type TProps = {
-  shapeProps: TTextInitialProps;
+  shapeProps: StageObjectData;
   isSelected: boolean;
   onChange: (text: Konva.TextConfig) => void;
   onSelect: () => void;

@@ -11,6 +11,7 @@ export type StageObjectData = {
   x: number;
   y: number;
   draggable: boolean;
+  text?: string;
 } & Record<string, any>;
 
 export type StageObject = {

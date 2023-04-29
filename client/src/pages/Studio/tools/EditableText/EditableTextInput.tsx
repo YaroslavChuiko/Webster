@@ -1,4 +1,3 @@
-/* eslint-disable jsx-a11y/no-autofocus */
 import { CSSProperties, ChangeEvent, KeyboardEvent, useEffect, useRef } from 'react';
 import { Html } from 'react-konva-utils';
 
@@ -11,38 +10,6 @@ type TEditableTextInput = {
   onChange: (e: ChangeEvent<HTMLTextAreaElement>) => void;
   handleEscapeKeys: (e: KeyboardEvent<HTMLTextAreaElement>) => void;
 };
-
-// function getStyle(textNode: Konva.Text) {
-//   const isFirefox = navigator.userAgent.toLowerCase().indexOf('firefox') > -1;
-
-//   const rotation = textNode.rotation();
-//   const px = isFirefox ? 2 + Math.round(textNode.fontSize() / 20) : 0;
-//   const transform = rotation ? `rotateZ(${rotation}deg) translateY(-${px}px)` : `translateY(-${px}px)`;
-
-//   const baseStyle = {
-//     width: `${textNode.width() - textNode.padding() * 2}px`,
-//     height: `${textNode.height() - textNode.padding() * 2 + 5}px`,
-//     // position: 'absolute',
-//     // top: `${textNode.y()}px`,
-//     // left: `${textNode.x()}px`,
-//     fontSize: `${textNode.fontSize()}px`,
-//     border: 'none',
-//     padding: '0px',
-//     margin: '0px',
-//     overflow: 'hidden',
-//     background: 'none',
-//     outline: 'none',
-//     resize: 'none',
-//     lineHeight: textNode.lineHeight(),
-//     fontFamily: textNode.fontFamily(),
-//     transformOrigin: 'left top',
-//     // textAlign: textNode.align(),
-//     color: textNode.fill(),
-//     transform,
-//   };
-
-//   return baseStyle;
-// }
 
 function getStyle(width: number, height: number) {
   const isFirefox = navigator.userAgent.toLowerCase().indexOf('firefox') > -1;
@@ -79,7 +46,6 @@ const EditableTextInput = ({ x, y, width, height, value, onChange, handleEscapeK
 
   useEffect(() => {
     updateStyles();
-    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [areaRef.current]);
 
   const updateStyles = () => {

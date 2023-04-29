@@ -12,29 +12,12 @@ type IProps = {
   stageRef: React.RefObject<Konva.Stage> | null;
 };
 
-export type TTextInitialProps = {
-  x: number;
-  y: number;
-  width: number;
-  height: number;
-  text: string;
-} & Konva.TextConfig;
-
-const initialTexts: TTextInitialProps[] = [
-  {
-    x: 50,
-    y: 50,
-    width: 300,
-    height: 100,
-    text: 'Click to resize. Double click to edit.',
-  },
-];
-
 const Frame = ({ stageRef }: IProps) => {
   const { stageObjects } = useStageObject();
 
   const [scale, setScale] = useState(1);
   const { width, height } = useAppSelector((state) => state.frame);
+  const [selectedId, selectShape] = useState<number | string | null>(null);
 
   useEffect(() => {
     const containerCenterPaddings = 40;
@@ -51,9 +34,6 @@ const Frame = ({ stageRef }: IProps) => {
     }
   }, [width, height]);
 
-  const [texts, setTexts] = useState(initialTexts);
-  const [selectedId, selectShape] = useState<string | null>(null);
-
   const checkDeselect = (e: KonvaEventObject<MouseEvent> | KonvaEventObject<TouchEvent>) => {
     // deselect when clicked on empty area
     const clickedOnEmpty = e.target === e.target.getStage();
@@ -67,6 +47,23 @@ const Frame = ({ stageRef }: IProps) => {
     switch (data.type) {
       case StageObjectType.IMAGE:
         return <ImageObject src={data.src} data={data} />;
+      case StageObjectType.TEXT:
+        return (
+          <EditableText
+            shapeProps={data}
+            isSelected={obj.id === selectedId}
+            onSelect={() => {
+              selectShape(obj.id);
+            }}
+            onChange={() => {
+              // newAttrs: Konva.TextConfig
+              // const newTexts = texts.slice();
+              // newTexts[i] = newAttrs as TTextInitialProps;
+              // setTexts(newTexts);
+              // console.log(texts);
+            }}
+          />
+        );
       default:
         return null;
     }
@@ -84,23 +81,6 @@ const Frame = ({ stageRef }: IProps) => {
       onTouchStart={checkDeselect}
     >
       <Layer>
-        {/* <Text text="Some text" /> */}
-        {texts.map((item, i) => (
-          <EditableText
-            key={i}
-            shapeProps={item}
-            isSelected={`text${i}` === selectedId}
-            onSelect={() => {
-              selectShape(`text${i}`);
-            }}
-            onChange={(newAttrs: Konva.TextConfig) => {
-              const newTexts = texts.slice();
-              newTexts[i] = newAttrs as TTextInitialProps;
-              setTexts(newTexts);
-              console.log(texts);
-            }}
-          />
-        ))}
         {stageObjects.map((obj) => (
           <React.Fragment key={obj.id}>{renderStageObject(obj)}</React.Fragment>
         ))}
