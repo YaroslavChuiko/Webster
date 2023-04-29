@@ -13,6 +13,7 @@ const InfiniteWrapper = ({ count, fetchItems, children }: Props) => {
     <InfiniteScroll
       scrollableTarget={'imageGrid'}
       dataLength={count}
+      style={{ overflow: 'hidden' }}
       next={fetchItems}
       hasMore={true}
       loader={<Loader />}
