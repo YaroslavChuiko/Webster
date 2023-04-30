@@ -5,6 +5,7 @@ import { useAppSelector } from '~/hooks/use-app-selector';
 import EditableText from './tools/Text/EditableText';
 import { KonvaEventObject } from 'konva/lib/Node';
 import ImageObject from './objects/ImageObject/ImageObject';
+import ShapeObject from './objects/ShapeObject/ShapeObject';
 import useStageObject from '~/hooks/use-stage-object';
 import { StageObject, StageObjectType } from '~/types/stage-object';
 import useTransformer from '~/hooks/use-transformer';
@@ -58,6 +59,8 @@ const Frame = ({ stageRef }: IProps) => {
         return <ImageObject onSelect={onObjectSelect} obj={obj} />;
       case StageObjectType.TEXT:
         return <EditableText onSelect={onObjectSelect} shapeProps={obj} />;
+      case StageObjectType.SHAPE:
+        return <ShapeObject onSelect={onObjectSelect} obj={obj} />;
       default:
         return null;
     }
