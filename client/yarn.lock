@@ -2978,7 +2978,15 @@ react-is@^18.0.0:
   resolved "https://registry.yarnpkg.com/react-is/-/react-is-18.2.0.tgz#199431eeaaa2e09f86427efbb4f1473edb47609b"
   integrity sha512-xWGDIW6x921xtzPkhiULtthJHoJvBbF3q26fzloPCK0hsvxtPVelvftw3zjbHWSkR2km9Z+4uxbDDK/6Zw9B8w==
 
-react-konva@^18.2.7:
+react-konva-utils@^1.0.4:
+  version "1.0.4"
+  resolved "https://registry.yarnpkg.com/react-konva-utils/-/react-konva-utils-1.0.4.tgz#bce739a207f02fc5f0246f6ab16a0e295f5544af"
+  integrity sha512-K1J1K9MoVNGFrUxYt+dn7TUVqpppW3Y0fRcf42Ws1wzTQ2Od4qicCom9jnGxLiwh8zyhYaHAUn3hztgfTyYF7g==
+  dependencies:
+    react-konva "^18.0.0-0"
+    use-image "^1.1.0"
+
+react-konva@^18.0.0-0, react-konva@^18.2.7:
   version "18.2.7"
   resolved "https://registry.yarnpkg.com/react-konva/-/react-konva-18.2.7.tgz#f01735ac9ae35a7cd0f3ca359a898374ce791d04"
   integrity sha512-Q52ghaIR+2g3x14V5aIyt7VWNqPnWRotILo0Nj4YWVbNQisozrTJJ3/w68qb5Ar2fsYo7yXb4T6Nt4yZcGd2yg==

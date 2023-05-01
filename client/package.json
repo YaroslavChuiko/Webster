@@ -24,6 +24,7 @@
     "react-hook-form": "^7.43.9",
     "react-infinite-scroll-component": "^6.1.0",
     "react-konva": "^18.2.7",
+    "react-konva-utils": "^1.0.4",
     "react-redux": "^8.0.5",
     "react-router-dom": "^6.10.0",
     "redux-persist": "^6.0.0",

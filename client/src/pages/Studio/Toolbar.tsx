@@ -4,6 +4,7 @@ import Export from './tools/Export';
 import Images from './tools/Images/Images';
 import Konva from 'konva';
 import { NAVBAR_HEIGHT, TABS } from '~/consts/components';
+import Texts from './tools/Text/Texts';
 
 type Props = {
   stageRef: React.RefObject<Konva.Stage>;
@@ -40,6 +41,9 @@ const Toolbar = ({ stageRef }: Props) => {
           </TabPanel>
           <TabPanel p="0" h="100%">
             <Images />
+          </TabPanel>
+          <TabPanel p="0" h="100%">
+            <Texts />
           </TabPanel>
         </TabPanels>
       </Tabs>

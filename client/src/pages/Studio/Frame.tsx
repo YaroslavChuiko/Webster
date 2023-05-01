@@ -2,6 +2,8 @@ import React, { useState, useEffect } from 'react';
 import Konva from 'konva';
 import { Stage, Layer, Transformer } from 'react-konva';
 import { useAppSelector } from '~/hooks/use-app-selector';
+import EditableText from './tools/Text/EditableText';
+import { KonvaEventObject } from 'konva/lib/Node';
 import ImageObject from './objects/ImageObject/ImageObject';
 import useStageObject from '~/hooks/use-stage-object';
 import { StageObject, StageObjectType } from '~/types/stage-object';
@@ -15,6 +17,7 @@ type IProps = {
 const Frame = ({ stageRef }: IProps) => {
   const { stageObjects } = useStageObject();
   const { transformer, onTransformerEnd } = useTransformer();
+  const [selectedId, selectShape] = useState<number | string | null>(null);
 
   const { onObjectSelect } = useObjectSelect({ transformer });
 
@@ -36,11 +39,25 @@ const Frame = ({ stageRef }: IProps) => {
     }
   }, [width, height]);
 
+  const checkDeselect = (e: KonvaEventObject<MouseEvent> | KonvaEventObject<TouchEvent>) => {
+    // deselect when clicked on empty area
+    const clickedOnEmpty = e.target === e.target.getStage();
+    if (clickedOnEmpty) {
+      selectShape(null);
+    }
+  };
+
+  const handleSelectShape = (e: KonvaEventObject<MouseEvent>) => {
+    selectShape(e.target.id());
+  };
+
   const renderStageObject = (obj: StageObject) => {
     const data = obj.data;
     switch (data.type) {
       case StageObjectType.IMAGE:
         return <ImageObject onSelect={onObjectSelect} obj={obj} />;
+      case StageObjectType.TEXT:
+        return <EditableText shapeProps={obj} isSelected={obj.id === selectedId} onSelect={handleSelectShape} />;
       default:
         return null;
     }
@@ -54,6 +71,8 @@ const Frame = ({ stageRef }: IProps) => {
       scaleX={scale}
       scaleY={scale}
       ref={stageRef}
+      onMouseDown={checkDeselect}
+      onTouchStart={checkDeselect}
       onClick={onObjectSelect}
     >
       <Layer>
