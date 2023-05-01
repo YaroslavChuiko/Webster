@@ -5,7 +5,7 @@ import { appConfig } from '../configs/app.config';
 export class EmailService {
   async sendEmail(email: string, confirmUrl: string) {
     const mailtrap = appConfig.getMailTrapConfig();
-
+    console.log(mailtrap);
     const transport = nodemailer.createTransport({
       host: 'sandbox.smtp.mailtrap.io',
       port: 2525,
