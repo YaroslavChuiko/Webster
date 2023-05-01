@@ -69,22 +69,10 @@ class AppConfig {
     return this.getValue('STRIPE_WH', true);
   }
 
-  getMailgunConfig(): any {
+  getMailTrapConfig(): any {
     return {
-      client: {
-        username: this.getValue('MAILGUN_USERNAME', true),
-        key: this.getValue('MAILGUN_KEY', true),
-      },
-      domain: this.getValue('MAILGUN_DOMAIN', true),
-      from: this.getValue('MAILGUN_FROM', true),
-    };
-  }
-
-  getAWSConfig(): any {
-    return {
-      accessKeyId: this.getValue('AWS_ACCESS_KEY_ID', true),
-      secretAccessKey: this.getValue('AWS_SECRET_ACCESS_KEY', true),
-      region: this.getValue('AWS_REGION', true),
+      user: this.getValue('MAILTRAP_USER', true),
+      password: this.getValue('MAILTRAP_PASSWORD', true),
     };
   }
 }
@@ -95,6 +83,8 @@ const appConfig = new AppConfig(process.env).ensureValues([
   'JWT_EXPIRED',
   'PEPPER',
   'CLIENT_URL',
+  'MAILTRAP_USER',
+  'MAILTRAP_PASSWORD',
 ]);
 
 export { appConfig };

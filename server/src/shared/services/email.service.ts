@@ -1,14 +1,17 @@
 import { Injectable } from '@nestjs/common';
 import * as nodemailer from 'nodemailer';
+import { appConfig } from '../configs/app.config';
 @Injectable()
 export class EmailService {
   async sendEmail(email: string, confirmUrl: string) {
+    const mailtrap = appConfig.getMailTrapConfig();
+
     const transport = nodemailer.createTransport({
       host: 'sandbox.smtp.mailtrap.io',
       port: 2525,
       auth: {
-        user: '1a5b031371df27',
-        pass: 'a2568051f186e2',
+        user: mailtrap.user,
+        pass: mailtrap.user,
       },
     });
 
