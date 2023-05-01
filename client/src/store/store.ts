@@ -3,6 +3,7 @@ import frameReducer from './slices/frame-slice';
 import storage from 'redux-persist/lib/storage';
 import { persistReducer, persistStore } from 'redux-persist';
 import stageObjectReducer from './slices/stage-object-slice';
+import selectedObjectReducer from './slices/selected-objects-slice';
 
 const persistConfig = {
   key: 'root',
@@ -11,7 +12,7 @@ const persistConfig = {
 
 const persistedReducer = persistReducer(
   persistConfig,
-  combineReducers({ frame: frameReducer, stage: stageObjectReducer }),
+  combineReducers({ frame: frameReducer, stage: stageObjectReducer, selected: selectedObjectReducer }),
 );
 
 export const store = configureStore({

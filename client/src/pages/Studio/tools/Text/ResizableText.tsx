@@ -1,32 +1,34 @@
 import Konva from 'konva';
 import { KonvaEventObject } from 'konva/lib/Node';
-import { useEffect, useRef } from 'react';
+import { RefObject, useEffect, useRef } from 'react';
 import { Text, Transformer } from 'react-konva';
 import useDragHandlers from '~/hooks/use-drag-handlers';
 // import useStageObject from '~/hooks/use-stage-object';
+import useObjectSelect from '~/hooks/use-object-select';
 import { StageObject } from '~/types/stage-object';
 
 type TProps = {
   shapeProps: StageObject;
-  isSelected: boolean;
   onDoubleClick: (e: KonvaEventObject<MouseEvent>) => void;
-  onSelect: (e: KonvaEventObject<MouseEvent>) => void;
+  transformer: RefObject<Konva.Transformer>;
+  onTransformerEnd: (e: KonvaEventObject<MouseEvent>) => void;
 };
 
-const ResizableText = ({ shapeProps, isSelected, onSelect, onDoubleClick }: TProps) => {
+const ResizableText = ({ shapeProps, onDoubleClick, transformer, onTransformerEnd }: TProps) => {
   // const { updateOne } = useStageObject();
   const { onDragEnd } = useDragHandlers();
   const { id, data } = shapeProps;
 
   const textRef = useRef<Konva.Text | null>(null);
-  const transformerRef = useRef<Konva.Transformer | null>(null);
+  const { onObjectSelect, setSelected, isSelected } = useObjectSelect({ transformer });
+  const selected = isSelected(id);
+  const onSelect = () => setSelected(id);
 
   useEffect(() => {
-    if (isSelected && transformerRef.current !== null && textRef.current !== null) {
-      transformerRef.current.nodes([textRef.current]);
-      transformerRef.current.getLayer()?.batchDraw();
+    if (selected) {
+      onObjectSelect(textRef.current as Konva.Text);
     }
-  }, [isSelected]);
+  }, [selected]);
 
   const handleResize = () => {
     if (textRef.current !== null) {
@@ -66,9 +68,10 @@ const ResizableText = ({ shapeProps, isSelected, onSelect, onDoubleClick }: TPro
         onDblClick={onDoubleClick}
         onDblTap={onDoubleClick}
       />
-      {isSelected && (
+      {selected && (
         <Transformer
-          ref={transformerRef}
+          ref={transformer}
+          onTransformEnd={onTransformerEnd}
           // rotateEnabled={false}
           // flipEnabled={false}
           enabledAnchors={['middle-left', 'middle-right']}

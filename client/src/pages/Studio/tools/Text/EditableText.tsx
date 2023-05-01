@@ -2,28 +2,31 @@ import { KeyboardEvent, useEffect, useState } from 'react';
 import { StageObject } from '~/types/stage-object';
 import EditableTextInput from './EditableTextInput';
 import ResizableText from './ResizableText';
-import { KonvaEventObject } from 'konva/lib/Node';
+import useTransformer from '~/hooks/use-transformer';
+import useObjectSelect from '~/hooks/use-object-select';
 
 const RETURN_KEY = 'Enter';
 const ESCAPE_KEY = 'Escape';
 
 type TProps = {
   shapeProps: StageObject;
-  isSelected: boolean;
-  onSelect: (e: KonvaEventObject<MouseEvent>) => void;
 };
 
-const EditableText = ({ shapeProps, isSelected, onSelect }: TProps) => {
+const EditableText = ({ shapeProps }: TProps) => {
   const [isEditing, setIsEditing] = useState(false);
 
+  const { transformer, onTransformerEnd } = useTransformer();
+  const { isSelected } = useObjectSelect({ transformer });
+  const selected = isSelected(shapeProps.id);
+
   useEffect(() => {
-    if (!isSelected && isEditing) {
+    if (!selected && isEditing) {
       setIsEditing(false);
     }
-  }, [isSelected, isEditing]);
+  }, [selected, isEditing]);
 
   const onToggleEdit = () => {
-    if (!isSelected) return;
+    if (!selected) return;
     setIsEditing(!isEditing);
   };
 
@@ -37,7 +40,12 @@ const EditableText = ({ shapeProps, isSelected, onSelect }: TProps) => {
     return <EditableTextInput shapeProps={shapeProps} handleEscapeKeys={handleEscapeKeys} />;
   }
   return (
-    <ResizableText shapeProps={shapeProps} isSelected={isSelected} onSelect={onSelect} onDoubleClick={onToggleEdit} />
+    <ResizableText
+      onTransformerEnd={onTransformerEnd}
+      transformer={transformer}
+      shapeProps={shapeProps}
+      onDoubleClick={onToggleEdit}
+    />
   );
 };
 
