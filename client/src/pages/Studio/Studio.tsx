@@ -1,32 +1,34 @@
-import { Tabs, TabList, TabPanels, Tab, TabPanel, Box } from '@chakra-ui/react';
-import Navbar from "../Navbar/Navbar";
+import { Flex, Center } from '@chakra-ui/react';
+import React, { useState, useEffect } from 'react';
+import Konva from 'konva';
+import Frame from './Frame';
+import Navbar from '../Navbar/Navbar';
+import Toolbar from './Toolbar';
+import { NAVBAR_HEIGHT } from '~/consts/components';
 
 const Studio = () => {
-  return (
-      <div>
-        <Navbar/>
-        <Box h="100vh" w="100%">
-          <Tabs orientation="vertical" variant="solid-rounded" colorScheme="gray" h="100%">
-            <TabList>
-              <Tab>One</Tab>
-              <Tab>Two</Tab>
-              <Tab>Three</Tab>
-            </TabList>
+  const stageRef = React.useRef<Konva.Stage>(null);
 
-            <TabPanels maxW="350px" bgColor="gray">
-              <TabPanel>
-                <p>one!</p>
-              </TabPanel>
-              <TabPanel>
-                <p>two!</p>
-              </TabPanel>
-              <TabPanel>
-                <p>three!</p>
-              </TabPanel>
-            </TabPanels>
-          </Tabs>
-        </Box>
-      </div>
+  const [navbarHeight, setNavbarHeight] = useState(NAVBAR_HEIGHT);
+
+  useEffect(() => {
+    const navbar = document.querySelector('#navbar') as HTMLElement;
+    if (navbar) {
+      setNavbarHeight(navbar.offsetHeight);
+    }
+  }, []);
+
+  return (
+    <div>
+      <Navbar />
+      <Flex h={`calc(100vh - ${navbarHeight}px)`} w="100%">
+        <Toolbar stageRef={stageRef} />
+
+        <Center flexGrow="1" ml="452px" h={`calc(100vh - ${navbarHeight}px)`} bgColor="gray.100" padding="20px">
+          <Frame stageRef={stageRef} />
+        </Center>
+      </Flex>
+    </div>
   );
 };
 
