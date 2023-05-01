@@ -34,9 +34,11 @@ const Frame = ({ stageRef }: IProps) => {
     const containerCenterPaddings = 40;
     const toolbar = document.querySelector('#toolbar') as HTMLElement;
     const navbar = document.querySelector('#navbar') as HTMLElement;
-    if (toolbar && navbar) {
+    const editingToolbar = document.querySelector('#editing_toolbar') as HTMLElement;
+    if (toolbar && navbar && editingToolbar) {
       const wScale = (window.innerWidth - toolbar.offsetWidth - containerCenterPaddings) / width;
-      const hScale = (window.innerHeight - navbar.offsetHeight - containerCenterPaddings) / height;
+      const hScale =
+        (window.innerHeight - navbar.offsetHeight - editingToolbar.offsetHeight - containerCenterPaddings) / height;
       if (wScale < hScale) {
         setScale(wScale);
       } else {
