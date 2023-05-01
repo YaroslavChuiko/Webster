@@ -1,6 +1,6 @@
 import 'dotenv/config';
-import { LoggerService } from '../modules/logger/logger.service';
-import { defaultPort } from '../common/constants';
+import { LoggerService } from '../../modules/logger/logger.service';
+import { defaultPort } from '../../common/constants';
 class AppConfig {
   constructor(private env: { [k: string]: string | undefined }) {}
 
@@ -91,16 +91,10 @@ class AppConfig {
 
 const appConfig = new AppConfig(process.env).ensureValues([
   'PORT',
-  // 'HOST',
-  // 'APP_SECRET',
-  // 'JWT_EXPIRED',
-  // 'FRONT_API_LINK',
-  // 'MAILGUN_USERNAME',
-  // 'MAILGUN_KEY',
-  // 'MAILGUN_DOMAIN',
-  // 'MAILGUN_FROM',
-  // 'CLIENT_URL',
-  // 'REFRESH_TOKEN_SECRET',
+  'APP_SECRET',
+  'JWT_EXPIRED',
+  'PEPPER',
+  'CLIENT_URL',
 ]);
 
 export { appConfig };

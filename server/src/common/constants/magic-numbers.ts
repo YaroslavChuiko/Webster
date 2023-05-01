@@ -10,3 +10,4 @@ export const emailTokenExpiresIn = '1h';
 export const cryptoIterations = 1000;
 export const cryptoKeylen = 64;
 export const cryptoDigest = 'sha512';
+export const emailTokenExpiresAt = '1h';
