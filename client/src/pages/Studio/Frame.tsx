@@ -1,12 +1,13 @@
 import React, { useState, useEffect } from 'react';
 import Konva from 'konva';
-import { Stage, Layer } from 'react-konva';
+import { Stage, Layer, Transformer } from 'react-konva';
 import { useAppSelector } from '~/hooks/use-app-selector';
 import EditableText from './tools/Text/EditableText';
 import { KonvaEventObject } from 'konva/lib/Node';
 import ImageObject from './objects/ImageObject/ImageObject';
 import useStageObject from '~/hooks/use-stage-object';
 import { StageObject, StageObjectType } from '~/types/stage-object';
+import useTransformer from '~/hooks/use-transformer';
 import useObjectSelect from '~/hooks/use-object-select';
 
 type IProps = {
@@ -15,8 +16,11 @@ type IProps = {
 
 const Frame = ({ stageRef }: IProps) => {
   const { stageObjects } = useStageObject();
+  const { transformer: imageTranformer, onTransformerEnd: onImageTransformerEnd } = useTransformer();
+  const { transformer: textTranformer, onTransformerEnd: onTextTransformerEnd } = useTransformer();
+  const { transformer: multiTranformer, onTransformerEnd: onMultiTransformerEnd } = useTransformer();
 
-  const { resetObjectSelect } = useObjectSelect({});
+  const { onObjectSelect, resetObjectSelect } = useObjectSelect({ imageTranformer, textTranformer, multiTranformer });
 
   const [scale, setScale] = useState(1);
   const { width, height } = useAppSelector((state) => state.frame);
@@ -47,9 +51,9 @@ const Frame = ({ stageRef }: IProps) => {
     const data = obj.data;
     switch (data.type) {
       case StageObjectType.IMAGE:
-        return <ImageObject obj={obj} />;
+        return <ImageObject onSelect={onObjectSelect} obj={obj} />;
       case StageObjectType.TEXT:
-        return <EditableText shapeProps={obj} />;
+        return <EditableText onSelect={onObjectSelect} shapeProps={obj} />;
       default:
         return null;
     }
@@ -70,7 +74,27 @@ const Frame = ({ stageRef }: IProps) => {
         {stageObjects.map((obj) => (
           <React.Fragment key={obj.id}>{renderStageObject(obj)}</React.Fragment>
         ))}
-        {/* <Transformer ref={transformer} onTransformEnd={onTransformerEnd} /> */}
+        <Transformer ref={imageTranformer} onTransformEnd={onImageTransformerEnd} />
+        <Transformer
+          ref={textTranformer}
+          onTransformEnd={onTextTransformerEnd}
+          // rotateEnabled={false}
+          // flipEnabled={false}
+          enabledAnchors={['middle-left', 'middle-right']}
+          boundBoxFunc={(_oldBox, newBox) => {
+            newBox.width = Math.max(30, newBox.width);
+            return newBox;
+          }}
+        />
+        <Transformer
+          ref={multiTranformer}
+          onTransformEnd={onMultiTransformerEnd}
+          enabledAnchors={['top-left', 'top-right', 'bottom-left', 'bottom-right']}
+          boundBoxFunc={(_oldBox, newBox) => {
+            newBox.width = Math.max(30, newBox.width);
+            return newBox;
+          }}
+        />
       </Layer>
     </Stage>
   );
