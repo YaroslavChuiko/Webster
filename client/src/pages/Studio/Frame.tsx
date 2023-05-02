@@ -16,11 +16,15 @@ type IProps = {
 
 const Frame = ({ stageRef }: IProps) => {
   const { stageObjects } = useStageObject();
-  const { transformer: imageTranformer, onTransformerEnd: onImageTransformerEnd } = useTransformer();
-  const { transformer: textTranformer, onTransformerEnd: onTextTransformerEnd } = useTransformer();
-  const { transformer: multiTranformer, onTransformerEnd: onMultiTransformerEnd } = useTransformer();
+  const { transformer: imageTransformer, onTransformerEnd: onImageTransformerEnd } = useTransformer();
+  const { transformer: textTransformer, onTransformerEnd: onTextTransformerEnd } = useTransformer();
+  const { transformer: multiTransformer, onTransformerEnd: onMultiTransformerEnd } = useTransformer();
 
-  const { onObjectSelect, resetObjectSelect } = useObjectSelect({ imageTranformer, textTranformer, multiTranformer });
+  const { onObjectSelect, resetObjectSelect } = useObjectSelect({
+    imageTransformer,
+    textTransformer,
+    multiTransformer,
+  });
 
   const [scale, setScale] = useState(1);
   const { width, height } = useAppSelector((state) => state.frame);
@@ -74,9 +78,9 @@ const Frame = ({ stageRef }: IProps) => {
         {stageObjects.map((obj) => (
           <React.Fragment key={obj.id}>{renderStageObject(obj)}</React.Fragment>
         ))}
-        <Transformer ref={imageTranformer} onTransformEnd={onImageTransformerEnd} />
+        <Transformer ref={imageTransformer} onTransformEnd={onImageTransformerEnd} />
         <Transformer
-          ref={textTranformer}
+          ref={textTransformer}
           onTransformEnd={onTextTransformerEnd}
           // rotateEnabled={false}
           // flipEnabled={false}
@@ -87,7 +91,7 @@ const Frame = ({ stageRef }: IProps) => {
           }}
         />
         <Transformer
-          ref={multiTranformer}
+          ref={multiTransformer}
           onTransformEnd={onMultiTransformerEnd}
           enabledAnchors={['top-left', 'top-right', 'bottom-left', 'bottom-right']}
           boundBoxFunc={(_oldBox, newBox) => {
