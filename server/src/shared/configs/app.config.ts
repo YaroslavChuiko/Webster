@@ -1,6 +1,6 @@
 import 'dotenv/config';
-import { LoggerService } from '../modules/logger/logger.service';
-import { defaultPort } from '../common/constants';
+import { LoggerService } from '../../modules/logger/logger.service';
+import { defaultPort } from '../../common/constants';
 class AppConfig {
   constructor(private env: { [k: string]: string | undefined }) {}
 
@@ -69,38 +69,22 @@ class AppConfig {
     return this.getValue('STRIPE_WH', true);
   }
 
-  getMailgunConfig(): any {
+  getMailTrapConfig(): any {
     return {
-      client: {
-        username: this.getValue('MAILGUN_USERNAME', true),
-        key: this.getValue('MAILGUN_KEY', true),
-      },
-      domain: this.getValue('MAILGUN_DOMAIN', true),
-      from: this.getValue('MAILGUN_FROM', true),
-    };
-  }
-
-  getAWSConfig(): any {
-    return {
-      accessKeyId: this.getValue('AWS_ACCESS_KEY_ID', true),
-      secretAccessKey: this.getValue('AWS_SECRET_ACCESS_KEY', true),
-      region: this.getValue('AWS_REGION', true),
+      user: this.getValue('MAILTRAP_USER', true),
+      password: this.getValue('MAILTRAP_PASSWORD', true),
     };
   }
 }
 
 const appConfig = new AppConfig(process.env).ensureValues([
   'PORT',
-  // 'HOST',
-  // 'APP_SECRET',
-  // 'JWT_EXPIRED',
-  // 'FRONT_API_LINK',
-  // 'MAILGUN_USERNAME',
-  // 'MAILGUN_KEY',
-  // 'MAILGUN_DOMAIN',
-  // 'MAILGUN_FROM',
-  // 'CLIENT_URL',
-  // 'REFRESH_TOKEN_SECRET',
+  'APP_SECRET',
+  'JWT_EXPIRED',
+  'PEPPER',
+  'CLIENT_URL',
+  'MAILTRAP_USER',
+  'MAILTRAP_PASSWORD',
 ]);
 
 export { appConfig };
