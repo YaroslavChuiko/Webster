@@ -24,6 +24,14 @@ export type StageImageData = {
 
 export type StageTextData = {
   text: string;
+  fontSize: number;
+  fontFamily: string;
+  lineHeight: number;
+  letterSpacing: number;
+  fill: string;
+  fontStyle: 'normal' | 'italic' | 'bold' | 'italic bold';
+  align: 'left' | 'center' | 'right';
+  textDecoration: '' | 'underline' | 'line-through';
 } & StageObjectData;
 
 export type StageObjectPartial = {

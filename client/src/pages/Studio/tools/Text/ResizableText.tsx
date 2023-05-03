@@ -37,16 +37,9 @@ const ResizableText = ({ shapeProps, onDoubleClick, onSelect }: TProps) => {
   return (
     <Text
       id={id}
-      text={data.text}
-      width={data.width}
-      x={data.x}
-      y={data.y}
-      draggable={data.draggable}
+      {...data}
+      height={undefined}
       ref={textRef}
-      fill="black"
-      fontFamily="sans-serif"
-      fontSize={24}
-      lineHeight={1.2}
       perfectDrawEnabled={true}
       type={data.type}
       onTransform={handleResize}

@@ -2,17 +2,16 @@ import { CSSProperties, KeyboardEvent } from 'react';
 import { Html } from 'react-konva-utils';
 import TextareaAutosize from 'react-textarea-autosize';
 import useStageObject from '~/hooks/use-stage-object';
-import { StageObject } from '~/types/stage-object';
+import { StageObject, StageObjectData } from '~/types/stage-object';
 
 type TEditableTextInput = {
   shapeProps: StageObject;
   handleEscapeKeys: (e: KeyboardEvent<HTMLTextAreaElement>) => void;
 };
 
-function getStyle(width: number, height: number) {
+function getStyle(shapeProps: StageObjectData) {
   const baseStyle: CSSProperties = {
-    width: `${width}px`,
-    height: `${height}px`,
+    width: `${shapeProps.width}px`,
     border: 'none',
     padding: '0px',
     margin: '0px',
@@ -20,10 +19,14 @@ function getStyle(width: number, height: number) {
     outline: 'none',
     overflow: 'hidden',
     resize: 'none',
-    color: 'black',
-    fontSize: '24px',
-    lineHeight: 1.2,
-    fontFamily: 'sans-serif',
+    fontSize: `${shapeProps.fontSize}px`,
+    color: shapeProps.fill,
+    lineHeight: shapeProps.lineHeight,
+    fontFamily: shapeProps.fontFamily,
+    fontWeight: shapeProps.fontStyle,
+    textDecoration: shapeProps.textDecoration,
+    textAlign: shapeProps.align,
+    letterSpacing: shapeProps.letterSpacing,
   };
 
   return baseStyle;
@@ -32,8 +35,8 @@ function getStyle(width: number, height: number) {
 const EditableTextInput = ({ shapeProps, handleEscapeKeys }: TEditableTextInput) => {
   const { updateOne } = useStageObject();
   const { id, data } = shapeProps;
-  const { x, y, width, height, text } = data;
-  const style = getStyle(width, height);
+  const { x, y, text } = data;
+  const style = getStyle(data);
 
   const onKeyDown = (e: KeyboardEvent<HTMLTextAreaElement>) => {
     handleEscapeKeys(e);
