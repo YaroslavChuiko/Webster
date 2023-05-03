@@ -27,6 +27,7 @@
     "react-konva-utils": "^1.0.4",
     "react-redux": "^8.0.5",
     "react-router-dom": "^6.10.0",
+    "react-textarea-autosize": "^8.4.1",
     "redux-persist": "^6.0.0",
     "unsplash-js": "^7.0.15",
     "use-image": "^1.1.0"
