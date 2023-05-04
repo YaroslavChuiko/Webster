@@ -55,7 +55,7 @@ const useObjectSelect = ({ imageTransformer, textTransformer, multiTransformer }
       return;
     }
 
-    if (target.attrs.type === StageObjectType.IMAGE) {
+    if (target.attrs.type === StageObjectType.IMAGE || target.attrs.type === StageObjectType.SHAPE) {
       setImageTransformerNodes([target]);
       setTextTransformerNodes([]);
       setMultiTransformerNodes([]);
