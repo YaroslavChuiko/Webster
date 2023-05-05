@@ -3,8 +3,9 @@ import Resize from './tools/Resize';
 import Export from './tools/Export';
 import Images from './tools/Images/Images';
 import Konva from 'konva';
-import { NAVBAR_HEIGHT, TABS } from '~/consts/components';
+import { NAVBAR_HEIGHT, TOOLBAR_TABS } from '~/consts/components';
 import Texts from './tools/Text/Texts';
+import ImageUpload from './tools/ImageUpload/ImageUpload';
 
 type Props = {
   stageRef: React.RefObject<Konva.Stage>;
@@ -24,7 +25,7 @@ const Toolbar = ({ stageRef }: Props) => {
     <Flex sx={styles}>
       <Tabs orientation="vertical" variant="line" colorScheme="blue" h="100%" id="toolbar">
         <TabList>
-          {TABS.map((t, i) => (
+          {TOOLBAR_TABS.map((t, i) => (
             <Tab px="6" py="4" key={i}>
               {/* <Icon as={t.icon} mr="2" /> */}
               {t.title}
@@ -41,6 +42,9 @@ const Toolbar = ({ stageRef }: Props) => {
           </TabPanel>
           <TabPanel p="0" h="100%">
             <Images />
+          </TabPanel>
+          <TabPanel>
+            <ImageUpload />
           </TabPanel>
           <TabPanel p="0" h="100%">
             <Texts />

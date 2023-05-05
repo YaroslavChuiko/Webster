@@ -1,9 +1,9 @@
 import Konva from 'konva';
 import { useEffect, useState } from 'react';
 import { Image as KonvaImage } from 'react-konva';
-import useImage from 'use-image';
 import { MAX_IMAGE_HEIGHT, MAX_IMAGE_WIDTH } from '~/consts/images';
 import useDragHandlers from '~/hooks/use-drag-handlers';
+import useImage from '~/hooks/use-image';
 import { StageImageData, StageObject } from '~/types/stage-object';
 
 type Props = {
@@ -14,7 +14,7 @@ type Props = {
 const ImageObject = ({ obj, onSelect }: Props) => {
   const { id, data } = obj;
   const { src, ...props } = data as StageImageData;
-  const [image, load] = useImage(src, 'anonymous');
+  const [image, load] = useImage(src, id);
   const [size, setSize] = useState({ width: MAX_IMAGE_WIDTH, height: MAX_IMAGE_HEIGHT });
 
   const { onDragEnd } = useDragHandlers();
