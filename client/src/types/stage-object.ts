@@ -25,7 +25,11 @@ export type StageImageData = {
 export type StageTextData = {
   text: string;
   fontSize: number;
-  fontFamily: string;
+  font: {
+    family: string;
+    variants: string[];
+    webFont: boolean; //is installed by default
+  };
   lineHeight: number;
   letterSpacing: number;
   fill: string;
@@ -33,6 +37,13 @@ export type StageTextData = {
   align: 'left' | 'center' | 'right';
   textDecoration: '' | 'underline' | 'line-through';
 } & StageObjectData;
+
+export type GenericStageObject<Type> = {
+  id: string;
+  data: Type;
+};
+
+export type StageTextObjectData = GenericStageObject<StageTextData>;
 
 export type StageObjectPartial = {
   id: string;

@@ -3,18 +3,19 @@ import { KonvaEventObject } from 'konva/lib/Node';
 import { useRef } from 'react';
 import { Text } from 'react-konva';
 import useDragHandlers from '~/hooks/use-drag-handlers';
-import { StageObject } from '~/types/stage-object';
+import useFontFaceObserver from '~/pages/Studio/objects/TextObject/use-font-face-observer';
+import { StageTextObjectData } from '~/types/stage-object';
 
 type TProps = {
-  shapeProps: StageObject;
+  shapeProps: StageTextObjectData;
   onDoubleClick: (e: KonvaEventObject<MouseEvent>) => void;
   onSelect: (e: Konva.KonvaEventObject<MouseEvent>) => void;
 };
 
 const ResizableText = ({ shapeProps, onDoubleClick, onSelect }: TProps) => {
-  // const { updateOne } = useStageObject();
-  const { onDragEnd } = useDragHandlers();
   const { id, data } = shapeProps;
+  const isFontLoaded = useFontFaceObserver([{ family: data.font.family }]);
+  const { onDragEnd } = useDragHandlers();
 
   const textRef = useRef<Konva.Text | null>(null);
 
@@ -30,18 +31,28 @@ const ResizableText = ({ shapeProps, onDoubleClick, onSelect }: TProps) => {
         scaleX: 1,
         scaleY: 1,
       });
-      // updateOne({ id, data: { width: newWidth, height: newHeight } });
     }
   };
 
   return (
     <Text
       id={id}
-      {...data}
-      height={undefined}
       ref={textRef}
-      perfectDrawEnabled={true}
+      x={data.x}
+      y={data.y}
+      draggable={data.draggable}
+      width={data.width}
+      text={data.text}
+      fontFamily={isFontLoaded ? data.font.family : 'sans-serif'}
+      fill={data.fill}
+      fontSize={data.fontSize}
+      lineHeight={data.lineHeight}
+      letterSpacing={data.letterSpacing}
+      fontStyle={data.fontStyle}
+      align={data.align}
+      textDecoration={data.textDecoration}
       type={data.type}
+      perfectDrawEnabled={true}
       onTransform={handleResize}
       onClick={onSelect}
       onTap={onSelect}

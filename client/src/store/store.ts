@@ -1,5 +1,6 @@
 import { configureStore, combineReducers } from '@reduxjs/toolkit';
 import frameReducer from './slices/frame-slice';
+import fontListReducer from './slices/font-list-slice';
 import storage from 'redux-persist/lib/storage';
 import { persistReducer, persistStore } from 'redux-persist';
 import stageObjectReducer from './slices/stage-object-slice';
@@ -12,7 +13,12 @@ const persistConfig = {
 
 const persistedReducer = persistReducer(
   persistConfig,
-  combineReducers({ frame: frameReducer, stage: stageObjectReducer, selected: selectedObjectReducer }),
+  combineReducers({
+    frame: frameReducer,
+    stage: stageObjectReducer,
+    selected: selectedObjectReducer,
+    fontList: fontListReducer,
+  }),
 );
 
 export const store = configureStore({
@@ -20,7 +26,8 @@ export const store = configureStore({
   middleware: (getDefaultMiddleware) =>
     getDefaultMiddleware({
       serializableCheck: false,
-      immutableCheck: { warnAfter: 128 },
+      // immutableCheck: { warnAfter: 128 },
+      immutableCheck: false,
     }),
 });
 

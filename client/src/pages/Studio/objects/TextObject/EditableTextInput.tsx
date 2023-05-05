@@ -2,10 +2,10 @@ import { CSSProperties, KeyboardEvent } from 'react';
 import { Html } from 'react-konva-utils';
 import TextareaAutosize from 'react-textarea-autosize';
 import useStageObject from '~/hooks/use-stage-object';
-import { StageObject, StageObjectData } from '~/types/stage-object';
+import { StageObjectData, StageTextObjectData } from '~/types/stage-object';
 
 type TEditableTextInput = {
-  shapeProps: StageObject;
+  shapeProps: StageTextObjectData;
   handleEscapeKeys: (e: KeyboardEvent<HTMLTextAreaElement>) => void;
 };
 
