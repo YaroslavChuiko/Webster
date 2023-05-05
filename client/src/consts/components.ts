@@ -7,4 +7,4 @@ export const TABS = [
 ];
 
 export const NAVBAR_HEIGHT = 56;
-export const EDING_TOOLBAR_HEIGHT = 30;
+export const EDING_TOOLBAR_HEIGHT = 50;

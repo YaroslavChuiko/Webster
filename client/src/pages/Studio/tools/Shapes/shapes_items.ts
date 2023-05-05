@@ -1,4 +1,5 @@
 import { ShapeType } from '~/types/shape-type';
+import { INIT_HEX_COLOR } from '~/consts/stage-object';
 
 export type shapeItemType = {
   name: string;
@@ -66,7 +67,7 @@ export const shapesItems = [
     points: [0, 0, 50, 0],
     pointerLength: 15,
     pointerWidth: 15,
-    stroke: 'red',
+    stroke: INIT_HEX_COLOR,
     strokeWidth: 4,
   },
 ];

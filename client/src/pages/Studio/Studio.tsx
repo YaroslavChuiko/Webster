@@ -4,7 +4,7 @@ import Konva from 'konva';
 import Frame from './Frame';
 import Navbar from '../Navbar/Navbar';
 import Toolbar from './Toolbar';
-import EditingToolbar from './EditingToolbar';
+import EditingToolbar from './EditingToolbar/EditingToolbar';
 import { NAVBAR_HEIGHT, EDING_TOOLBAR_HEIGHT } from '~/consts/components';
 
 const Studio = () => {

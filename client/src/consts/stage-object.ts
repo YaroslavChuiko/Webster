@@ -19,9 +19,11 @@ export const DEFAULT_TEXT_OBJECT: StageObjectData = {
   type: StageObjectType.TEXT,
 };
 
+export const INIT_HEX_COLOR = 'rgba(165, 142, 251, 1)';
+
 export const DEFAULT_SHAPE_OBJECT: StageObjectData = {
   ...DEFAULT_STAGE_OBJECT,
   type: StageObjectType.SHAPE,
-  fill: 'red',
+  fill: INIT_HEX_COLOR,
   radius: 50,
 };
