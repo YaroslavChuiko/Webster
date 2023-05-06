@@ -5,6 +5,7 @@ import { useAppSelector } from '~/hooks/use-app-selector';
 import EditableText from './tools/Text/EditableText';
 import { KonvaEventObject } from 'konva/lib/Node';
 import ImageObject from './objects/ImageObject/ImageObject';
+import ShapeObject from './objects/ShapeObject/ShapeObject';
 import useStageObject from '~/hooks/use-stage-object';
 import { StageObject, StageObjectType } from '~/types/stage-object';
 import useTransformer from '~/hooks/use-transformer';
@@ -33,9 +34,11 @@ const Frame = ({ stageRef }: IProps) => {
     const containerCenterPaddings = 40;
     const toolbar = document.querySelector('#toolbar') as HTMLElement;
     const navbar = document.querySelector('#navbar') as HTMLElement;
-    if (toolbar && navbar) {
+    const editingToolbar = document.querySelector('#editing_toolbar') as HTMLElement;
+    if (toolbar && navbar && editingToolbar) {
       const wScale = (window.innerWidth - toolbar.offsetWidth - containerCenterPaddings) / width;
-      const hScale = (window.innerHeight - navbar.offsetHeight - containerCenterPaddings) / height;
+      const hScale =
+        (window.innerHeight - navbar.offsetHeight - editingToolbar.offsetHeight - containerCenterPaddings) / height;
       if (wScale < hScale) {
         setScale(wScale);
       } else {
@@ -58,6 +61,8 @@ const Frame = ({ stageRef }: IProps) => {
         return <ImageObject onSelect={onObjectSelect} obj={obj} />;
       case StageObjectType.TEXT:
         return <EditableText onSelect={onObjectSelect} shapeProps={obj} />;
+      case StageObjectType.SHAPE:
+        return <ShapeObject onSelect={onObjectSelect} obj={obj} />;
       default:
         return null;
     }

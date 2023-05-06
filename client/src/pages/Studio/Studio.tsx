@@ -1,20 +1,29 @@
-import { Flex, Center } from '@chakra-ui/react';
+import { Flex, Center, Box } from '@chakra-ui/react';
 import React, { useState, useEffect } from 'react';
 import Konva from 'konva';
 import Frame from './Frame';
 import Navbar from '../Navbar/Navbar';
 import Toolbar from './Toolbar';
-import { NAVBAR_HEIGHT } from '~/consts/components';
+import EditingToolbar from './EditingToolbar/EditingToolbar';
+import { NAVBAR_HEIGHT, EDING_TOOLBAR_HEIGHT } from '~/consts/components';
 
 const Studio = () => {
   const stageRef = React.useRef<Konva.Stage>(null);
 
   const [navbarHeight, setNavbarHeight] = useState(NAVBAR_HEIGHT);
+  const [editingToolbarHeight, setEditingToolbarHeight] = useState(EDING_TOOLBAR_HEIGHT);
 
   useEffect(() => {
     const navbar = document.querySelector('#navbar') as HTMLElement;
     if (navbar) {
       setNavbarHeight(navbar.offsetHeight);
+    }
+  }, []);
+
+  useEffect(() => {
+    const editingToolbar = document.querySelector('#editing_toolbar') as HTMLElement;
+    if (editingToolbar) {
+      setEditingToolbarHeight(editingToolbar.offsetHeight);
     }
   }, []);
 
@@ -24,9 +33,12 @@ const Studio = () => {
       <Flex h={`calc(100vh - ${navbarHeight}px)`} w="100%">
         <Toolbar stageRef={stageRef} />
 
-        <Center flexGrow="1" ml="452px" h={`calc(100vh - ${navbarHeight}px)`} bgColor="gray.100" padding="20px">
-          <Frame stageRef={stageRef} />
-        </Center>
+        <Box flexGrow="1" ml="452px">
+          <EditingToolbar />
+          <Center h={`calc(100vh - ${navbarHeight}px - ${editingToolbarHeight}px)`} bgColor="gray.100" padding="20px">
+            <Frame stageRef={stageRef} />
+          </Center>
+        </Box>
       </Flex>
     </div>
   );
