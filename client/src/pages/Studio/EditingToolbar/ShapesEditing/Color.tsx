@@ -1,5 +1,4 @@
 import { useState, useEffect } from 'react';
-import { useDispatch } from 'react-redux';
 import { SketchPicker, ColorResult, RGBColor } from 'react-color';
 import {
   Menu,
@@ -16,7 +15,7 @@ import {
   SliderTrack,
   SliderThumb,
 } from '@chakra-ui/react';
-import { stateObjectActions } from '~/store/slices/stage-object-slice';
+import useStageObject from '~/hooks/use-stage-object';
 import { StageObjectData } from '~/types/stage-object';
 import { ShapeType } from '~/types/shape-type';
 
@@ -32,11 +31,18 @@ const getRGBAString = (rbga: RGBColor) => {
 };
 
 const Color = ({ selectedObject }: IProps) => {
-  const dispatch = useDispatch();
+  const { updateOne } = useStageObject();
 
-  const getGradientColor = (index: number) => {
+  const getLinearGradientColor = (index: number) => {
     if (selectedObject.fillLinearGradientColorStops) {
       return selectedObject.fillLinearGradientColorStops[index];
+    }
+    return selectedObject.fill;
+  };
+
+  const getRadialGradientColor = (index: number) => {
+    if (selectedObject.fillRadialGradientColorStops) {
+      return selectedObject.fillRadialGradientColorStops[index];
     }
     return selectedObject.fill;
   };
@@ -49,20 +55,24 @@ const Color = ({ selectedObject }: IProps) => {
         return 0;
       case 'linear-gradient':
         return 1;
+      case 'radial-gradient':
+        return 2;
     }
     return 0;
   };
 
   const [color, setColor] = useState(selectedObject.fill);
-  const [color1, setColor1] = useState(getGradientColor(1));
-  const [color2, setColor2] = useState(getGradientColor(3));
+  const [linearColor1, setLinearColor1] = useState(getLinearGradientColor(1));
+  const [linearColor2, setLinearColor2] = useState(getLinearGradientColor(3));
   const [angle, setAngle] = useState(getAngle());
+  const [radialColor1, setRadialColor1] = useState(getRadialGradientColor(1));
+  const [radialColor2, setRadialColor2] = useState(getRadialGradientColor(3));
   const [tabIndex, setTabIndex] = useState(getTabIndex());
 
   useEffect(() => {
     setColor(selectedObject.fill);
-    setColor1(getGradientColor(1));
-    setColor2(getGradientColor(3));
+    setLinearColor1(getLinearGradientColor(1));
+    setLinearColor2(getLinearGradientColor(3));
     setAngle(getAngle());
     setTabIndex(getTabIndex());
   }, [selectedObject.id]);
@@ -76,12 +86,10 @@ const Color = ({ selectedObject }: IProps) => {
       stroke = rgbaC;
     }
 
-    dispatch(
-      stateObjectActions.updateOne({
-        id: selectedObject.id,
-        data: { ...selectedObject, fill: rgbaC, fillPriority: 'color', stroke },
-      }),
-    );
+    updateOne({
+      id: selectedObject.id,
+      data: { fill: rgbaC, fillPriority: 'color', stroke },
+    });
   };
 
   const getLinearCoords = (a?: number) => {
@@ -114,8 +122,10 @@ const Color = ({ selectedObject }: IProps) => {
     }
 
     return {
-      fillLinearGradientStartPoint: { x: x1, y: y1 },
-      fillLinearGradientEndPoint: { x: x2, y: y2 },
+      fillLinearGradientStartPointX: x1,
+      fillLinearGradientStartPointY: y1,
+      fillLinearGradientEndPointX: x2,
+      fillLinearGradientEndPointY: y2,
     };
   };
 
@@ -130,46 +140,103 @@ const Color = ({ selectedObject }: IProps) => {
     if (selectedObject.fillLinearGradientColorStops) {
       fillLinearGradientColorStops = selectedObject.fillLinearGradientColorStops.slice(0);
     } else {
-      fillLinearGradientColorStops = [0, color1, 1, color2];
+      fillLinearGradientColorStops = [0, linearColor1, 1, linearColor2];
     }
     fillLinearGradientColorStops[index] = getRGBAString(c.rgb);
 
-    dispatch(
-      stateObjectActions.updateOne({
-        id: selectedObject.id,
-        data: {
-          ...selectedObject,
-          fillPriority: 'linear-gradient',
-          ...getLinearCoords(),
-          fillLinearGradientColorStops,
-        },
-      }),
-    );
+    updateOne({
+      id: selectedObject.id,
+      data: { fillPriority: 'linear-gradient', ...getLinearCoords(), fillLinearGradientColorStops },
+    });
   };
 
   const handleAngleChange = (a: number) => {
     setAngle(a);
-    dispatch(
-      stateObjectActions.updateOne({
-        id: selectedObject.id,
-        data: {
-          ...selectedObject,
-          fillPriority: 'linear-gradient',
-          ...getLinearCoords(a),
-          angle: a,
-        },
-      }),
-    );
+
+    updateOne({
+      id: selectedObject.id,
+      data: { fillPriority: 'linear-gradient', ...getLinearCoords(a), angle: a },
+    });
+  };
+
+  const getRadialCoords = () => {
+    if (selectedObject.shapeType === ShapeType.RECT) {
+      return {
+        fillRadialGradientStartPointX: selectedObject.width / 2,
+        fillRadialGradientStartPointY: selectedObject.height / 2,
+        fillRadialGradientStartRadius: 0,
+        fillRadialGradientEndPointX: selectedObject.width / 2,
+        fillRadialGradientEndPointY: selectedObject.height / 2,
+        fillRadialGradientEndRadius: selectedObject.width * 0.75,
+      };
+    }
+
+    return {
+      fillRadialGradientStartPointX: 0,
+      fillRadialGradientStartPointY: 0,
+      fillRadialGradientStartRadius: 0,
+      fillRadialGradientEndPointX: 0,
+      fillRadialGradientEndPointY: 0,
+      fillRadialGradientEndRadius: selectedObject.radius * 1.5,
+    };
+  };
+
+  const handleRadialColorChange = (
+    c: ColorResult,
+    index: number,
+    setC: (value: React.SetStateAction<string | undefined>) => void,
+  ) => {
+    setC(getRGBAString(c.rgb));
+
+    let fillRadialGradientColorStops;
+    if (selectedObject.fillRadialGradientColorStops) {
+      fillRadialGradientColorStops = selectedObject.fillRadialGradientColorStops.slice(0);
+    } else {
+      fillRadialGradientColorStops = [0, radialColor1, 1, radialColor2];
+    }
+    fillRadialGradientColorStops[index] = getRGBAString(c.rgb);
+
+    updateOne({
+      id: selectedObject.id,
+      data: { fillPriority: 'radial-gradient', ...getRadialCoords(), fillRadialGradientColorStops },
+    });
+  };
+
+  const handleTabChange = (index: number) => {
+    setTabIndex(index);
+
+    let fillPriority;
+    switch (index) {
+      case 0:
+        fillPriority = 'color';
+        break;
+      case 1:
+        fillPriority = 'linear-gradient';
+        break;
+      case 2:
+        fillPriority = 'radial-gradient';
+        break;
+    }
+
+    updateOne({
+      id: selectedObject.id,
+      data: { fillPriority },
+    });
   };
 
   return (
     <Menu>
       <MenuButton as={Button}>Color</MenuButton>
       <MenuList padding="0">
-        <Tabs index={tabIndex} onChange={setTabIndex}>
+        <Tabs index={tabIndex} onChange={handleTabChange}>
           <TabList>
             <Tab>Solid</Tab>
-            {selectedObject.shapeType !== ShapeType.ARROW && <Tab>Linear</Tab>}
+            {selectedObject.shapeType !== ShapeType.ARROW && (
+              <>
+                <Tab>Linear</Tab>
+                <Tab>Radial</Tab>
+              </>
+            )}
           </TabList>
           <TabPanels>
             <TabPanel>
@@ -184,18 +251,52 @@ const Color = ({ selectedObject }: IProps) => {
                 <Tabs>
                   <TabList>
                     <Tab>
-                      <Box w="20px" h="20px" backgroundColor={color1} />
+                      <Box w="20px" h="20px" backgroundColor={linearColor1} />
                     </Tab>
                     <Tab>
-                      <Box w="20px" h="20px" backgroundColor={color2} />
+                      <Box w="20px" h="20px" backgroundColor={linearColor2} />
                     </Tab>
                   </TabList>
                   <TabPanels>
                     <TabPanel>
-                      <SketchPicker color={color1} onChangeComplete={(c) => handleLinearColorChange(c, 1, setColor1)} />
+                      <SketchPicker
+                        color={linearColor1}
+                        onChangeComplete={(c) => handleLinearColorChange(c, 1, setLinearColor1)}
+                      />
                     </TabPanel>
                     <TabPanel>
-                      <SketchPicker color={color2} onChangeComplete={(c) => handleLinearColorChange(c, 3, setColor2)} />
+                      <SketchPicker
+                        color={linearColor2}
+                        onChangeComplete={(c) => handleLinearColorChange(c, 3, setLinearColor2)}
+                      />
+                    </TabPanel>
+                  </TabPanels>
+                </Tabs>
+              </TabPanel>
+            )}
+            {selectedObject.shapeType !== ShapeType.ARROW && (
+              <TabPanel>
+                <Tabs>
+                  <TabList>
+                    <Tab>
+                      <Box w="20px" h="20px" backgroundColor={radialColor1} />
+                    </Tab>
+                    <Tab>
+                      <Box w="20px" h="20px" backgroundColor={radialColor2} />
+                    </Tab>
+                  </TabList>
+                  <TabPanels>
+                    <TabPanel>
+                      <SketchPicker
+                        color={radialColor1}
+                        onChangeComplete={(c) => handleRadialColorChange(c, 1, setRadialColor1)}
+                      />
+                    </TabPanel>
+                    <TabPanel>
+                      <SketchPicker
+                        color={radialColor2}
+                        onChangeComplete={(c) => handleRadialColorChange(c, 3, setRadialColor2)}
+                      />
                     </TabPanel>
                   </TabPanels>
                 </Tabs>
