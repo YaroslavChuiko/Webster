@@ -1,4 +1,4 @@
-import { Image, Link, SimpleGrid, Text, VStack } from '@chakra-ui/react';
+import { Link, Text, VStack } from '@chakra-ui/react';
 import { useEffect, useState } from 'react';
 import { Link as RouterLink } from 'react-router-dom';
 import NothingFound from '~/components/NothingFound/NothingFound';
@@ -6,12 +6,11 @@ import { unsplash } from '~/utils/unsplash-api';
 import SearchForm from './SearchForm';
 import { DEFAULT_IMG_QUERY, UNSPLASH_URL } from '~/consts/images';
 import InfiniteWrapper from './InfiniteWrapper';
-import useStageObject from '~/hooks/use-stage-object';
-import { DEFAULT_IMAGE_OBJECT } from '~/consts/stage-object';
+import ImagesGrid from './ImagesGrid';
 
 export type Photo = {
   id: string;
-  urls: { large: string; regular: string; raw: string; small: string };
+  urls: { regular: string };
 };
 
 const Images = () => {
@@ -20,15 +19,6 @@ const Images = () => {
   const [query, setQuery] = useState<string>('');
   const [page, setPage] = useState<number>(1);
   const [queryReset, setQueryReset] = useState<boolean>(false);
-
-  const { createOne } = useStageObject();
-
-  const addImageToStage = (img: Photo) => {
-    createOne({
-      src: img.urls.regular,
-      ...DEFAULT_IMAGE_OBJECT,
-    });
-  };
 
   const fetchImages = async () => {
     try {
@@ -85,11 +75,7 @@ const Images = () => {
       ) : (
         <>
           <InfiniteWrapper fetchItems={fetchImages} count={images?.length || 10}>
-            <SimpleGrid spacingY={4}>
-              {images?.map((img, i) => (
-                <Image key={i} src={img.urls.regular} rounded="md" onClick={() => addImageToStage(img)} />
-              ))}
-            </SimpleGrid>
+            <ImagesGrid images={images} />
           </InfiniteWrapper>
         </>
       )}
