@@ -2,14 +2,15 @@ import React, { useState, useEffect } from 'react';
 import Konva from 'konva';
 import { Stage, Layer, Transformer } from 'react-konva';
 import { useAppSelector } from '~/hooks/use-app-selector';
-import EditableText from './tools/Text/EditableText';
+import TextObject from './objects/TextObject/TextObject';
 import { KonvaEventObject } from 'konva/lib/Node';
 import ImageObject from './objects/ImageObject/ImageObject';
 import ShapeObject from './objects/ShapeObject/ShapeObject';
 import useStageObject from '~/hooks/use-stage-object';
-import { StageObject, StageObjectType } from '~/types/stage-object';
+import { StageObject, StageObjectType, StageTextObjectData } from '~/types/stage-object';
 import useTransformer from '~/hooks/use-transformer';
 import useObjectSelect from '~/hooks/use-object-select';
+import { loadGoogleFontsDefaultVariants } from '~/utils/load-google-fonts-default-variants';
 
 type IProps = {
   stageRef: React.RefObject<Konva.Stage> | null;
@@ -47,6 +48,14 @@ const Frame = ({ stageRef }: IProps) => {
     }
   }, [width, height]);
 
+  useEffect(() => {
+    const fontsToLoad = stageObjects
+      .filter((obj) => obj.data.type === StageObjectType.TEXT && obj.data.font.webFont)
+      .map((obj) => obj.data.font.family);
+
+    if (fontsToLoad.length) loadGoogleFontsDefaultVariants(fontsToLoad);
+  }, []);
+
   const checkDeselect = (e: KonvaEventObject<MouseEvent> | KonvaEventObject<TouchEvent>) => {
     const clickedOnEmpty = e.target === e.target.getStage();
     if (clickedOnEmpty) {
@@ -60,7 +69,7 @@ const Frame = ({ stageRef }: IProps) => {
       case StageObjectType.IMAGE:
         return <ImageObject onSelect={onObjectSelect} obj={obj} />;
       case StageObjectType.TEXT:
-        return <EditableText onSelect={onObjectSelect} shapeProps={obj} />;
+        return <TextObject onSelect={onObjectSelect} shapeProps={obj as StageTextObjectData} />;
       case StageObjectType.SHAPE:
         return <ShapeObject onSelect={onObjectSelect} obj={obj} />;
       default:

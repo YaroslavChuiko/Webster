@@ -15,7 +15,20 @@ export const DEFAULT_IMAGE_OBJECT: StageObjectData = {
 
 export const DEFAULT_TEXT_OBJECT: StageObjectData = {
   ...DEFAULT_STAGE_OBJECT,
+  text: 'Your paragraph text',
   width: 300,
+  fill: '#000',
+  fontSize: 24,
+  lineHeight: 1.2,
+  letterSpacing: 0,
+  fontStyle: 'normal',
+  font: {
+    family: 'sans-serif',
+    variants: ['400', '400italic', '700', '700italic'], //regular, italic, 700, 700italic
+    webFont: false,
+  },
+  align: 'left',
+  textDecoration: '',
   type: StageObjectType.TEXT,
 };
 
