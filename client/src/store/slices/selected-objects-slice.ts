@@ -4,8 +4,8 @@ export const SELECTED_OBJECT_SLICE = 'selected';
 
 export const selectedObjectEntity = createEntityAdapter<{ id: string }>();
 
-const initialState: { ids: string[] } = {
-  ids: [],
+const initialState: { selected: string[] } = {
+  selected: [],
 };
 
 export const selectedObjectSlice = createSlice({
@@ -13,16 +13,16 @@ export const selectedObjectSlice = createSlice({
   initialState,
   reducers: {
     setAll(state, { payload }) {
-      state.ids = payload;
+      state.selected = payload;
     },
     addOne(state, { payload }) {
-      state.ids = [...state.ids, payload];
+      state.selected = [...state.selected, payload];
     },
     removeOne(state, { payload }) {
-      state.ids = state.ids.filter((id) => id === payload);
+      state.selected = state.selected.filter((id) => id !== payload);
     },
     resetAll(state) {
-      state.ids = [];
+      state.selected = [];
     },
   },
 });

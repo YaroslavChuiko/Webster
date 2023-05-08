@@ -5,7 +5,7 @@ import { useDispatch } from 'react-redux';
 import { selectedObjectActions } from '~/store/slices/selected-objects-slice';
 import { StageObjectType } from '~/types/stage-object';
 import useKeyPress from './use-key-press';
-import { MULTISELECT_KEY } from '~/consts/keys';
+import { KeyType } from '~/consts/keys';
 
 type Props = {
   imageTransformer?: RefObject<Konva.Transformer>;
@@ -14,10 +14,10 @@ type Props = {
 };
 
 const useObjectSelect = ({ imageTransformer, textTransformer, multiTransformer }: Props) => {
-  const { ids: selected } = useAppSelector((state) => state.selected);
+  const { selected } = useAppSelector((state) => state.selected);
   const dispatch = useDispatch();
 
-  const isKeyPressed = useKeyPress(MULTISELECT_KEY);
+  const isKeyPressed = useKeyPress(KeyType.MULTISELECT);
 
   const [selectedNodes, setSelectedNodes] = useState<Konva.Node[]>([]);
 

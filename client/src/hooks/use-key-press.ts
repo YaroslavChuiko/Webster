@@ -1,6 +1,7 @@
 import { useState, useEffect } from 'react';
+import { KeyType } from '~/consts/keys';
 
-const useKeyPress = (targetKey: string) => {
+const useKeyPress = (targetKey: KeyType) => {
   const [isKeyPressed, setIsKeyPressed] = useState(false);
 
   const downHandler = ({ key }: { key: string }) => {

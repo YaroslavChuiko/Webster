@@ -7,7 +7,7 @@ import { EDING_TOOLBAR_HEIGHT } from '~/consts/components';
 
 const EditingToolbar = () => {
   const stageObjects = useAppSelector(stageObjectSelector.selectAll);
-  const { ids: selected } = useAppSelector((state) => state.selected);
+  const { selected } = useAppSelector((state) => state.selected);
 
   const getSelectedObject = () => {
     if (selected.length === 1 && stageObjects) {

@@ -11,6 +11,7 @@ import { StageObject, StageObjectType, StageTextObjectData } from '~/types/stage
 import useTransformer from '~/hooks/use-transformer';
 import useObjectSelect from '~/hooks/use-object-select';
 import { loadGoogleFontsDefaultVariants } from '~/utils/load-google-fonts-default-variants';
+import useHotkeySetup from '~/hooks/use-hotkey-setup';
 
 type IProps = {
   stageRef: React.RefObject<Konva.Stage> | null;
@@ -22,11 +23,11 @@ const Frame = ({ stageRef }: IProps) => {
   const { transformer: textTransformer, onTransformerEnd: onTextTransformerEnd } = useTransformer();
   const { transformer: multiTransformer, onTransformerEnd: onMultiTransformerEnd } = useTransformer();
 
-  const { onObjectSelect, resetObjectSelect } = useObjectSelect({
-    imageTransformer,
-    textTransformer,
-    multiTransformer,
-  });
+  const transformers = { imageTransformer, textTransformer, multiTransformer };
+
+  const { onObjectSelect, resetObjectSelect } = useObjectSelect(transformers);
+
+  useHotkeySetup(transformers);
 
   const [scale, setScale] = useState(1);
   const { width, height } = useAppSelector((state) => state.frame);
@@ -54,6 +55,8 @@ const Frame = ({ stageRef }: IProps) => {
       .map((obj) => obj.data.font.family);
 
     if (fontsToLoad.length) loadGoogleFontsDefaultVariants(fontsToLoad);
+
+    resetObjectSelect();
   }, []);
 
   const checkDeselect = (e: KonvaEventObject<MouseEvent> | KonvaEventObject<TouchEvent>) => {

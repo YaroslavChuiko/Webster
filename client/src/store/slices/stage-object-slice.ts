@@ -19,7 +19,11 @@ export const stageObjectSlice = createSlice({
         changes: payload,
       });
     },
-    removeOne(state, { payload }) {
+    remove(state, { payload }) {
+      if (Array.isArray(payload)) {
+        stageObjectEntity.removeMany(state, payload);
+        return;
+      }
       stageObjectEntity.removeOne(state, payload);
     },
     removeAll(state) {

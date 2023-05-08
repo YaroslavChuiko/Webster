@@ -1,1 +1,4 @@
-export const MULTISELECT_KEY = 'Shift';
+export enum KeyType {
+  MULTISELECT = 'Shift',
+  DELETE = 'Delete',
+}
