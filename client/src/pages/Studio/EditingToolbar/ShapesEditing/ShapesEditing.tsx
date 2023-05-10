@@ -1,4 +1,4 @@
-import Color from './Color';
+import Color from './Color/Color';
 import Border from './Border';
 import CornerRadius from './CornerRadius/CornerRadius';
 import { StageObjectData } from '~/types/stage-object';
