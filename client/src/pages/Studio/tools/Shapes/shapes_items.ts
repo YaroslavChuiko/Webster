@@ -10,35 +10,42 @@ export const shapesItems = [
   {
     name: 'Square',
     shapeType: ShapeType.RECT,
+    strokeScaleEnabled: false,
   },
   {
     name: 'Circle',
     shapeType: ShapeType.CIRCLE,
+    strokeScaleEnabled: false,
   },
   {
     name: 'Trianle',
     shapeType: ShapeType.POLYGON,
     sides: 3,
+    strokeScaleEnabled: false,
   },
   {
     name: 'Pentagon',
     shapeType: ShapeType.POLYGON,
     sides: 5,
+    strokeScaleEnabled: false,
   },
   {
     name: 'Hexagon',
     shapeType: ShapeType.POLYGON,
     sides: 6,
+    strokeScaleEnabled: false,
   },
   {
     name: 'Heptagon',
     shapeType: ShapeType.POLYGON,
     sides: 7,
+    strokeScaleEnabled: false,
   },
   {
     name: 'Octagon',
     shapeType: ShapeType.POLYGON,
     sides: 8,
+    strokeScaleEnabled: false,
   },
   {
     name: 'Star 4',
@@ -46,6 +53,7 @@ export const shapesItems = [
     numPoints: 4,
     innerRadius: 15,
     outerRadius: 70,
+    strokeScaleEnabled: false,
   },
   {
     name: 'Star 5',
@@ -53,6 +61,7 @@ export const shapesItems = [
     numPoints: 5,
     innerRadius: 20,
     outerRadius: 70,
+    strokeScaleEnabled: false,
   },
   {
     name: 'Star 6',
@@ -60,6 +69,7 @@ export const shapesItems = [
     numPoints: 6,
     innerRadius: 30,
     outerRadius: 70,
+    strokeScaleEnabled: false,
   },
   {
     name: 'Arrow',

@@ -95,7 +95,7 @@ const Frame = ({ stageRef }: IProps) => {
         {stageObjects.map((obj) => (
           <React.Fragment key={obj.id}>{renderStageObject(obj)}</React.Fragment>
         ))}
-        <Transformer ref={imageTransformer} onTransformEnd={onImageTransformerEnd} />
+        <Transformer ref={imageTransformer} onTransformEnd={onImageTransformerEnd} ignoreStroke={true} />
         <Transformer
           ref={textTransformer}
           onTransformEnd={onTextTransformerEnd}
@@ -115,6 +115,7 @@ const Frame = ({ stageRef }: IProps) => {
             newBox.width = Math.max(30, newBox.width);
             return newBox;
           }}
+          ignoreStroke={true}
         />
       </Layer>
     </Stage>

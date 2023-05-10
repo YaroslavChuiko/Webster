@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react';
-import { SketchPicker, ColorResult, RGBColor } from 'react-color';
+import { SketchPicker, ColorResult } from 'react-color';
 import {
   Menu,
   MenuButton,
@@ -16,18 +16,12 @@ import {
   SliderThumb,
 } from '@chakra-ui/react';
 import useStageObject from '~/hooks/use-stage-object';
+import { getRGBAString } from '~/utils/get-rgba-string';
 import { StageObjectData } from '~/types/stage-object';
 import { ShapeType } from '~/types/shape-type';
 
 type IProps = {
   selectedObject: StageObjectData;
-};
-
-const getRGBAString = (rbga: RGBColor) => {
-  if (rbga.a) {
-    return `rgba(${rbga.r}, ${rbga.g}, ${rbga.b}, ${rbga.a})`;
-  }
-  return `rgb(${rbga.r}, ${rbga.g}, ${rbga.b})`;
 };
 
 const Color = ({ selectedObject }: IProps) => {
