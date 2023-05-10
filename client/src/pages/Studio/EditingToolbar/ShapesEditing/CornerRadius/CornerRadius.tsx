@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { Menu, MenuButton, MenuList, Button, Switch, FormControl, FormLabel } from '@chakra-ui/react';
 import AllCorners from './AllCorners';
 import SeparateCorners from './SeparateCorners';
@@ -9,7 +9,13 @@ type IProps = {
 };
 
 const CornerRadius = ({ selectedObject }: IProps) => {
-  const [isSeparateCorners, setIsSeparateCorners] = useState(Array.isArray(selectedObject.cornerRadius));
+  const getIsSeparateCorners = () => Array.isArray(selectedObject.cornerRadius);
+
+  const [isSeparateCorners, setIsSeparateCorners] = useState(getIsSeparateCorners());
+
+  useEffect(() => {
+    setIsSeparateCorners(getIsSeparateCorners());
+  }, [selectedObject.id]);
 
   const handleIsSeparateCornersChange = () => {
     setIsSeparateCorners(!isSeparateCorners);

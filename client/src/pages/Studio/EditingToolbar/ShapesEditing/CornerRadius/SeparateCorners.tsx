@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { FormControl, FormLabel, Slider, SliderTrack, SliderThumb } from '@chakra-ui/react';
 import useStageObject from '~/hooks/use-stage-object';
 import { StageObjectData } from '~/types/stage-object';
@@ -35,6 +35,13 @@ const SeparateCorners = ({ selectedObject }: IProps) => {
   const [bottomRightCornerRadius, setBottomRightCornerRadius] = useState(
     getSeparateCornerRadius(cornerIndexes.bottomRight),
   );
+
+  useEffect(() => {
+    setTopLeftCornerRadius(getSeparateCornerRadius(cornerIndexes.topLeft));
+    setTopRightCornerRadius(getSeparateCornerRadius(cornerIndexes.topRight));
+    setBottomLeftCornerRadius(getSeparateCornerRadius(cornerIndexes.bottomLeft));
+    setBottomRightCornerRadius(getSeparateCornerRadius(cornerIndexes.bottomRight));
+  }, [selectedObject.id]);
 
   const handleSeparateCornersRadiusChange = (
     r: number,

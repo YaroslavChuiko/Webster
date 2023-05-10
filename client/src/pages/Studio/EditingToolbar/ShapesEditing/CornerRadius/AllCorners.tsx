@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { FormControl, FormLabel, Slider, SliderTrack, SliderThumb } from '@chakra-ui/react';
 import useStageObject from '~/hooks/use-stage-object';
 import { StageObjectData } from '~/types/stage-object';
@@ -18,6 +18,10 @@ const AllCorners = ({ selectedObject }: IProps) => {
   };
 
   const [allCornersRadius, setAllCornersRadius] = useState(getAllCornerRadius());
+
+  useEffect(() => {
+    setAllCornersRadius(getAllCornerRadius());
+  }, [selectedObject.id]);
 
   const handleAllCornersRadiusChange = (r: number) => {
     setAllCornersRadius(r);

@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import {
   Menu,
   MenuButton,
@@ -26,11 +26,27 @@ const INIT_BORDER_WIDTH = 5;
 const Border = ({ selectedObject }: IProps) => {
   const { updateOne } = useStageObject();
 
-  const [isBorder, setIsBorder] = useState(selectedObject.stroke && selectedObject.strokeWidth);
-  const [borderWidth, setBorderWidth] = useState(
-    selectedObject.strokeWidth ? selectedObject.strokeWidth : INIT_BORDER_WIDTH,
-  );
-  const [borderColor, setBorderColor] = useState(selectedObject.stroke ? selectedObject.stroke : INIT_BORDER_COLOR);
+  const getIsBorder = () => {
+    return !!(selectedObject.stroke && selectedObject.strokeWidth);
+  };
+
+  const getBorderWidth = () => {
+    return selectedObject.strokeWidth ? selectedObject.strokeWidth : INIT_BORDER_WIDTH;
+  };
+
+  const getBorderColor = () => {
+    return selectedObject.stroke ? selectedObject.stroke : INIT_BORDER_COLOR;
+  };
+
+  const [isBorder, setIsBorder] = useState(getIsBorder());
+  const [borderWidth, setBorderWidth] = useState(getBorderWidth());
+  const [borderColor, setBorderColor] = useState(getBorderColor());
+
+  useEffect(() => {
+    setIsBorder(getIsBorder());
+    setBorderWidth(getBorderWidth());
+    setBorderColor(getBorderColor());
+  }, [selectedObject.id]);
 
   const handleIsBorderChange = () => {
     setIsBorder(!isBorder);
