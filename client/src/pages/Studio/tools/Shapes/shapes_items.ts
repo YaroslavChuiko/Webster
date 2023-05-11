@@ -79,5 +79,6 @@ export const shapesItems = [
     pointerWidth: 15,
     stroke: INIT_HEX_COLOR,
     strokeWidth: 4,
+    pointerAtEnding: true,
   },
 ];
