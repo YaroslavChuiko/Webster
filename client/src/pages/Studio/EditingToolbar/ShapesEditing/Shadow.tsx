@@ -43,7 +43,7 @@ const Shadow = ({ selectedObject }: IProps) => {
   };
 
   const getShadowColor = () => {
-    return selectedObject.stroke ? selectedObject.stroke : INIT_SHADOW_COLOR;
+    return selectedObject.shadowColor ? selectedObject.shadowColor : INIT_SHADOW_COLOR;
   };
 
   const [isShadow, setIsShadow] = useState(getIsShadow());
@@ -142,8 +142,8 @@ const Shadow = ({ selectedObject }: IProps) => {
                 id="shadow-offset-y-slider"
                 aria-label="shadow-offset-y-slider"
                 value={shadowOffsetY}
-                min={-selectedObject.width}
-                max={selectedObject.width}
+                min={-selectedObject.height}
+                max={selectedObject.height}
                 onChange={handleShadowOffsetYChange}
               >
                 <SliderTrack />
