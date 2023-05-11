@@ -2,6 +2,7 @@ import Color from './Color/Color';
 import Border from './Border';
 import CornerRadius from './CornerRadius/CornerRadius';
 import Shadow from './Shadow';
+import StarRadius from './StarRadius';
 import { StageObjectData } from '~/types/stage-object';
 import { ShapeType } from '~/types/shape-type';
 
@@ -16,6 +17,7 @@ const ShapesEditing = ({ selectedObject }: IProps) => {
       {selectedObject.shapeType !== ShapeType.ARROW && <Border selectedObject={selectedObject} />}
       {selectedObject.shapeType === ShapeType.RECT && <CornerRadius selectedObject={selectedObject} />}
       <Shadow selectedObject={selectedObject} />
+      {selectedObject.shapeType === ShapeType.STAR && <StarRadius selectedObject={selectedObject} />}
     </>
   );
 };
