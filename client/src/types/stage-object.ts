@@ -33,6 +33,7 @@ export type StageTextData = {
   lineHeight: number;
   letterSpacing: number;
   fill: string;
+  rotation: number;
   fontStyle: 'normal' | 'italic' | 'bold' | 'italic bold';
   align: 'left' | 'center' | 'right';
   textDecoration: '' | 'underline' | 'line-through';
