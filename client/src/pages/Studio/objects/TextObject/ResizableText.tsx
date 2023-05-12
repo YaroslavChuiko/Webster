@@ -50,6 +50,7 @@ const ResizableText = ({ shapeProps, onDoubleClick, onSelect }: TProps) => {
       letterSpacing={data.letterSpacing}
       fontStyle={data.fontStyle}
       align={data.align}
+      rotation={data.rotation}
       textDecoration={data.textDecoration}
       type={data.type}
       perfectDrawEnabled={true}

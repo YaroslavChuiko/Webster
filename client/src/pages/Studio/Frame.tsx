@@ -99,8 +99,8 @@ const Frame = ({ stageRef }: IProps) => {
         <Transformer
           ref={textTransformer}
           onTransformEnd={onTextTransformerEnd}
-          // rotateEnabled={false}
-          // flipEnabled={false}
+          rotationSnaps={[0, 90, 180, 270]}
+          rotateEnabled={true}
           enabledAnchors={['middle-left', 'middle-right']}
           boundBoxFunc={(_oldBox, newBox) => {
             newBox.width = Math.max(30, newBox.width);

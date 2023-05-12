@@ -2,14 +2,14 @@ import { CSSProperties, KeyboardEvent } from 'react';
 import { Html } from 'react-konva-utils';
 import TextareaAutosize from 'react-textarea-autosize';
 import useStageObject from '~/hooks/use-stage-object';
-import { StageObjectData, StageTextObjectData } from '~/types/stage-object';
+import { StageTextData, StageTextObjectData } from '~/types/stage-object';
 
 type TEditableTextInput = {
   shapeProps: StageTextObjectData;
   handleEscapeKeys: (e: KeyboardEvent<HTMLTextAreaElement>) => void;
 };
 
-function getStyle(shapeProps: StageObjectData) {
+function getStyle(shapeProps: StageTextData) {
   const baseStyle: CSSProperties = {
     width: `${shapeProps.width}px`,
     border: 'none',
@@ -27,6 +27,8 @@ function getStyle(shapeProps: StageObjectData) {
     textDecoration: shapeProps.textDecoration,
     textAlign: shapeProps.align,
     letterSpacing: shapeProps.letterSpacing,
+    transformOrigin: 'left center',
+    rotate: `${shapeProps.rotation}deg`,
   };
 
   return baseStyle;
