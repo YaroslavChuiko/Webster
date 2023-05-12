@@ -6,7 +6,7 @@ export type shapeItemType = {
   shapeType: ShapeType;
 };
 
-const SHAPES_FOLDER_PATH = '~/../public/shapes';
+const SHAPES_FOLDER_PATH = '/shapes';
 
 export const shapesItems = [
   {
