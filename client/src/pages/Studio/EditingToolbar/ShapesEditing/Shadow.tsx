@@ -109,7 +109,7 @@ const Shadow = ({ selectedObject }: IProps) => {
   return (
     <Menu>
       <MenuButton as={Button}>Shadow</MenuButton>
-      <MenuList paddingX="10px">
+      <MenuList paddingX="10px" overflowY="auto" maxH="400px">
         <FormControl display="flex" alignItems="center">
           <FormLabel htmlFor="shadow-switch">Shadow</FormLabel>
           <Switch id="shadow-switch" isChecked={isShadow} onChange={handleIsShadowChange} />
