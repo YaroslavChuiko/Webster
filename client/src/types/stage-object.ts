@@ -36,7 +36,7 @@ export type StageTextData = {
   rotation: number;
   fontStyle: 'normal' | 'italic' | 'bold' | 'italic bold'; // due to Konva Text typings
   align: 'left' | 'center' | 'right';
-  textDecoration: '' | 'underline' | 'line-through';
+  textDecoration: '' | 'underline' | 'line-through' | 'underline line-through';
 } & StageObjectData;
 
 export type GenericStageObject<Type> = {
