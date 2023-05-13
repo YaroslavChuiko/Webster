@@ -1,7 +1,7 @@
 import { StageObjectData } from '~/types/stage-object';
 import TextColorPicker from './TextColorPicker';
 import FontSizeInput from './FontSizeInput';
-import FontStyle from './FontStyle';
+import FontStyleSettings from './FontStyleSettings';
 import TextDecorationSettings from './TextDecorationSettings';
 
 type Props = {
@@ -13,7 +13,7 @@ const TextEditing = ({ selectedObject }: Props) => {
     <>
       <FontSizeInput id={selectedObject.id} fontSize={selectedObject.fontSize} />
       <TextColorPicker selectedObject={selectedObject} />
-      <FontStyle id={selectedObject.id} font={selectedObject.font} fontStyle={selectedObject.fontStyle} />
+      <FontStyleSettings id={selectedObject.id} font={selectedObject.font} fontStyle={selectedObject.fontStyle} />
       <TextDecorationSettings id={selectedObject.id} textDecoration={selectedObject.textDecoration} />
     </>
   );

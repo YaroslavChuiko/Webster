@@ -8,7 +8,7 @@ type Props = {
   fontStyle: StageTextData['fontStyle'];
 };
 
-const FontStyle = ({ id, font, fontStyle }: Props) => {
+const FontStyleSettings = ({ id, font, fontStyle }: Props) => {
   const { updateOne } = useStageObject();
   const { variants, webFont } = font;
 
@@ -19,51 +19,45 @@ const FontStyle = ({ id, font, fontStyle }: Props) => {
   const isItalicActive = fontStyle.includes('italic');
 
   const handleBoldClick = () => {
-    let newFontStyle: StageTextData['fontStyle'] = fontStyle;
-
-    switch (fontStyle) {
-      case 'normal':
-        newFontStyle = 'bold';
-        break;
-      case 'italic':
-        newFontStyle = 'italic bold';
-        break;
-      case 'bold':
-        newFontStyle = 'normal';
-        break;
-      case 'italic bold':
-        newFontStyle = 'italic';
-        break;
-      default:
-        break;
-    }
-
-    updateOne({ id, data: { fontStyle: newFontStyle } });
+    updateOne({ id, data: { fontStyle: toggleBold(fontStyle) } });
   };
 
   const handleItalicClick = () => {
-    let newFontStyle: StageTextData['fontStyle'] = fontStyle;
+    updateOne({ id, data: { fontStyle: toggleItalic(fontStyle) } });
+  };
 
+  const toggleBold = (fontStyle: StageTextData['fontStyle']) => {
     switch (fontStyle) {
       case 'normal':
-        newFontStyle = 'italic';
-        break;
+        return 'bold';
       case 'italic':
-        newFontStyle = 'normal';
-        break;
+        return 'italic bold';
       case 'bold':
-        newFontStyle = 'italic bold';
-        break;
+        return 'normal';
       case 'italic bold':
-        newFontStyle = 'bold';
-        break;
+        return 'italic';
       default:
         break;
     }
-
-    updateOne({ id, data: { fontStyle: newFontStyle } });
   };
+
+  const toggleItalic = (fontStyle: StageTextData['fontStyle']) => {
+    switch (fontStyle) {
+      case 'normal':
+        return 'italic';
+      case 'italic':
+        return 'normal';
+      case 'bold':
+        return 'italic bold';
+      case 'italic bold':
+        return 'bold';
+      default:
+        break;
+    }
+  };
+
   // !! set icon for bold and italic instead of B and I
+
   return (
     <>
       <Tooltip hasArrow label="Bold" placement="bottom" openDelay={500}>
@@ -93,4 +87,4 @@ const FontStyle = ({ id, font, fontStyle }: Props) => {
   );
 };
 
-export default FontStyle;
+export default FontStyleSettings;
