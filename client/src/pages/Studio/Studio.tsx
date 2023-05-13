@@ -5,13 +5,13 @@ import Frame from './Frame';
 import Navbar from '../Navbar/Navbar';
 import Toolbar from './Toolbar';
 import EditingToolbar from './EditingToolbar/EditingToolbar';
-import { NAVBAR_HEIGHT, EDING_TOOLBAR_HEIGHT, FRAME_CONTAINER_PADDING } from '~/consts/components';
+import { NAVBAR_HEIGHT, EDITING_TOOLBAR_HEIGHT, FRAME_CONTAINER_PADDING } from '~/consts/components';
 
 const Studio = () => {
   const stageRef = React.useRef<Konva.Stage>(null);
 
   const [navbarHeight, setNavbarHeight] = useState(NAVBAR_HEIGHT);
-  const [editingToolbarHeight, setEditingToolbarHeight] = useState(EDING_TOOLBAR_HEIGHT);
+  const [editingToolbarHeight, setEditingToolbarHeight] = useState(EDITING_TOOLBAR_HEIGHT);
 
   useEffect(() => {
     const navbar = document.querySelector('#navbar') as HTMLElement;
