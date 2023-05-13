@@ -12,6 +12,7 @@ import useTransformer from '~/hooks/use-transformer';
 import useObjectSelect from '~/hooks/use-object-select';
 import { loadGoogleFontsDefaultVariants } from '~/utils/load-google-fonts-default-variants';
 import useHotkeySetup from '~/hooks/use-hotkey-setup';
+import { FRAME_CONTAINER_PADDING } from '~/consts/components';
 
 type IProps = {
   stageRef: React.RefObject<Konva.Stage> | null;
@@ -33,14 +34,14 @@ const Frame = ({ stageRef }: IProps) => {
   const { width, height } = useAppSelector((state) => state.frame);
 
   useEffect(() => {
-    const containerCenterPaddings = 40;
     const toolbar = document.querySelector('#toolbar') as HTMLElement;
     const navbar = document.querySelector('#navbar') as HTMLElement;
     const editingToolbar = document.querySelector('#editing_toolbar') as HTMLElement;
     if (toolbar && navbar && editingToolbar) {
-      const wScale = (window.innerWidth - toolbar.offsetWidth - containerCenterPaddings) / width;
+      const wScale = (window.innerWidth - toolbar.offsetWidth - FRAME_CONTAINER_PADDING * 2 - 10) / width;
       const hScale =
-        (window.innerHeight - navbar.offsetHeight - editingToolbar.offsetHeight - containerCenterPaddings) / height;
+        (window.innerHeight - navbar.offsetHeight - editingToolbar.offsetHeight - FRAME_CONTAINER_PADDING * 2 - 10) /
+        height;
       if (wScale < hScale) {
         setScale(wScale);
       } else {
