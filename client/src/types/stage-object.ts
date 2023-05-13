@@ -28,13 +28,13 @@ export type StageTextData = {
   font: {
     family: string;
     variants: string[];
-    webFont: boolean; //is installed by default
+    webFont: boolean; // is installed by default
   };
   lineHeight: number;
   letterSpacing: number;
   fill: string;
   rotation: number;
-  fontStyle: 'normal' | 'italic' | 'bold' | 'italic bold';
+  fontStyle: 'normal' | 'italic' | 'bold' | 'italic bold'; // due to Konva Text typings
   align: 'left' | 'center' | 'right';
   textDecoration: '' | 'underline' | 'line-through';
 } & StageObjectData;

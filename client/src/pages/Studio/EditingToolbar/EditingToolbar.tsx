@@ -31,7 +31,7 @@ const EditingToolbar = () => {
   };
 
   return (
-    <HStack h={`${EDITING_TOOLBAR_HEIGHT}px`} id="editing_toolbar" spacing={3}>
+    <HStack h={`${EDITING_TOOLBAR_HEIGHT}px`} id="editing_toolbar" spacing={2}>
       {renderEditing()}
     </HStack>
   );
