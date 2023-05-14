@@ -13,21 +13,18 @@ type Props = {
   fontSize: number;
 };
 
+const minVal = 1;
+const maxVal = 800;
+const step = 1;
+
 const FontSizeInput = ({ id, fontSize }: Props) => {
   const { updateOne } = useStageObject();
 
   const handleFontSizeChange = (valueAsString: string, valueAsNumber: number) => {
-    if (valueAsString.length > 3) return;
+    const regex = /^\d{1,3}$/;
 
-    updateOne({
-      id,
-      data: { fontSize: Number(valueAsNumber) },
-    });
-  };
-
-  const handleKeyPress = (event: React.KeyboardEvent<HTMLInputElement>) => {
-    if (!/[0-9]/.test(event.key)) {
-      event.preventDefault();
+    if (regex.test(valueAsString) && valueAsNumber >= minVal && valueAsNumber <= maxVal) {
+      updateOne({ id, data: { fontSize: valueAsNumber } });
     }
   };
 
@@ -35,12 +32,10 @@ const FontSizeInput = ({ id, fontSize }: Props) => {
     <NumberInput
       size="md"
       maxW={20}
-      defaultValue={fontSize}
-      min={1}
-      max={800}
-      step={1}
-      pattern="[0-9]{1,3}"
-      onKeyPress={handleKeyPress}
+      value={fontSize}
+      min={minVal}
+      max={maxVal}
+      step={step}
       onChange={handleFontSizeChange}
     >
       <Tooltip hasArrow label="Font size" placement="bottom" openDelay={500}>
