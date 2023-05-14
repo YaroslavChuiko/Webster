@@ -4,6 +4,7 @@ import FontSizeInput from './FontSizeInput';
 import FontStyleSettings from './FontStyleSettings';
 import TextDecorationSettings from './TextDecorationSettings';
 import TextAlignment from './TextAlignment';
+import SpacingSettingsMenu from './SpacingSettingsMenu/SpacingSettingsMenu';
 
 type Props = {
   selectedObject: StageObjectData;
@@ -17,6 +18,11 @@ const TextEditing = ({ selectedObject }: Props) => {
       <FontStyleSettings id={selectedObject.id} font={selectedObject.font} fontStyle={selectedObject.fontStyle} />
       <TextDecorationSettings id={selectedObject.id} textDecoration={selectedObject.textDecoration} />
       <TextAlignment id={selectedObject.id} textAlign={selectedObject.align} />
+      <SpacingSettingsMenu
+        id={selectedObject.id}
+        letterSpacing={selectedObject.letterSpacing}
+        lineHeight={selectedObject.lineHeight}
+      />
     </>
   );
 };
