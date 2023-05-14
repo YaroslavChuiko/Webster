@@ -28,7 +28,7 @@ export const DEFAULT_TEXT_OBJECT: StageObjectData = {
     variants: ['400', '400italic', '700', '700italic'], //regular, italic, 700, 700italic
     webFont: false,
   },
-  align: 'left',
+  align: 'center',
   textDecoration: '',
   type: StageObjectType.TEXT,
 };

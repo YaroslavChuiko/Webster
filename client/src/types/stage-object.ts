@@ -35,7 +35,7 @@ export type StageTextData = {
   fill: string;
   rotation: number;
   fontStyle: 'normal' | 'italic' | 'bold' | 'italic bold'; // due to Konva Text typings
-  align: 'left' | 'center' | 'right';
+  align: 'left' | 'center' | 'right' | 'justify';
   textDecoration: '' | 'underline' | 'line-through' | 'underline line-through';
 } & StageObjectData;
 
