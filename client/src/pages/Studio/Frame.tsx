@@ -85,7 +85,7 @@ const Frame = ({ stageRef }: IProps) => {
     <Stage
       width={width * scale}
       height={height * scale}
-      style={{ backgroundColor: 'white' }}
+      style={{ backgroundColor: 'white', overflow: 'hidden' }}
       scaleX={scale}
       scaleY={scale}
       ref={stageRef}
