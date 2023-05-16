@@ -5,6 +5,7 @@ import FontStyleSettings from './FontStyleSettings';
 import TextDecorationSettings from './TextDecorationSettings';
 import TextAlignment from './TextAlignment';
 import SpacingSettingsMenu from './SpacingSettingsMenu/SpacingSettingsMenu';
+import FontFamilySelect from './FontFamilySelect/FontFamilySelect';
 
 type Props = {
   selectedObject: StageObjectData;
@@ -13,6 +14,7 @@ type Props = {
 const TextEditing = ({ selectedObject }: Props) => {
   return (
     <>
+      <FontFamilySelect />
       <FontSizeInput id={selectedObject.id} fontSize={selectedObject.fontSize} />
       <TextColorPicker selectedObject={selectedObject} />
       <FontStyleSettings id={selectedObject.id} font={selectedObject.font} fontStyle={selectedObject.fontStyle} />
