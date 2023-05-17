@@ -4,16 +4,16 @@ import { StageTextData } from '~/types/stage-object';
 
 type Props = {
   id: string;
-  font: StageTextData['font'];
+  fontVariants: StageTextData['fontVariants'];
+  webFont: StageTextData['webFont'];
   fontStyle: StageTextData['fontStyle'];
 };
 
-const FontStyleSettings = ({ id, font, fontStyle }: Props) => {
+const FontStyleSettings = ({ id, fontVariants, webFont, fontStyle }: Props) => {
   const { updateOne } = useStageObject();
-  const { variants, webFont } = font;
 
-  const isBoldAvailable = !variants.includes('700') && webFont;
-  const isItalicAvailable = !variants.includes('italic') && webFont;
+  const isBoldAvailable = !fontVariants.includes('700') && webFont;
+  const isItalicAvailable = !fontVariants.includes('italic') && webFont;
 
   const isBoldActive = fontStyle.includes('bold');
   const isItalicActive = fontStyle.includes('italic');

@@ -5,7 +5,7 @@ import FontStyleSettings from './FontStyleSettings';
 import TextDecorationSettings from './TextDecorationSettings';
 import TextAlignment from './TextAlignment';
 import SpacingSettingsMenu from './SpacingSettingsMenu/SpacingSettingsMenu';
-import FontFamilySelect from './FontFamilySelect/FontFamilySelect';
+import FontFamilyMenu from './FontFamilyMenu/FontFamilyMenu';
 
 type Props = {
   selectedObject: StageObjectData;
@@ -14,10 +14,15 @@ type Props = {
 const TextEditing = ({ selectedObject }: Props) => {
   return (
     <>
-      <FontFamilySelect />
+      <FontFamilyMenu id={selectedObject.id} fontFamily={selectedObject.fontFamily} />
       <FontSizeInput id={selectedObject.id} fontSize={selectedObject.fontSize} />
       <TextColorPicker selectedObject={selectedObject} />
-      <FontStyleSettings id={selectedObject.id} font={selectedObject.font} fontStyle={selectedObject.fontStyle} />
+      <FontStyleSettings
+        id={selectedObject.id}
+        fontVariants={selectedObject.fontVariants}
+        fontStyle={selectedObject.fontStyle}
+        webFont={selectedObject.webFont}
+      />
       <TextDecorationSettings id={selectedObject.id} textDecoration={selectedObject.textDecoration} />
       <TextAlignment id={selectedObject.id} textAlign={selectedObject.align} />
       <SpacingSettingsMenu

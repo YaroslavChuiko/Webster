@@ -6,6 +6,7 @@ import { StageTextData } from '~/types/stage-object';
 import SearchForm, { TFilter } from './SearchForm';
 import { loadGoogleFontsDefaultVariants } from '~/utils/load-google-fonts-default-variants';
 import useGetFontListQuery from '~/hooks/use-get-font-list-query';
+import { GoogleFont } from '~/types/google-font-type';
 
 const defaultTextStylesButtons: Partial<StageTextData>[] = [
   {
@@ -31,15 +32,13 @@ const defaultTextStylesButtons: Partial<StageTextData>[] = [
 const Texts = () => {
   const { createOne } = useStageObject();
   const [query, setQuery] = useState<string>(' ');
-  const [selectedFonts, setSelectedFonts] = useState([]);
+  const [selectedFonts, setSelectedFonts] = useState<GoogleFont[]>([]);
   const { fontList, isLoaded } = useGetFontListQuery();
 
   useEffect(() => {
     if (!isLoaded) return;
 
-    const fonts = fontList
-      .filter((font: any) => font.family.toLowerCase().startsWith(query.toLowerCase()))
-      .slice(0, 15);
+    const fonts = fontList.filter((font) => font.family.toLowerCase().startsWith(query.toLowerCase())).slice(0, 15);
     const fontFamilies = fonts.map((font: any) => font.family);
 
     if (fonts.length) {
@@ -81,13 +80,10 @@ const Texts = () => {
               onClick={() =>
                 addTextToStage({
                   text: font.family,
-                  font: {
-                    family: font.family,
-                    variants: font.variants, // set variants that available to load from Google Fonts
-                    webFont: true,
-                  },
+                  fontFamily: font.family,
+                  fontVariants: font.variants, // set variants that available to load from Google Fonts
+                  webFont: true,
                   fontSize: 50,
-                  // width: 400,
                   fontStyle: 'normal',
                 })
               }
