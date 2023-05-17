@@ -1,5 +1,5 @@
-import { Button, Menu, MenuButton, MenuList, useDisclosure } from '@chakra-ui/react';
 import { ChevronDownIcon } from '@chakra-ui/icons';
+import { Button, Menu, MenuButton, MenuList, useDisclosure } from '@chakra-ui/react';
 import useGetFontListQuery from '~/hooks/use-get-font-list-query';
 import useStageObject from '~/hooks/use-stage-object';
 import FontFamilyMenuItem from './FontFamilyMenuItem';
@@ -15,8 +15,8 @@ const FontFamilyMenu = ({ id, fontFamily }: Props) => {
   const { isOpen: isMenuOpen, onOpen: openMenu, onClose: closeMenu } = useDisclosure();
 
   return (
-    <Menu closeOnSelect={true} isOpen={isMenuOpen} onOpen={openMenu} onClose={closeMenu}>
-      <MenuButton as={Button} fontFamily={fontFamily} rightIcon={<ChevronDownIcon />}>
+    <Menu isOpen={isMenuOpen} onOpen={openMenu} onClose={closeMenu}>
+      <MenuButton as={Button} fontFamily={fontFamily} variant="outline" rightIcon={<ChevronDownIcon />}>
         {fontFamily}
       </MenuButton>
       <MenuList maxH="300px" overflowY="auto">
