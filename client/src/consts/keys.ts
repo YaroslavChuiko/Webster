@@ -1,1 +1,8 @@
-export const MULTISELECT_KEY = 'Shift';
+export enum KeyType {
+  MULTISELECT = 'Shift',
+  DELETE = 'Delete',
+  COPY = 'ctrl+c',
+  PASTE = 'ctrl+v',
+  CUT = 'ctrl+x',
+  DUPLICATE = 'ctrl+b',
+}
