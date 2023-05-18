@@ -59,7 +59,18 @@ const useHotkeysFunctions = ({ ...transformers }: Props) => {
     );
   };
 
-  return { onDeleteKey, onCopyKey, onPasteKey };
+  const onCutKey = () => {
+    if (!selected.length) {
+      return;
+    }
+
+    onCopyKey();
+
+    dispatch(stateObjectActions.remove(selected));
+    resetObjectSelect();
+  };
+
+  return { onDeleteKey, onCopyKey, onPasteKey, onCutKey };
 };
 
 export default useHotkeysFunctions;

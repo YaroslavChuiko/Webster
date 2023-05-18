@@ -3,4 +3,5 @@ export enum KeyType {
   DELETE = 'Delete',
   COPY = 'ctrl+c',
   PASTE = 'ctrl+v',
+  CUT = 'ctrl+x',
 }
