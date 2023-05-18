@@ -11,7 +11,7 @@ type Props = {
 };
 
 const useHotkeySetup = ({ ...transformers }: Props) => {
-  const { onDeleteKey, onCopyKey, onPasteKey, onCutKey, onDuplicateKey, onZIndexUpKey } =
+  const { onDeleteKey, onCopyKey, onPasteKey, onCutKey, onDuplicateKey, onZIndexUpKey, onZIndexDownKey } =
     useHotkeysFunctions(transformers);
 
   useHotkeys(KeyType.DELETE, () => onDeleteKey());
@@ -20,6 +20,7 @@ const useHotkeySetup = ({ ...transformers }: Props) => {
   useHotkeys(KeyType.CUT, () => onCutKey());
   useHotkeys(KeyType.DUPLICATE, () => onDuplicateKey());
   useHotkeys(KeyType.Z_INDEX_UP, () => onZIndexUpKey());
+  useHotkeys(KeyType.Z_INDEX_DOWN, () => onZIndexDownKey());
 };
 
 export default useHotkeySetup;

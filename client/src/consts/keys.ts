@@ -6,4 +6,5 @@ export enum KeyType {
   CUT = 'ctrl+x',
   DUPLICATE = 'ctrl+b',
   Z_INDEX_UP = 'ctrl+up',
+  Z_INDEX_DOWN = 'ctrl+down',
 }

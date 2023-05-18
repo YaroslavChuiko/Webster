@@ -9,7 +9,7 @@ const useStageObject = () => {
   const stageObjects = useAppSelector(stageObjectSelector.selectAll);
 
   const createOne = (data: StageObjectData) => {
-    const payload: StageObject = { id: nanoid(), data };
+    const payload: StageObject = { id: nanoid(), data: { ...data, updatedAt: Date.now() } };
     dispatch(stateObjectActions.addOne(payload));
   };
 
