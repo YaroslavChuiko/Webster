@@ -85,7 +85,18 @@ const useHotkeysFunctions = ({ ...transformers }: Props) => {
     dispatch(stateObjectActions.addMany(selectedObjects));
   };
 
-  return { onDeleteKey, onCopyKey, onPasteKey, onCutKey, onDuplicateKey };
+  const onZIndexUpKey = () => {
+    if (!selected.length) {
+      return;
+    }
+
+    const selectedObjects = stageObjects.filter((obj) => selected.includes(obj.id));
+
+    dispatch(stateObjectActions.remove(selected));
+    dispatch(stateObjectActions.addMany(selectedObjects));
+  };
+
+  return { onDeleteKey, onCopyKey, onPasteKey, onCutKey, onDuplicateKey, onZIndexUpKey };
 };
 
 export default useHotkeysFunctions;
