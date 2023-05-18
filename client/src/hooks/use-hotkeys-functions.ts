@@ -70,7 +70,22 @@ const useHotkeysFunctions = ({ ...transformers }: Props) => {
     resetObjectSelect();
   };
 
-  return { onDeleteKey, onCopyKey, onPasteKey, onCutKey };
+  const onDuplicateKey = () => {
+    if (!selected.length && !stageObjects) {
+      return;
+    }
+
+    const selectedObjects = stageObjects
+      .filter((obj) => selected.includes(obj.id))
+      .map((obj) => {
+        const id = nanoid();
+        return { id: id, data: { ...obj.data, id } };
+      });
+
+    dispatch(stateObjectActions.addMany(selectedObjects));
+  };
+
+  return { onDeleteKey, onCopyKey, onPasteKey, onCutKey, onDuplicateKey };
 };
 
 export default useHotkeysFunctions;

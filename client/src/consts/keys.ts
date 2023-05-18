@@ -4,4 +4,5 @@ export enum KeyType {
   COPY = 'ctrl+c',
   PASTE = 'ctrl+v',
   CUT = 'ctrl+x',
+  DUPLICATE = 'ctrl+b',
 }
