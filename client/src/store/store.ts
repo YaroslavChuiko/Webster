@@ -9,6 +9,7 @@ import selectedObjectReducer from './slices/selected-objects-slice';
 const persistConfig = {
   key: 'root',
   storage,
+  blacklist: ['selected', 'fontList'],
 };
 
 const persistedReducer = persistReducer(
