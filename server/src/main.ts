@@ -36,6 +36,12 @@ async function bootstrap() {
 
   await app.useGlobalFilters(new AllExceptionsFilter());
 
+  app.enableCors({
+    allowedHeaders: '*',
+    origin: '*',
+    credentials: true,
+  });
+
   await app
     .listen(port)
     .then(() => new LoggerService().info(`server listening at port ${port}`));
