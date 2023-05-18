@@ -11,9 +11,13 @@ type Props = {
 };
 
 const useHotkeySetup = ({ ...transformers }: Props) => {
-  const { onDeleteKey } = useHotkeysFunctions(transformers);
+  const { onDeleteKey, onCopyKey, onPasteKey, onCutKey, onDuplicateKey } = useHotkeysFunctions(transformers);
 
   useHotkeys(KeyType.DELETE, () => onDeleteKey());
+  useHotkeys(KeyType.COPY, () => onCopyKey());
+  useHotkeys(KeyType.PASTE, () => onPasteKey());
+  useHotkeys(KeyType.CUT, () => onCutKey());
+  useHotkeys(KeyType.DUPLICATE, () => onDuplicateKey());
 };
 
 export default useHotkeySetup;

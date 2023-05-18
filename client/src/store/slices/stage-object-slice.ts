@@ -13,6 +13,9 @@ export const stageObjectSlice = createSlice({
     addOne(state, { payload }) {
       stageObjectEntity.addOne(state, payload);
     },
+    addMany(state, { payload }) {
+      stageObjectEntity.addMany(state, payload);
+    },
     updateOne(state, { payload }) {
       stageObjectEntity.updateOne(state, {
         id: payload.id,
