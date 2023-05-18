@@ -17,19 +17,22 @@
     "@emotion/react": "^11.10.6",
     "@emotion/styled": "^11.10.6",
     "@reduxjs/toolkit": "^1.9.5",
+    "formik": "^2.2.9",
     "framer-motion": "^10.12.4",
     "konva": "^9.0.1",
     "react": "^18.2.0",
     "react-color": "^2.19.3",
     "react-dom": "^18.2.0",
     "react-hook-form": "^7.43.9",
+    "react-icons": "^4.8.0",
     "react-infinite-scroll-component": "^6.1.0",
     "react-konva": "^18.2.7",
     "react-konva-utils": "^1.0.4",
     "react-redux": "^8.0.5",
     "react-router-dom": "^6.10.0",
     "redux-persist": "^6.0.0",
-    "unsplash-js": "^7.0.15"
+    "unsplash-js": "^7.0.15",
+    "yup": "^1.1.1"
   },
   "devDependencies": {
     "@types/node": "^18.16.0",

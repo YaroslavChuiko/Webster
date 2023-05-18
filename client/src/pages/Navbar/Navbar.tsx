@@ -1,20 +1,7 @@
-import {
-  Box,
-  Flex,
-  Spacer,
-  Button,
-  Menu,
-  MenuButton,
-  MenuList,
-  MenuItem,
-  Text,
-  useColorModeValue,
-  ChakraProvider,
-  Divider,
-} from '@chakra-ui/react';
+import { Box, Flex, Spacer, Button, Text, useColorModeValue, ChakraProvider } from '@chakra-ui/react';
 import { Link } from 'react-router-dom';
 import { extendTheme } from '@chakra-ui/react';
-import { ChevronLeftIcon, SettingsIcon, SmallAddIcon, ExternalLinkIcon, DownloadIcon } from '@chakra-ui/icons';
+import { ChevronLeftIcon } from '@chakra-ui/icons';
 function Navbar() {
   const customTheme = extendTheme({
     components: {
@@ -46,43 +33,10 @@ function Navbar() {
             <ChevronLeftIcon w={8} h={8} />
             <Text ml="2">Home</Text>
           </Button>
-          <Menu>
-            <MenuButton as={Button} colorScheme="blue" mr="4" ml="1" variant="navbar-transparent">
-              File
-            </MenuButton>
-            <MenuList mt="01">
-              <Text ml="2" p="2">
-                Some dynamic text about the page
-              </Text>
-              <Text ml="1" pt="0" pb="2" pl="2" opacity="0.5">
-                Current user data
-              </Text>
-              <MenuItem>
-                <SmallAddIcon mr={2} />
-                Create new design
-              </MenuItem>
-              <MenuItem>
-                <ExternalLinkIcon mr={2} />
-                Import
-              </MenuItem>
-              <MenuItem>
-                <DownloadIcon mr={2} />
-                Download
-              </MenuItem>
-              <Divider mt={2} mb={2} />
-              <MenuItem>
-                <SettingsIcon mr={2} />
-                Some settings
-              </MenuItem>
-              <Divider mt={2} mb={2} />
-              <MenuItem>Some other options</MenuItem>
-              <MenuItem>Something else</MenuItem>
-            </MenuList>
-          </Menu>
         </Box>
         <Spacer />
         <Box>
-          <Button colorScheme="blue" mr="4">
+          <Button colorScheme="blue" mr="4" as={Link as never} to="/auth/sign-in">
             Login
           </Button>
         </Box>
