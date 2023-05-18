@@ -9,3 +9,4 @@ export const TOOLBAR_TABS = [
 
 export const NAVBAR_HEIGHT = 56;
 export const EDING_TOOLBAR_HEIGHT = 50;
+export const FRAME_CONTAINER_PADDING = 20;

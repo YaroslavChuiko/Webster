@@ -1,19 +1,19 @@
+import Konva from 'konva';
 import { KeyboardEvent, useEffect, useState } from 'react';
-import { StageObject } from '~/types/stage-object';
+import useObjectSelect from '~/hooks/use-object-select';
+import { StageTextObjectData } from '~/types/stage-object';
 import EditableTextInput from './EditableTextInput';
 import ResizableText from './ResizableText';
-import useObjectSelect from '~/hooks/use-object-select';
-import Konva from 'konva';
 
 const RETURN_KEY = 'Enter';
 const ESCAPE_KEY = 'Escape';
 
 type TProps = {
-  shapeProps: StageObject;
+  shapeProps: StageTextObjectData;
   onSelect: (e: Konva.KonvaEventObject<MouseEvent>) => void;
 };
 
-const EditableText = ({ shapeProps, onSelect }: TProps) => {
+const TextObject = ({ shapeProps, onSelect }: TProps) => {
   const [isEditing, setIsEditing] = useState(false);
 
   const { isSelected } = useObjectSelect({});
@@ -42,4 +42,4 @@ const EditableText = ({ shapeProps, onSelect }: TProps) => {
   return <ResizableText onSelect={onSelect} shapeProps={shapeProps} onDoubleClick={onToggleEdit} />;
 };
 
-export default EditableText;
+export default TextObject;
