@@ -2,12 +2,12 @@ import { configureStore, combineReducers } from '@reduxjs/toolkit';
 import frameReducer from './slices/frame-slice';
 import fontListReducer from './slices/font-list-slice';
 import storage from 'redux-persist/lib/storage';
-import { PersistConfig, persistReducer, persistStore } from 'redux-persist';
+import { persistReducer, persistStore } from 'redux-persist';
 import stageObjectReducer from './slices/stage-object-slice';
 import selectedObjectReducer from './slices/selected-objects-slice';
 import copiedObjectReducer from './slices/copied-objects-slice';
 
-const persistConfig: PersistConfig<any> = {
+const persistConfig = {
   key: 'root',
   storage,
   blacklist: ['selected', 'fontList', 'copied'],
