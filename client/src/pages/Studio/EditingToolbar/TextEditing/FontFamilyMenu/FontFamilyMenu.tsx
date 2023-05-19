@@ -1,8 +1,9 @@
 import { ChevronDownIcon } from '@chakra-ui/icons';
-import { Button, Menu, MenuButton, MenuList, useDisclosure } from '@chakra-ui/react';
+import { Button, Menu, MenuButton, Portal, useDisclosure } from '@chakra-ui/react';
 import useGetFontListQuery from '~/hooks/use-get-font-list-query';
 import useStageObject from '~/hooks/use-stage-object';
-import FontFamilyMenuItem from './FontFamilyMenuItem';
+import { GoogleFont } from '~/types/google-font-type';
+import FontFamilyMenuList from './FontFamilyMenuList';
 
 type Props = {
   id: string;
@@ -14,32 +15,26 @@ const FontFamilyMenu = ({ id, fontFamily }: Props) => {
   const { fontList, isLoaded } = useGetFontListQuery();
   const { isOpen: isMenuOpen, onOpen: openMenu, onClose: closeMenu } = useDisclosure();
 
+  const handleMenuItemClick = (font: GoogleFont) => {
+    updateOne({
+      id,
+      data: {
+        fontFamily: font.family,
+        fontVariants: font.variants,
+        webFont: true,
+      },
+    });
+    closeMenu();
+  };
+
   return (
     <Menu isOpen={isMenuOpen} onOpen={openMenu} onClose={closeMenu}>
       <MenuButton as={Button} fontFamily={fontFamily} variant="outline" rightIcon={<ChevronDownIcon />}>
         {fontFamily}
       </MenuButton>
-      <MenuList maxH="300px" overflowY="auto">
-        {isLoaded
-          ? fontList.map((font, index) => (
-              <FontFamilyMenuItem
-                key={index}
-                font={font}
-                onClick={() => {
-                  updateOne({
-                    id,
-                    data: {
-                      fontFamily: font.family,
-                      fontVariants: font.variants,
-                      webFont: true,
-                    },
-                  });
-                  closeMenu();
-                }}
-              />
-            ))
-          : 'Loading...'}
-      </MenuList>
+      <Portal>
+        <FontFamilyMenuList fontList={fontList} isLoaded={isLoaded} handleMenuItemClick={handleMenuItemClick} />
+      </Portal>
     </Menu>
   );
 };
