@@ -30,7 +30,7 @@ const useStageObject = () => {
   };
 
   const removeOne = (id: string) => {
-    dispatch(stateObjectActions.removeOne(id));
+    dispatch(stateObjectActions.remove(id));
   };
 
   const resetAll = () => {

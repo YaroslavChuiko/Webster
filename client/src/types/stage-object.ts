@@ -12,6 +12,10 @@ export type StageObjectData = {
   height: number;
   x: number;
   y: number;
+  offsetX: number;
+  offsetY: number;
+  scaleX: number;
+  scaleY: number;
   draggable: boolean;
   z_index: number;
   updatedAt: number;
@@ -22,8 +26,18 @@ export type StageObject = {
   data: StageObjectData;
 } & Record<string, any>;
 
+export type StageImageFilterValues = {
+  brighten?: number;
+  contrast?: number;
+  red?: number;
+  green?: number;
+  blue?: number;
+};
+
 export type StageImageData = {
   src: string;
+  filterNames: FilterName[];
+  filterValues: StageImageFilterValues;
 } & StageObjectData;
 
 export type StageTextData = {
@@ -52,3 +66,20 @@ export type StageObjectPartial = {
   id: string;
   data: Partial<StageObjectData>;
 };
+
+export enum FilterName {
+  brighten = 'Brighten',
+  contrast = 'Contrast',
+  grayscale = 'Grayscale',
+  invert = 'Invert',
+  rgb = 'RGB',
+}
+
+export type FilterValue = {
+  name: FilterName;
+  min?: number;
+  max?: number;
+  step?: number;
+};
+
+export const RGB_FILTERS = ['red', 'green', 'blue'];

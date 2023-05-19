@@ -1,17 +1,29 @@
 import useStageObject from './use-stage-object';
 import { useCallback } from 'react';
 import Konva from 'konva';
+import { StageObject } from '~/types/stage-object';
 
 const useDragHandlers = () => {
   const { updateOne } = useStageObject();
 
-  const onDragEnd = useCallback((e: Konva.KonvaEventObject<DragEvent>, id: string) => {
+  const onDragEnd = useCallback((e: Konva.KonvaEventObject<DragEvent>, obj: StageObject) => {
     e.evt.preventDefault();
     e.evt.stopPropagation();
 
-    const data = e.target.attrs;
+    const id = obj.id;
 
-    updateOne({ id, data });
+    const { x, y, offsetX, offsetY } = e.target.attrs;
+
+    updateOne({
+      id,
+      data: {
+        ...obj.data,
+        x,
+        y,
+        offsetX,
+        offsetY,
+      },
+    });
     e.target.getLayer().batchDraw();
   }, []);
 

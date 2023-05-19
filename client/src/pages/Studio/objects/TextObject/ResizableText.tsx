@@ -56,7 +56,7 @@ const ResizableText = ({ shapeProps, onDoubleClick, onSelect }: TProps) => {
       onTransform={handleResize}
       onClick={onSelect}
       onTap={onSelect}
-      onDragEnd={(e) => onDragEnd(e, id)}
+      onDragEnd={(e) => onDragEnd(e, { id, data })}
       onDblClick={onDoubleClick}
       onDblTap={onDoubleClick}
     />

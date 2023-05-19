@@ -5,6 +5,7 @@ import ShapesEditing from './ShapesEditing/ShapesEditing';
 import { StageObjectType } from '~/types/stage-object';
 import { EDITING_TOOLBAR_HEIGHT } from '~/consts/components';
 import TextEditing from './TextEditing/TextEditing';
+import ImageEditing from './ImageEditing/ImageEditing';
 
 const EditingToolbar = () => {
   const stageObjects = useAppSelector(stageObjectSelector.selectAll);
@@ -12,7 +13,7 @@ const EditingToolbar = () => {
 
   const getSelectedObject = () => {
     if (selected.length === 1 && stageObjects) {
-      return stageObjects.find((obj) => obj.id === selected[0])?.data;
+      return stageObjects.find((obj) => obj.id === selected[0]);
     }
     return null;
   };
@@ -20,11 +21,13 @@ const EditingToolbar = () => {
   const selectedObject = getSelectedObject();
 
   const renderEditing = () => {
-    switch (selectedObject?.type) {
+    switch (selectedObject?.data.type) {
+      case StageObjectType.IMAGE:
+        return <ImageEditing selectedObject={selectedObject} />;
       case StageObjectType.SHAPE:
-        return <ShapesEditing selectedObject={selectedObject} />;
+        return <ShapesEditing selectedObject={selectedObject.data} />;
       case StageObjectType.TEXT:
-        return <TextEditing selectedObject={selectedObject} />;
+        return <TextEditing selectedObject={selectedObject.data} />;
       default:
         return null;
     }

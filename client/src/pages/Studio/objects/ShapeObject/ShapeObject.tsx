@@ -34,22 +34,22 @@ const ShapeObject = ({ obj, onSelect }: Props) => {
 
   switch (data.shapeType) {
     case ShapeType.RECT:
-      return <Rect id={id} onClick={onSelect} onDragEnd={(e) => onDragEnd(e, obj.id)} {...data} />;
+      return <Rect id={id} onClick={onSelect} onDragEnd={(e) => onDragEnd(e, obj)} {...data} />;
     case ShapeType.CIRCLE:
-      return <Circle id={id} onClick={onSelect} onDragEnd={(e) => onDragEnd(e, obj.id)} {...data} />;
+      return <Circle id={id} onClick={onSelect} onDragEnd={(e) => onDragEnd(e, obj)} {...data} />;
     case ShapeType.POLYGON:
       return (
         <RegularPolygon
           id={id}
           onClick={onSelect}
-          onDragEnd={(e) => onDragEnd(e, obj.id)}
+          onDragEnd={(e) => onDragEnd(e, obj)}
           {...(data as RegularPolygonData)}
         />
       );
     case ShapeType.STAR:
-      return <Star id={id} onClick={onSelect} onDragEnd={(e) => onDragEnd(e, obj.id)} {...(data as StarData)} />;
+      return <Star id={id} onClick={onSelect} onDragEnd={(e) => onDragEnd(e, obj)} {...(data as StarData)} />;
     case ShapeType.ARROW:
-      return <Arrow id={id} onClick={onSelect} onDragEnd={(e) => onDragEnd(e, obj.id)} {...(data as ArrowData)} />;
+      return <Arrow id={id} onClick={onSelect} onDragEnd={(e) => onDragEnd(e, obj)} {...(data as ArrowData)} />;
   }
 
   return null;
