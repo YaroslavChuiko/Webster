@@ -67,6 +67,18 @@ const Frame = ({ stageRef }: IProps) => {
     }
   };
 
+  const sortStageObject = () => {
+    return stageObjects.sort((obj1, obj2) => {
+      if (obj1.data.z_index === obj2.data.z_index) {
+        if (obj1.data.z_index < 0) {
+          return obj2.data.updatedAt - obj1.data.updatedAt;
+        }
+        return obj1.data.updatedAt - obj2.data.updatedAt;
+      }
+      return obj1.data.z_index - obj2.data.z_index;
+    });
+  };
+
   const renderStageObject = (obj: StageObject) => {
     const data = obj.data;
     switch (data.type) {
@@ -93,7 +105,7 @@ const Frame = ({ stageRef }: IProps) => {
       onTouchStart={checkDeselect}
     >
       <Layer>
-        {stageObjects.map((obj) => (
+        {sortStageObject().map((obj) => (
           <React.Fragment key={obj.id}>{renderStageObject(obj)}</React.Fragment>
         ))}
         <Transformer ref={imageTransformer} onTransformEnd={onImageTransformerEnd} ignoreStroke={true} />
