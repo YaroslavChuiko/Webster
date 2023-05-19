@@ -1,5 +1,6 @@
 import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
 import { GOOGLE_FONTS_API_URL } from '~/consts/fonts';
+import { GoogleFont } from '~/types/google-font-type';
 
 export const fetchFontList = createAsyncThunk('fontList/fetchFontListStatus', async (_, thunkAPI) => {
   try {
@@ -16,7 +17,7 @@ export const fetchFontList = createAsyncThunk('fontList/fetchFontListStatus', as
 });
 
 type FontListState = {
-  fontList: [];
+  fontList: GoogleFont[];
   loading: 'idle' | 'pending' | 'succeeded' | 'failed';
 };
 

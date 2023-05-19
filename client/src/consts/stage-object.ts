@@ -25,12 +25,10 @@ export const DEFAULT_TEXT_OBJECT: StageObjectData = {
   letterSpacing: 0,
   fontStyle: 'normal',
   rotation: 0,
-  font: {
-    family: 'sans-serif',
-    variants: ['400', '400italic', '700', '700italic'], //regular, italic, 700, 700italic
-    webFont: false,
-  },
-  align: 'left',
+  fontFamily: 'sans-serif',
+  fontVariants: ['400', '400italic', '700', '700italic'], //regular, italic, 700, 700italic
+  webFont: false,
+  align: 'center',
   textDecoration: '',
   type: StageObjectType.TEXT,
 };

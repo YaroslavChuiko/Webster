@@ -52,8 +52,8 @@ const Frame = ({ stageRef }: IProps) => {
 
   useEffect(() => {
     const fontsToLoad = stageObjects
-      .filter((obj) => obj.data.type === StageObjectType.TEXT && obj.data.font.webFont)
-      .map((obj) => obj.data.font.family);
+      .filter((obj) => obj.data.type === StageObjectType.TEXT && obj.data.webFont)
+      .map((obj) => obj.data.fontFamily);
 
     if (fontsToLoad.length) loadGoogleFontsDefaultVariants(fontsToLoad);
 
@@ -97,7 +97,7 @@ const Frame = ({ stageRef }: IProps) => {
     <Stage
       width={width * scale}
       height={height * scale}
-      style={{ backgroundColor: 'white' }}
+      style={{ backgroundColor: 'white', overflow: 'hidden' }}
       scaleX={scale}
       scaleY={scale}
       ref={stageRef}

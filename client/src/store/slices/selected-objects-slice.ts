@@ -4,6 +4,7 @@ export const SELECTED_OBJECT_SLICE = 'selected';
 
 export const selectedObjectEntity = createEntityAdapter<{ id: string }>();
 
+//array of ids
 const initialState: { selected: string[] } = {
   selected: [],
 };

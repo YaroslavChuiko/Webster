@@ -1,3 +1,5 @@
+import { FontVariant } from './google-font-type';
+
 export enum StageObjectType {
   IMAGE = 'image',
   TEXT = 'text',
@@ -27,18 +29,16 @@ export type StageImageData = {
 export type StageTextData = {
   text: string;
   fontSize: number;
-  font: {
-    family: string;
-    variants: string[];
-    webFont: boolean; //is installed by default
-  };
+  fontFamily: string;
+  fontVariants: FontVariant[];
+  webFont: boolean; // is installed by default
   lineHeight: number;
   letterSpacing: number;
   fill: string;
   rotation: number;
-  fontStyle: 'normal' | 'italic' | 'bold' | 'italic bold';
-  align: 'left' | 'center' | 'right';
-  textDecoration: '' | 'underline' | 'line-through';
+  fontStyle: 'normal' | 'italic' | 'bold' | 'italic bold'; // due to Konva Text typings
+  align: 'left' | 'center' | 'right' | 'justify';
+  textDecoration: '' | 'underline' | 'line-through' | 'underline line-through';
 } & StageObjectData;
 
 export type GenericStageObject<Type> = {
