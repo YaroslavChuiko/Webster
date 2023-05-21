@@ -32,6 +32,9 @@ export const stageObjectSlice = createSlice({
     removeAll(state) {
       stageObjectEntity.removeAll(state);
     },
+    replaceAll(state, { payload }) {
+      stageObjectEntity.setAll(state, payload);
+    },
   },
 });
 

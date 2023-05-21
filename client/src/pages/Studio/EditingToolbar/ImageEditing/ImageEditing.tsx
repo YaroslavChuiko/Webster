@@ -9,7 +9,7 @@ type Props = {
 
 const ImageEditing = ({ selectedObject }: Props) => {
   return (
-    <HStack spacing={4} sx={{ px: 4 }}>
+    <HStack spacing={2}>
       <ImageFlip selectedObject={selectedObject} />
       <ImageFilters imageId={selectedObject.id} data={selectedObject.data as StageImageData} />
     </HStack>

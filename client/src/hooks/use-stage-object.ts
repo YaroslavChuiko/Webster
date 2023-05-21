@@ -37,12 +37,17 @@ const useStageObject = () => {
     dispatch(stateObjectActions.removeAll());
   };
 
+  const replaceAll = (objects: StageObject[]) => {
+    dispatch(stateObjectActions.replaceAll(objects));
+  };
+
   return {
     stageObjects,
     createOne,
     updateOne,
     removeOne,
     resetAll,
+    replaceAll,
   };
 };
 export default useStageObject;

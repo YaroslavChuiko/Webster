@@ -7,4 +7,6 @@ export enum KeyType {
   DUPLICATE = 'ctrl+b',
   Z_INDEX_UP = 'ctrl+up',
   Z_INDEX_DOWN = 'ctrl+down',
+  UNDO = 'ctrl+z',
+  REDO = 'ctrl+y',
 }
