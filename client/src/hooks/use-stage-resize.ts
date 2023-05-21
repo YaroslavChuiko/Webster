@@ -4,7 +4,9 @@ import { KonvaEventObject } from 'konva/lib/Node';
 import { useDispatch } from 'react-redux';
 import { useAppSelector } from './use-app-selector';
 import { setScale } from '~/store/slices/frame-slice';
+import useKeyPress from './use-key-press';
 import { FRAME_CONTAINER_PADDING } from '~/consts/components';
+import { KeyType } from '~/consts/keys';
 
 type Props = {
   stageRef?: React.RefObject<Konva.Stage> | null;
@@ -15,6 +17,8 @@ const useStageResize = ({ stageRef }: Props) => {
   const { width, height, scale } = useAppSelector((state) => state.frame);
   const [boxWidth, setBoxWidth] = useState(500);
   const [boxHeight, setBoxHeight] = useState(500);
+
+  const isKeyPressed = useKeyPress(KeyType.DRAG_STAGE);
 
   const setStageSize = () => {
     const toolbar = document.querySelector('#toolbar') as HTMLElement;
@@ -63,6 +67,10 @@ const useStageResize = ({ stageRef }: Props) => {
     stageRef?.current?.y(y);
   };
 
+  useEffect(() => {
+    setStageCoodrs();
+  }, [scale]);
+
   const handleZoom = (e: KonvaEventObject<WheelEvent>) => {
     e.evt.preventDefault();
 
@@ -81,6 +89,10 @@ const useStageResize = ({ stageRef }: Props) => {
   const handleDragMoveStage = (e: Konva.KonvaEventObject<DragEvent>) => {
     e.evt.preventDefault();
     e.evt.stopPropagation();
+
+    if (isKeyPressed) {
+      stageRef?.current?.startDrag();
+    }
 
     setStageCoodrs();
   };
