@@ -27,7 +27,7 @@ const ImageObject = ({ obj, onSelect }: Props) => {
 
   const cacheOptions = { imageSmoothingEnabled: true, width: size.width, height: size.height };
 
-  const { onDragEnd } = useDragHandlers();
+  const { onDragStart, onDragEnd } = useDragHandlers();
   const { updateOne } = useStageObject();
 
   useEffect(() => {
@@ -55,6 +55,7 @@ const ImageObject = ({ obj, onSelect }: Props) => {
       ref={imgRef}
       onClick={onSelect}
       image={image}
+      onDragStart={onDragStart}
       onDragEnd={(e) => onDragEnd(e, obj)}
       {...props}
       {...filterValues}

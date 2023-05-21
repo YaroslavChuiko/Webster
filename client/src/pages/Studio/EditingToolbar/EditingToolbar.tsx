@@ -9,6 +9,7 @@ import ImageEditing from './ImageEditing/ImageEditing';
 import useHistory from '~/hooks/use-history';
 import { useEffect } from 'react';
 import { useHotkeys } from 'react-hotkeys-hook';
+import useStageResize from '~/hooks/use-stage-resize';
 import { KeyType } from '~/consts/keys';
 
 const EditingToolbar = () => {
@@ -16,6 +17,8 @@ const EditingToolbar = () => {
   const { selected } = useAppSelector((state) => state.selected);
 
   const { savePast, goBack, goForward } = useHistory();
+
+  const { setStageSize } = useStageResize({});
 
   useHotkeys(KeyType.UNDO, (e) => {
     e.preventDefault();
@@ -60,6 +63,9 @@ const EditingToolbar = () => {
       </Button>
       <Button colorScheme="blue" variant="outline" onClick={() => goForward()}>
         Redo
+      </Button>
+      <Button colorScheme="blue" variant="outline" onClick={() => setStageSize()}>
+        Reset zoom
       </Button>
       {renderEditing()}
     </HStack>

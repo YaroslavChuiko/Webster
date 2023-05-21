@@ -1,5 +1,6 @@
-import React, { useState, useEffect } from 'react';
+import React, { useEffect } from 'react';
 import Konva from 'konva';
+import { Box } from '@chakra-ui/react';
 import { Stage, Layer, Transformer } from 'react-konva';
 import { useAppSelector } from '~/hooks/use-app-selector';
 import TextObject from './objects/TextObject/TextObject';
@@ -12,7 +13,7 @@ import useTransformer from '~/hooks/use-transformer';
 import useObjectSelect from '~/hooks/use-object-select';
 import { loadGoogleFontsDefaultVariants } from '~/utils/load-google-fonts-default-variants';
 import useHotkeySetup from '~/hooks/use-hotkey-setup';
-import { FRAME_CONTAINER_PADDING } from '~/consts/components';
+import useStageResize from '~/hooks/use-stage-resize';
 
 type IProps = {
   stageRef: React.RefObject<Konva.Stage> | null;
@@ -30,25 +31,8 @@ const Frame = ({ stageRef }: IProps) => {
 
   useHotkeySetup(transformers);
 
-  const [scale, setScale] = useState(1);
-  const { width, height } = useAppSelector((state) => state.frame);
-
-  useEffect(() => {
-    const toolbar = document.querySelector('#toolbar') as HTMLElement;
-    const navbar = document.querySelector('#navbar') as HTMLElement;
-    const editingToolbar = document.querySelector('#editing_toolbar') as HTMLElement;
-    if (toolbar && navbar && editingToolbar) {
-      const wScale = (window.innerWidth - toolbar.offsetWidth - FRAME_CONTAINER_PADDING * 2 - 10) / width;
-      const hScale =
-        (window.innerHeight - navbar.offsetHeight - editingToolbar.offsetHeight - FRAME_CONTAINER_PADDING * 2 - 10) /
-        height;
-      if (wScale < hScale) {
-        setScale(wScale);
-      } else {
-        setScale(hScale);
-      }
-    }
-  }, [width, height]);
+  const { width, height, scale } = useAppSelector((state) => state.frame);
+  const { boxWidth, boxHeight, handleZoom, handleDragMoveStage } = useStageResize({ stageRef });
 
   useEffect(() => {
     const fontsToLoad = stageObjects
@@ -94,44 +78,49 @@ const Frame = ({ stageRef }: IProps) => {
   };
 
   return (
-    <Stage
-      width={width * scale}
-      height={height * scale}
-      style={{ backgroundColor: 'white', overflow: 'hidden' }}
-      scaleX={scale}
-      scaleY={scale}
-      ref={stageRef}
-      onMouseDown={checkDeselect}
-      onTouchStart={checkDeselect}
-    >
-      <Layer>
-        {sortStageObject().map((obj) => (
-          <React.Fragment key={obj.id}>{renderStageObject(obj)}</React.Fragment>
-        ))}
-        <Transformer ref={imageTransformer} onTransformEnd={onImageTransformerEnd} ignoreStroke={true} />
-        <Transformer
-          ref={textTransformer}
-          onTransformEnd={onTextTransformerEnd}
-          rotationSnaps={[0, 90, 180, 270]}
-          rotateEnabled={true}
-          enabledAnchors={['middle-left', 'middle-right']}
-          boundBoxFunc={(_oldBox, newBox) => {
-            newBox.width = Math.max(30, newBox.width);
-            return newBox;
-          }}
-        />
-        <Transformer
-          ref={multiTransformer}
-          onTransformEnd={onMultiTransformerEnd}
-          enabledAnchors={['top-left', 'top-right', 'bottom-left', 'bottom-right']}
-          boundBoxFunc={(_oldBox, newBox) => {
-            newBox.width = Math.max(30, newBox.width);
-            return newBox;
-          }}
-          ignoreStroke={true}
-        />
-      </Layer>
-    </Stage>
+    <Box overflow="hidden" maxW={boxWidth} maxH={boxHeight}>
+      <Stage
+        width={width * scale}
+        height={height * scale}
+        style={{ backgroundColor: 'white' }}
+        scaleX={scale}
+        scaleY={scale}
+        draggable={true}
+        ref={stageRef}
+        onMouseDown={checkDeselect}
+        onTouchStart={checkDeselect}
+        onWheel={handleZoom}
+        onDragMove={handleDragMoveStage}
+      >
+        <Layer>
+          {sortStageObject().map((obj) => (
+            <React.Fragment key={obj.id}>{renderStageObject(obj)}</React.Fragment>
+          ))}
+          <Transformer ref={imageTransformer} onTransformEnd={onImageTransformerEnd} ignoreStroke={true} />
+          <Transformer
+            ref={textTransformer}
+            onTransformEnd={onTextTransformerEnd}
+            rotationSnaps={[0, 90, 180, 270]}
+            rotateEnabled={true}
+            enabledAnchors={['middle-left', 'middle-right']}
+            boundBoxFunc={(_oldBox, newBox) => {
+              newBox.width = Math.max(30, newBox.width);
+              return newBox;
+            }}
+          />
+          <Transformer
+            ref={multiTransformer}
+            onTransformEnd={onMultiTransformerEnd}
+            enabledAnchors={['top-left', 'top-right', 'bottom-left', 'bottom-right']}
+            boundBoxFunc={(_oldBox, newBox) => {
+              newBox.width = Math.max(30, newBox.width);
+              return newBox;
+            }}
+            ignoreStroke={true}
+          />
+        </Layer>
+      </Stage>
+    </Box>
   );
 };
 

@@ -15,7 +15,7 @@ type TProps = {
 const ResizableText = ({ shapeProps, onDoubleClick, onSelect }: TProps) => {
   const { id, data } = shapeProps;
   const isFontLoaded = useFontFaceObserver([{ family: data.fontFamily }]);
-  const { onDragEnd } = useDragHandlers();
+  const { onDragStart, onDragEnd } = useDragHandlers();
 
   const textRef = useRef<Konva.Text | null>(null);
 
@@ -56,6 +56,7 @@ const ResizableText = ({ shapeProps, onDoubleClick, onSelect }: TProps) => {
       onTransform={handleResize}
       onClick={onSelect}
       onTap={onSelect}
+      onDragStart={onDragStart}
       onDragEnd={(e) => onDragEnd(e, { id, data })}
       onDblClick={onDoubleClick}
       onDblTap={onDoubleClick}

@@ -9,4 +9,5 @@ export enum KeyType {
   Z_INDEX_DOWN = 'ctrl+down',
   UNDO = 'ctrl+z',
   REDO = 'ctrl+y',
+  DRAG_STAGE = ' ', //space
 }
