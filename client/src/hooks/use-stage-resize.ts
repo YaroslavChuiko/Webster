@@ -1,20 +1,22 @@
 import { useState, useEffect } from 'react';
 import Konva from 'konva';
 import { KonvaEventObject } from 'konva/lib/Node';
+import { useDispatch } from 'react-redux';
 import { useAppSelector } from './use-app-selector';
+import { setScale } from '~/store/slices/frame-slice';
 import { FRAME_CONTAINER_PADDING } from '~/consts/components';
 
 type Props = {
-  stageRef: React.RefObject<Konva.Stage> | null;
+  stageRef?: React.RefObject<Konva.Stage> | null;
 };
 
 const useStageResize = ({ stageRef }: Props) => {
-  const { width, height } = useAppSelector((state) => state.frame);
-  const [scale, setScale] = useState(1);
+  const dispatch = useDispatch();
+  const { width, height, scale } = useAppSelector((state) => state.frame);
   const [boxWidth, setBoxWidth] = useState(500);
   const [boxHeight, setBoxHeight] = useState(500);
 
-  useEffect(() => {
+  const setStageSize = () => {
     const toolbar = document.querySelector('#toolbar') as HTMLElement;
     const navbar = document.querySelector('#navbar') as HTMLElement;
     const editingToolbar = document.querySelector('#editing_toolbar') as HTMLElement;
@@ -28,11 +30,15 @@ const useStageResize = ({ stageRef }: Props) => {
       const wScale = w / width;
       const hScale = h / height;
       if (wScale < hScale) {
-        setScale(wScale);
+        dispatch(setScale({ scale: wScale }));
       } else {
-        setScale(hScale);
+        dispatch(setScale({ scale: hScale }));
       }
     }
+  };
+
+  useEffect(() => {
+    setStageSize();
   }, [width, height]);
 
   const setStageCoodrs = () => {
@@ -68,7 +74,7 @@ const useStageResize = ({ stageRef }: Props) => {
     }
 
     const scaleBy = 1.01;
-    setScale(direction > 0 ? scale * scaleBy : scale / scaleBy);
+    dispatch(setScale({ scale: direction > 0 ? scale * scaleBy : scale / scaleBy }));
     setStageCoodrs();
   };
 
@@ -79,7 +85,7 @@ const useStageResize = ({ stageRef }: Props) => {
     setStageCoodrs();
   };
 
-  return { scale, boxWidth, boxHeight, handleZoom, handleDragMoveStage };
+  return { boxWidth, boxHeight, handleZoom, handleDragMoveStage, setStageSize };
 };
 
 export default useStageResize;

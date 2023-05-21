@@ -31,8 +31,8 @@ const Frame = ({ stageRef }: IProps) => {
 
   useHotkeySetup(transformers);
 
-  const { width, height } = useAppSelector((state) => state.frame);
-  const { scale, boxWidth, boxHeight, handleZoom, handleDragMoveStage } = useStageResize({ stageRef });
+  const { width, height, scale } = useAppSelector((state) => state.frame);
+  const { boxWidth, boxHeight, handleZoom, handleDragMoveStage } = useStageResize({ stageRef });
 
   useEffect(() => {
     const fontsToLoad = stageObjects
