@@ -8,10 +8,10 @@ export class EmailService {
     console.log(mailtrap);
     const transport = nodemailer.createTransport({
       host: 'sandbox.smtp.mailtrap.io',
-      port: 2525,
+      port: 25,
       auth: {
         user: mailtrap.user,
-        pass: mailtrap.user,
+        pass: mailtrap.password,
       },
     });
 

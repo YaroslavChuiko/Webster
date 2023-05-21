@@ -3,7 +3,6 @@ import {
   Controller,
   HttpCode,
   Post,
-  Query,
   Get,
   UseGuards,
 } from '@nestjs/common';
@@ -57,8 +56,8 @@ export class AuthController {
   @Post('verify-email')
   @HttpCode(200)
   async verifyEmail(
-    @Query() queryDto: VerifyEmailRequestQueryDto,
+    @Body() verifyEmailRequestQueryDto: VerifyEmailRequestQueryDto,
   ): Promise<UserResponseDto> {
-    return this.authService.verifyEmail(queryDto.token);
+    return this.authService.verifyEmail(verifyEmailRequestQueryDto.token);
   }
 }

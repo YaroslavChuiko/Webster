@@ -101,7 +101,7 @@ export class AuthService {
 
   async getEmailConfirmationUrl(email: string): Promise<string> {
     const token = await this.getEmailConfirmationJwt(email);
-    return `${appConfig.getConfirmUrl()}?j=${token}`;
+    return `${appConfig.getConfirmUrl()}?token=${token}`;
   }
 
   async getEmailConfirmationJwt(email: string): Promise<string> {

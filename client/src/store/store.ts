@@ -5,6 +5,7 @@ import storage from 'redux-persist/lib/storage';
 import { persistReducer, persistStore } from 'redux-persist';
 import stageObjectReducer from './slices/stage-object-slice';
 import selectedObjectReducer from './slices/selected-objects-slice';
+import authReducer from './slices/auth-slice';
 import copiedObjectReducer from './slices/copied-objects-slice';
 
 const persistConfig = {
@@ -19,6 +20,7 @@ const persistedReducer = persistReducer(
     frame: frameReducer,
     stage: stageObjectReducer,
     selected: selectedObjectReducer,
+    auth: authReducer,
     fontList: fontListReducer,
     copied: copiedObjectReducer,
   }),

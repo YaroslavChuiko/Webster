@@ -38,7 +38,7 @@ class AppConfig {
 
   getConfirmUrl(): string {
     const clientUrl = this.getValue('CLIENT_URL', true);
-    return `${clientUrl}/auth/verify`;
+    return `${clientUrl}/auth/verify-email`;
   }
 
   getPort(): string | number {
