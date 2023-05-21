@@ -3,6 +3,7 @@ import { useAppSelector } from './use-app-selector';
 import { stateObjectActions, stageObjectSelector } from '~/store/slices/stage-object-slice';
 import { copiedObjectActions, copiedObjectSelector } from '~/store/slices/copied-objects-slice';
 import useObjectSelect from './use-object-select';
+import useStageObject from './use-stage-object';
 import { RefObject } from 'react';
 import Konva from 'konva';
 import { nanoid } from '@reduxjs/toolkit';
@@ -19,6 +20,7 @@ const useHotkeysFunctions = ({ ...transformers }: Props) => {
   const { selected } = useAppSelector((state) => state.selected);
   const { resetObjectSelect } = useObjectSelect(transformers);
   const dispatch = useDispatch();
+  const { updateOne } = useStageObject();
 
   const onDeleteKey = () => {
     if (!selected.length) {
@@ -53,7 +55,7 @@ const useHotkeysFunctions = ({ ...transformers }: Props) => {
       stateObjectActions.addMany(
         copiedObjects.map((obj) => {
           const id = nanoid();
-          return { id: id, data: { ...obj.data, id } };
+          return { id: id, data: { ...obj.data, id, updatedAt: Date.now() } };
         }),
       ),
     );
@@ -79,13 +81,43 @@ const useHotkeysFunctions = ({ ...transformers }: Props) => {
       .filter((obj) => selected.includes(obj.id))
       .map((obj) => {
         const id = nanoid();
-        return { id: id, data: { ...obj.data, id } };
+        return { id: id, data: { ...obj.data, id, updatedAt: Date.now() } };
       });
 
     dispatch(stateObjectActions.addMany(selectedObjects));
   };
 
-  return { onDeleteKey, onCopyKey, onPasteKey, onCutKey, onDuplicateKey };
+  const onZIndexUpKey = () => {
+    if (!selected.length) {
+      return;
+    }
+
+    stageObjects
+      .filter((obj) => selected.includes(obj.id))
+      .forEach((obj) => {
+        updateOne({
+          id: obj.id,
+          data: { z_index: 1, updatedAt: Date.now() },
+        });
+      });
+  };
+
+  const onZIndexDownKey = () => {
+    if (!selected.length) {
+      return;
+    }
+
+    stageObjects
+      .filter((obj) => selected.includes(obj.id))
+      .forEach((obj) => {
+        updateOne({
+          id: obj.id,
+          data: { z_index: -1, updatedAt: Date.now() },
+        });
+      });
+  };
+
+  return { onDeleteKey, onCopyKey, onPasteKey, onCutKey, onDuplicateKey, onZIndexUpKey, onZIndexDownKey };
 };
 
 export default useHotkeysFunctions;

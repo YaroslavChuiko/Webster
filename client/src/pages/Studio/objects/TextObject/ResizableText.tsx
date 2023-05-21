@@ -14,8 +14,8 @@ type TProps = {
 
 const ResizableText = ({ shapeProps, onDoubleClick, onSelect }: TProps) => {
   const { id, data } = shapeProps;
-  const isFontLoaded = useFontFaceObserver([{ family: data.font.family }]);
-  const { onDragEnd } = useDragHandlers();
+  const isFontLoaded = useFontFaceObserver([{ family: data.fontFamily }]);
+  const { onDragStart, onDragEnd } = useDragHandlers();
 
   const textRef = useRef<Konva.Text | null>(null);
 
@@ -23,11 +23,8 @@ const ResizableText = ({ shapeProps, onDoubleClick, onSelect }: TProps) => {
     if (textRef.current !== null) {
       const textNode = textRef.current;
       const newWidth = textNode.width() * textNode.scaleX();
-      // const newHeight = textNode.height() * textNode.scaleY();
       textNode.setAttrs({
         width: newWidth,
-        // height: newHeight,
-        // fontSize: newHeight,
         scaleX: 1,
         scaleY: 1,
       });
@@ -43,7 +40,7 @@ const ResizableText = ({ shapeProps, onDoubleClick, onSelect }: TProps) => {
       draggable={data.draggable}
       width={data.width}
       text={data.text}
-      fontFamily={isFontLoaded ? data.font.family : 'sans-serif'}
+      fontFamily={isFontLoaded ? data.fontFamily : 'sans-serif'}
       fill={data.fill}
       fontSize={data.fontSize}
       lineHeight={data.lineHeight}
@@ -53,11 +50,14 @@ const ResizableText = ({ shapeProps, onDoubleClick, onSelect }: TProps) => {
       rotation={data.rotation}
       textDecoration={data.textDecoration}
       type={data.type}
+      z_index={data.z_index}
+      updatedAt={data.updatedAt}
       perfectDrawEnabled={true}
       onTransform={handleResize}
       onClick={onSelect}
       onTap={onSelect}
-      onDragEnd={(e) => onDragEnd(e, id)}
+      onDragStart={onDragStart}
+      onDragEnd={(e) => onDragEnd(e, { id, data })}
       onDblClick={onDoubleClick}
       onDblTap={onDoubleClick}
     />

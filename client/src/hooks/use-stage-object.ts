@@ -9,7 +9,7 @@ const useStageObject = () => {
   const stageObjects = useAppSelector(stageObjectSelector.selectAll);
 
   const createOne = (data: StageObjectData) => {
-    const payload: StageObject = { id: nanoid(), data };
+    const payload: StageObject = { id: nanoid(), data: { ...data, updatedAt: Date.now() } };
     dispatch(stateObjectActions.addOne(payload));
   };
 
@@ -30,11 +30,15 @@ const useStageObject = () => {
   };
 
   const removeOne = (id: string) => {
-    dispatch(stateObjectActions.removeOne(id));
+    dispatch(stateObjectActions.remove(id));
   };
 
   const resetAll = () => {
     dispatch(stateObjectActions.removeAll());
+  };
+
+  const replaceAll = (objects: StageObject[]) => {
+    dispatch(stateObjectActions.replaceAll(objects));
   };
 
   return {
@@ -43,6 +47,7 @@ const useStageObject = () => {
     updateOne,
     removeOne,
     resetAll,
+    replaceAll,
   };
 };
 export default useStageObject;

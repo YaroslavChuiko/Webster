@@ -1,4 +1,4 @@
-import { StageObjectData, StageObjectType } from '~/types/stage-object';
+import { FilterName, StageObjectData, StageObjectType } from '~/types/stage-object';
 
 export const DEFAULT_STAGE_OBJECT = {
   width: 100,
@@ -6,11 +6,19 @@ export const DEFAULT_STAGE_OBJECT = {
   x: 50,
   y: 50,
   draggable: true,
+  z_index: 0,
+  updatedAt: Date.now(),
+  offsetX: 0,
+  offsetY: 0,
+  scaleX: 1,
+  scaleY: 1,
 };
 
 export const DEFAULT_IMAGE_OBJECT: StageObjectData = {
   ...DEFAULT_STAGE_OBJECT,
   type: StageObjectType.IMAGE,
+  filterNames: [FilterName.brighten],
+  filterValues: {},
 };
 
 export const DEFAULT_TEXT_OBJECT: StageObjectData = {
@@ -23,12 +31,10 @@ export const DEFAULT_TEXT_OBJECT: StageObjectData = {
   letterSpacing: 0,
   fontStyle: 'normal',
   rotation: 0,
-  font: {
-    family: 'sans-serif',
-    variants: ['400', '400italic', '700', '700italic'], //regular, italic, 700, 700italic
-    webFont: false,
-  },
-  align: 'left',
+  fontFamily: 'sans-serif',
+  fontVariants: ['400', '400italic', '700', '700italic'], //regular, italic, 700, 700italic
+  webFont: false,
+  align: 'center',
   textDecoration: '',
   type: StageObjectType.TEXT,
 };

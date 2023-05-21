@@ -28,6 +28,7 @@
     "react-icons": "^4.8.0",
     "react-hotkeys-hook": "^4.4.0",
     "react-infinite-scroll-component": "^6.1.0",
+    "react-intersection-observer": "^9.4.3",
     "react-konva": "^18.2.7",
     "react-konva-utils": "^1.0.4",
     "react-redux": "^8.0.5",
@@ -38,6 +39,7 @@
     "yup": "^1.1.1"
   },
   "devDependencies": {
+    "@emotion/babel-plugin": "^11.11.0",
     "@types/fontfaceobserver": "^2.1.0",
     "@types/node": "^18.16.0",
     "@types/react": "^18.0.28",
@@ -45,7 +47,7 @@
     "@types/react-dom": "^18.0.11",
     "@typescript-eslint/eslint-plugin": "^5.57.1",
     "@typescript-eslint/parser": "^5.57.1",
-    "@vitejs/plugin-react-swc": "^3.0.0",
+    "@vitejs/plugin-react": "^4.0.0",
     "eslint": "^8.38.0",
     "eslint-config-prettier": "^8.8.0",
     "eslint-plugin-jsx-a11y": "^6.7.1",
