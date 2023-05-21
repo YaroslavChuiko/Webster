@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import Konva from 'konva';
+import { Box } from '@chakra-ui/react';
 import { Stage, Layer, Transformer } from 'react-konva';
 import { useAppSelector } from '~/hooks/use-app-selector';
 import TextObject from './objects/TextObject/TextObject';
@@ -31,6 +32,8 @@ const Frame = ({ stageRef }: IProps) => {
   useHotkeySetup(transformers);
 
   const [scale, setScale] = useState(1);
+  const [boxWidth, setBoxWidth] = useState(500);
+  const [boxHeight, setBoxHeight] = useState(500);
   const { width, height } = useAppSelector((state) => state.frame);
 
   useEffect(() => {
@@ -38,10 +41,14 @@ const Frame = ({ stageRef }: IProps) => {
     const navbar = document.querySelector('#navbar') as HTMLElement;
     const editingToolbar = document.querySelector('#editing_toolbar') as HTMLElement;
     if (toolbar && navbar && editingToolbar) {
-      const wScale = (window.innerWidth - toolbar.offsetWidth - FRAME_CONTAINER_PADDING * 2 - 10) / width;
-      const hScale =
-        (window.innerHeight - navbar.offsetHeight - editingToolbar.offsetHeight - FRAME_CONTAINER_PADDING * 2 - 10) /
-        height;
+      const w = window.innerWidth - toolbar.offsetWidth - FRAME_CONTAINER_PADDING * 2;
+      const h = window.innerHeight - navbar.offsetHeight - editingToolbar.offsetHeight - FRAME_CONTAINER_PADDING * 2;
+
+      setBoxWidth(w);
+      setBoxHeight(h);
+
+      const wScale = w / width;
+      const hScale = h / height;
       if (wScale < hScale) {
         setScale(wScale);
       } else {
@@ -65,6 +72,50 @@ const Frame = ({ stageRef }: IProps) => {
     if (clickedOnEmpty) {
       resetObjectSelect();
     }
+  };
+
+  const setStageCoodrs = () => {
+    let x = Math.min(stageRef?.current?.attrs.x, 0);
+    let y = Math.min(stageRef?.current?.attrs.y, 0);
+
+    const stageWidth = stageRef?.current?.attrs.width;
+    if (stageWidth <= boxWidth) {
+      x = 0;
+    } else if (stageWidth + x < boxWidth) {
+      x = boxWidth - stageWidth;
+    }
+
+    const stageHeight = stageRef?.current?.attrs.height;
+    if (stageHeight <= boxHeight) {
+      y = 0;
+    } else if (stageHeight + y < boxHeight) {
+      y = boxHeight - stageHeight;
+    }
+
+    stageRef?.current?.x(x);
+    stageRef?.current?.y(y);
+  };
+
+  const handleZoom = (e: KonvaEventObject<WheelEvent>) => {
+    e.evt.preventDefault();
+
+    let direction = e.evt.deltaY > 0 ? 1 : -1;
+
+    // when we zoom on trackpad, e.evt.ctrlKey is true, in that case lets revert direction
+    if (e.evt.ctrlKey) {
+      direction = -direction;
+    }
+
+    const scaleBy = 1.01;
+    setScale(direction > 0 ? scale * scaleBy : scale / scaleBy);
+    setStageCoodrs();
+  };
+
+  const handleDragMoveStage = (e: Konva.KonvaEventObject<DragEvent>) => {
+    e.evt.preventDefault();
+    e.evt.stopPropagation();
+
+    setStageCoodrs();
   };
 
   const sortStageObject = () => {
@@ -94,44 +145,49 @@ const Frame = ({ stageRef }: IProps) => {
   };
 
   return (
-    <Stage
-      width={width * scale}
-      height={height * scale}
-      style={{ backgroundColor: 'white', overflow: 'hidden' }}
-      scaleX={scale}
-      scaleY={scale}
-      ref={stageRef}
-      onMouseDown={checkDeselect}
-      onTouchStart={checkDeselect}
-    >
-      <Layer>
-        {sortStageObject().map((obj) => (
-          <React.Fragment key={obj.id}>{renderStageObject(obj)}</React.Fragment>
-        ))}
-        <Transformer ref={imageTransformer} onTransformEnd={onImageTransformerEnd} ignoreStroke={true} />
-        <Transformer
-          ref={textTransformer}
-          onTransformEnd={onTextTransformerEnd}
-          rotationSnaps={[0, 90, 180, 270]}
-          rotateEnabled={true}
-          enabledAnchors={['middle-left', 'middle-right']}
-          boundBoxFunc={(_oldBox, newBox) => {
-            newBox.width = Math.max(30, newBox.width);
-            return newBox;
-          }}
-        />
-        <Transformer
-          ref={multiTransformer}
-          onTransformEnd={onMultiTransformerEnd}
-          enabledAnchors={['top-left', 'top-right', 'bottom-left', 'bottom-right']}
-          boundBoxFunc={(_oldBox, newBox) => {
-            newBox.width = Math.max(30, newBox.width);
-            return newBox;
-          }}
-          ignoreStroke={true}
-        />
-      </Layer>
-    </Stage>
+    <Box overflow="hidden" maxW={boxWidth} maxH={boxHeight}>
+      <Stage
+        width={width * scale}
+        height={height * scale}
+        style={{ backgroundColor: 'white' }}
+        scaleX={scale}
+        scaleY={scale}
+        draggable={true}
+        ref={stageRef}
+        onMouseDown={checkDeselect}
+        onTouchStart={checkDeselect}
+        onWheel={handleZoom}
+        onDragMove={handleDragMoveStage}
+      >
+        <Layer>
+          {sortStageObject().map((obj) => (
+            <React.Fragment key={obj.id}>{renderStageObject(obj)}</React.Fragment>
+          ))}
+          <Transformer ref={imageTransformer} onTransformEnd={onImageTransformerEnd} ignoreStroke={true} />
+          <Transformer
+            ref={textTransformer}
+            onTransformEnd={onTextTransformerEnd}
+            rotationSnaps={[0, 90, 180, 270]}
+            rotateEnabled={true}
+            enabledAnchors={['middle-left', 'middle-right']}
+            boundBoxFunc={(_oldBox, newBox) => {
+              newBox.width = Math.max(30, newBox.width);
+              return newBox;
+            }}
+          />
+          <Transformer
+            ref={multiTransformer}
+            onTransformEnd={onMultiTransformerEnd}
+            enabledAnchors={['top-left', 'top-right', 'bottom-left', 'bottom-right']}
+            boundBoxFunc={(_oldBox, newBox) => {
+              newBox.width = Math.max(30, newBox.width);
+              return newBox;
+            }}
+            ignoreStroke={true}
+          />
+        </Layer>
+      </Stage>
+    </Box>
   );
 };
 
