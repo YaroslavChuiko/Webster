@@ -40,7 +40,7 @@ const useHotkeysFunctions = ({ ...transformers }: Props) => {
       .filter((obj) => selected.includes(obj.id))
       .map((obj) => {
         const id = nanoid();
-        return { id: id, data: { ...obj.data } };
+        return { id: id, data: { ...obj.data, id } };
       });
 
     dispatch(copiedObjectActions.setAll(selectedObjects));
@@ -55,7 +55,7 @@ const useHotkeysFunctions = ({ ...transformers }: Props) => {
       stateObjectActions.addMany(
         copiedObjects.map((obj) => {
           const id = nanoid();
-          return { id: id, data: { ...obj.data, updatedAt: Date.now() } };
+          return { id: id, data: { ...obj.data, id, updatedAt: Date.now() } };
         }),
       ),
     );
@@ -81,7 +81,7 @@ const useHotkeysFunctions = ({ ...transformers }: Props) => {
       .filter((obj) => selected.includes(obj.id))
       .map((obj) => {
         const id = nanoid();
-        return { id: id, data: { ...obj.data, updatedAt: Date.now() } };
+        return { id: id, data: { ...obj.data, id, updatedAt: Date.now() } };
       });
 
     dispatch(stateObjectActions.addMany(selectedObjects));
