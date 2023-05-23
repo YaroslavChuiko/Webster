@@ -8,10 +8,11 @@ import { StageObjectData } from '~/types/stage-object';
 import { ShapeType } from '~/types/shape-type';
 
 type IProps = {
+  shapeId: string;
   selectedObject: StageObjectData;
 };
 
-const Color = ({ selectedObject }: IProps) => {
+const Color = ({ shapeId, selectedObject }: IProps) => {
   const { updateOne } = useStageObject();
 
   const getTabIndex = () => {
@@ -30,7 +31,7 @@ const Color = ({ selectedObject }: IProps) => {
 
   useEffect(() => {
     setTabIndex(getTabIndex());
-  }, [selectedObject.id]);
+  }, [shapeId]);
 
   const handleTabChange = (index: number) => {
     setTabIndex(index);
@@ -49,7 +50,7 @@ const Color = ({ selectedObject }: IProps) => {
     }
 
     updateOne({
-      id: selectedObject.id,
+      id: shapeId,
       data: { fillPriority },
     });
   };
@@ -70,16 +71,16 @@ const Color = ({ selectedObject }: IProps) => {
           </TabList>
           <TabPanels>
             <TabPanel>
-              <SolidColor selectedObject={selectedObject} />
+              <SolidColor shapeId={shapeId} selectedObject={selectedObject} />
             </TabPanel>
             {selectedObject.shapeType !== ShapeType.ARROW && (
               <TabPanel>
-                <LinearColor selectedObject={selectedObject} />
+                <LinearColor shapeId={shapeId} selectedObject={selectedObject} />
               </TabPanel>
             )}
             {selectedObject.shapeType !== ShapeType.ARROW && (
               <TabPanel>
-                <RadialColor selectedObject={selectedObject} />
+                <RadialColor shapeId={shapeId} selectedObject={selectedObject} />
               </TabPanel>
             )}
           </TabPanels>

@@ -4,10 +4,11 @@ import useStageObject from '~/hooks/use-stage-object';
 import { StageObjectData } from '~/types/stage-object';
 
 type IProps = {
+  shapeId: string;
   selectedObject: StageObjectData;
 };
 
-const ArrowPointerPosition = ({ selectedObject }: IProps) => {
+const ArrowPointerPosition = ({ shapeId, selectedObject }: IProps) => {
   const { updateOne } = useStageObject();
 
   const [isPointerAtBeginning, setIsRointerAtBeginning] = useState(!!selectedObject.pointerAtBeginning);
@@ -16,13 +17,13 @@ const ArrowPointerPosition = ({ selectedObject }: IProps) => {
   useEffect(() => {
     setIsRointerAtBeginning(!!selectedObject.pointerAtBeginning);
     setIsRointerAtEnding(!!selectedObject.pointerAtEnding);
-  }, [selectedObject.id]);
+  }, [shapeId]);
 
   const handleIsPointerAtBeginningChange = () => {
     setIsRointerAtBeginning(!isPointerAtBeginning);
 
     updateOne({
-      id: selectedObject.id,
+      id: shapeId,
       data: { pointerAtBeginning: !isPointerAtBeginning },
     });
   };
@@ -31,7 +32,7 @@ const ArrowPointerPosition = ({ selectedObject }: IProps) => {
     setIsRointerAtEnding(!isPointerAtEnding);
 
     updateOne({
-      id: selectedObject.id,
+      id: shapeId,
       data: { pointerAtEnding: !isPointerAtEnding },
     });
   };

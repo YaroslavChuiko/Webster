@@ -14,10 +14,11 @@ import useStageObject from '~/hooks/use-stage-object';
 import { StageObjectData } from '~/types/stage-object';
 
 type IProps = {
+  shapeId: string;
   selectedObject: StageObjectData;
 };
 
-const ArrowSize = ({ selectedObject }: IProps) => {
+const ArrowSize = ({ shapeId, selectedObject }: IProps) => {
   const { updateOne } = useStageObject();
 
   const getArrowLength = () => {
@@ -32,13 +33,13 @@ const ArrowSize = ({ selectedObject }: IProps) => {
     setArrowLength(getArrowLength());
     setPointerLength(selectedObject.pointerLength);
     setPointerWidth(selectedObject.pointerWidth);
-  }, [selectedObject.id]);
+  }, [shapeId]);
 
   const handleArrowLengthChange = (al: number) => {
     setArrowLength(al);
 
     updateOne({
-      id: selectedObject.id,
+      id: shapeId,
       data: { points: [0, 0, al, 0] },
     });
   };
@@ -47,7 +48,7 @@ const ArrowSize = ({ selectedObject }: IProps) => {
     setPointerLength(pl);
 
     updateOne({
-      id: selectedObject.id,
+      id: shapeId,
       data: { pointerLength: pl },
     });
   };
@@ -56,7 +57,7 @@ const ArrowSize = ({ selectedObject }: IProps) => {
     setPointerWidth(pw);
 
     updateOne({
-      id: selectedObject.id,
+      id: shapeId,
       data: { pointerWidth: pw },
     });
   };

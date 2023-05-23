@@ -14,23 +14,24 @@ import useStageObject from '~/hooks/use-stage-object';
 import { StageObjectData } from '~/types/stage-object';
 
 type IProps = {
+  shapeId: string;
   selectedObject: StageObjectData;
 };
 
-const StarRadius = ({ selectedObject }: IProps) => {
+const StarRadius = ({ shapeId, selectedObject }: IProps) => {
   const { updateOne } = useStageObject();
 
   const [innerRadius, setInnerRadius] = useState(selectedObject.innerRadius);
 
   useEffect(() => {
     setInnerRadius(selectedObject.innerRadius);
-  }, [selectedObject.id]);
+  }, [shapeId]);
 
   const handleInnerRadiusChange = (ir: number) => {
     setInnerRadius(ir);
 
     updateOne({
-      id: selectedObject.id,
+      id: shapeId,
       data: { innerRadius: ir },
     });
   };

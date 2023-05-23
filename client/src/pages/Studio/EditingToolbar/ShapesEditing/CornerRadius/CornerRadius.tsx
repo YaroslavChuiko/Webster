@@ -5,17 +5,18 @@ import SeparateCorners from './SeparateCorners';
 import { StageObjectData } from '~/types/stage-object';
 
 type IProps = {
+  shapeId: string;
   selectedObject: StageObjectData;
 };
 
-const CornerRadius = ({ selectedObject }: IProps) => {
+const CornerRadius = ({ shapeId, selectedObject }: IProps) => {
   const getIsSeparateCorners = () => Array.isArray(selectedObject.cornerRadius);
 
   const [isSeparateCorners, setIsSeparateCorners] = useState(getIsSeparateCorners());
 
   useEffect(() => {
     setIsSeparateCorners(getIsSeparateCorners());
-  }, [selectedObject.id]);
+  }, [shapeId]);
 
   const handleIsSeparateCornersChange = () => {
     setIsSeparateCorners(!isSeparateCorners);
@@ -31,9 +32,9 @@ const CornerRadius = ({ selectedObject }: IProps) => {
         </FormControl>
 
         {isSeparateCorners ? (
-          <SeparateCorners selectedObject={selectedObject} />
+          <SeparateCorners shapeId={shapeId} selectedObject={selectedObject} />
         ) : (
-          <AllCorners selectedObject={selectedObject} />
+          <AllCorners shapeId={shapeId} selectedObject={selectedObject} />
         )}
       </MenuList>
     </Menu>

@@ -17,13 +17,14 @@ import { getRGBAString } from '~/utils/get-rgba-string';
 import { StageObjectData } from '~/types/stage-object';
 
 type IProps = {
+  shapeId: string;
   selectedObject: StageObjectData;
 };
 
 const INIT_BORDER_COLOR = '#000000';
 const INIT_BORDER_WIDTH = 5;
 
-const Border = ({ selectedObject }: IProps) => {
+const Border = ({ shapeId, selectedObject }: IProps) => {
   const { updateOne } = useStageObject();
 
   const getIsBorder = () => {
@@ -46,7 +47,7 @@ const Border = ({ selectedObject }: IProps) => {
     setIsBorder(getIsBorder());
     setBorderWidth(getBorderWidth());
     setBorderColor(getBorderColor());
-  }, [selectedObject.id]);
+  }, [shapeId]);
 
   const handleIsBorderChange = () => {
     setIsBorder(!isBorder);
@@ -62,7 +63,7 @@ const Border = ({ selectedObject }: IProps) => {
     }
 
     updateOne({
-      id: selectedObject.id,
+      id: shapeId,
       data: { stroke, strokeWidth },
     });
   };
@@ -71,7 +72,7 @@ const Border = ({ selectedObject }: IProps) => {
     setBorderWidth(w);
 
     updateOne({
-      id: selectedObject.id,
+      id: shapeId,
       data: { strokeWidth: w },
     });
   };
@@ -81,7 +82,7 @@ const Border = ({ selectedObject }: IProps) => {
     setBorderColor(rgbaC);
 
     updateOne({
-      id: selectedObject.id,
+      id: shapeId,
       data: { stroke: rgbaC },
     });
   };

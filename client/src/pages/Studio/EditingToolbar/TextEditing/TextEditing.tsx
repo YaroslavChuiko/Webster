@@ -1,4 +1,4 @@
-import { StageObjectData } from '~/types/stage-object';
+import { StageObject } from '~/types/stage-object';
 import TextColorPicker from './TextColorPicker';
 import FontSizeInput from './FontSizeInput';
 import FontStyleSettings from './FontStyleSettings';
@@ -8,27 +8,27 @@ import SpacingSettingsMenu from './SpacingSettingsMenu/SpacingSettingsMenu';
 import FontFamilyMenu from './FontFamilyMenu/FontFamilyMenu';
 
 type Props = {
-  selectedObject: StageObjectData;
+  selectedObject: StageObject;
 };
 
 const TextEditing = ({ selectedObject }: Props) => {
   return (
     <>
-      <FontFamilyMenu id={selectedObject.id} fontFamily={selectedObject.fontFamily} />
-      <FontSizeInput id={selectedObject.id} fontSize={selectedObject.fontSize} />
-      <TextColorPicker selectedObject={selectedObject} />
+      <FontFamilyMenu id={selectedObject.id} fontFamily={selectedObject.data.fontFamily} />
+      <FontSizeInput id={selectedObject.id} fontSize={selectedObject.data.fontSize} />
+      <TextColorPicker id={selectedObject.id} selectedObject={selectedObject.data} />
       <FontStyleSettings
         id={selectedObject.id}
-        fontVariants={selectedObject.fontVariants}
-        fontStyle={selectedObject.fontStyle}
-        webFont={selectedObject.webFont}
+        fontVariants={selectedObject.data.fontVariants}
+        fontStyle={selectedObject.data.fontStyle}
+        webFont={selectedObject.data.webFont}
       />
-      <TextDecorationSettings id={selectedObject.id} textDecoration={selectedObject.textDecoration} />
-      <TextAlignment id={selectedObject.id} textAlign={selectedObject.align} />
+      <TextDecorationSettings id={selectedObject.id} textDecoration={selectedObject.data.textDecoration} />
+      <TextAlignment id={selectedObject.id} textAlign={selectedObject.data.align} />
       <SpacingSettingsMenu
         id={selectedObject.id}
-        letterSpacing={selectedObject.letterSpacing}
-        lineHeight={selectedObject.lineHeight}
+        letterSpacing={selectedObject.data.letterSpacing}
+        lineHeight={selectedObject.data.lineHeight}
       />
     </>
   );

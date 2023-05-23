@@ -7,10 +7,11 @@ import { StageObjectData } from '~/types/stage-object';
 import { ShapeType } from '~/types/shape-type';
 
 type IProps = {
+  shapeId: string;
   selectedObject: StageObjectData;
 };
 
-const RadialColor = ({ selectedObject }: IProps) => {
+const RadialColor = ({ shapeId, selectedObject }: IProps) => {
   const { updateOne } = useStageObject();
 
   const getRadialGradientColor = (index: number) => {
@@ -26,7 +27,7 @@ const RadialColor = ({ selectedObject }: IProps) => {
   useEffect(() => {
     setRadialColor1(getRadialGradientColor(1));
     setRadialColor2(getRadialGradientColor(3));
-  }, [selectedObject.id]);
+  }, [shapeId]);
 
   const getRadialCoords = () => {
     if (selectedObject.shapeType === ShapeType.RECT) {
@@ -66,7 +67,7 @@ const RadialColor = ({ selectedObject }: IProps) => {
     fillRadialGradientColorStops[index] = getRGBAString(c.rgb);
 
     updateOne({
-      id: selectedObject.id,
+      id: shapeId,
       data: { fillPriority: 'radial-gradient', ...getRadialCoords(), fillRadialGradientColorStops },
     });
   };

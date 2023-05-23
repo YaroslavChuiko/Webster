@@ -5,23 +5,33 @@ import Shadow from './Shadow';
 import StarRadius from './StarRadius';
 import ArrowSize from './ArrowSize';
 import ArrowPointerPosition from './ArrowPointerPosition';
-import { StageObjectData } from '~/types/stage-object';
+import { StageObject } from '~/types/stage-object';
 import { ShapeType } from '~/types/shape-type';
 
 type IProps = {
-  selectedObject: StageObjectData;
+  selectedObject: StageObject;
 };
 
 const ShapesEditing = ({ selectedObject }: IProps) => {
   return (
     <>
-      <Color selectedObject={selectedObject} />
-      {selectedObject.shapeType !== ShapeType.ARROW && <Border selectedObject={selectedObject} />}
-      {selectedObject.shapeType === ShapeType.RECT && <CornerRadius selectedObject={selectedObject} />}
-      <Shadow selectedObject={selectedObject} />
-      {selectedObject.shapeType === ShapeType.STAR && <StarRadius selectedObject={selectedObject} />}
-      {selectedObject.shapeType === ShapeType.ARROW && <ArrowSize selectedObject={selectedObject} />}
-      {selectedObject.shapeType === ShapeType.ARROW && <ArrowPointerPosition selectedObject={selectedObject} />}
+      <Color shapeId={selectedObject.id} selectedObject={selectedObject.data} />
+      {selectedObject.data.shapeType !== ShapeType.ARROW && (
+        <Border shapeId={selectedObject.id} selectedObject={selectedObject.data} />
+      )}
+      {selectedObject.data.shapeType === ShapeType.RECT && (
+        <CornerRadius shapeId={selectedObject.id} selectedObject={selectedObject.data} />
+      )}
+      <Shadow shapeId={selectedObject.id} selectedObject={selectedObject.data} />
+      {selectedObject.data.shapeType === ShapeType.STAR && (
+        <StarRadius shapeId={selectedObject.id} selectedObject={selectedObject.data} />
+      )}
+      {selectedObject.data.shapeType === ShapeType.ARROW && (
+        <ArrowSize shapeId={selectedObject.id} selectedObject={selectedObject.data} />
+      )}
+      {selectedObject.data.shapeType === ShapeType.ARROW && (
+        <ArrowPointerPosition shapeId={selectedObject.id} selectedObject={selectedObject.data} />
+      )}
     </>
   );
 };

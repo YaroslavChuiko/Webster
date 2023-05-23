@@ -48,9 +48,9 @@ const EditingToolbar = () => {
       case StageObjectType.IMAGE:
         return <ImageEditing selectedObject={selectedObject} />;
       case StageObjectType.SHAPE:
-        return <ShapesEditing selectedObject={selectedObject.data} />;
+        return <ShapesEditing selectedObject={selectedObject} />;
       case StageObjectType.TEXT:
-        return <TextEditing selectedObject={selectedObject.data} />;
+        return <TextEditing selectedObject={selectedObject} />;
       default:
         return null;
     }

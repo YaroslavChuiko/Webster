@@ -7,10 +7,11 @@ import { StageObjectData } from '~/types/stage-object';
 import { ShapeType } from '~/types/shape-type';
 
 type IProps = {
+  shapeId: string;
   selectedObject: StageObjectData;
 };
 
-const LinearColor = ({ selectedObject }: IProps) => {
+const LinearColor = ({ shapeId, selectedObject }: IProps) => {
   const { updateOne } = useStageObject();
 
   const getLinearGradientColor = (index: number) => {
@@ -30,7 +31,7 @@ const LinearColor = ({ selectedObject }: IProps) => {
     setLinearColor1(getLinearGradientColor(1));
     setLinearColor2(getLinearGradientColor(3));
     setAngle(getAngle());
-  }, [selectedObject.id]);
+  }, [shapeId]);
 
   const getLinearCoords = (a?: number) => {
     let width = selectedObject.width / 2;
@@ -85,7 +86,7 @@ const LinearColor = ({ selectedObject }: IProps) => {
     fillLinearGradientColorStops[index] = getRGBAString(c.rgb);
 
     updateOne({
-      id: selectedObject.id,
+      id: shapeId,
       data: { fillPriority: 'linear-gradient', ...getLinearCoords(), fillLinearGradientColorStops },
     });
   };
@@ -94,7 +95,7 @@ const LinearColor = ({ selectedObject }: IProps) => {
     setAngle(a);
 
     updateOne({
-      id: selectedObject.id,
+      id: shapeId,
       data: { fillPriority: 'linear-gradient', ...getLinearCoords(a), angle: a },
     });
   };

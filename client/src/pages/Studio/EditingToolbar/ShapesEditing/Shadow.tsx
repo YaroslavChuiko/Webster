@@ -17,13 +17,14 @@ import { getRGBAString } from '~/utils/get-rgba-string';
 import { StageObjectData } from '~/types/stage-object';
 
 type IProps = {
+  shapeId: string;
   selectedObject: StageObjectData;
 };
 
 const INIT_SHADOW_COLOR = '#000000';
 const INIT_SHADOW_OFFSET = 5;
 
-const Shadow = ({ selectedObject }: IProps) => {
+const Shadow = ({ shapeId, selectedObject }: IProps) => {
   const { updateOne } = useStageObject();
 
   const getIsShadow = () => {
@@ -58,13 +59,13 @@ const Shadow = ({ selectedObject }: IProps) => {
     setShadowOffsetY(getShadowOffsetY());
     setShadowBlur(getShadowBlur());
     setShadowColor(getShadowColor());
-  }, [selectedObject.id]);
+  }, [shapeId]);
 
   const handleIsShadowChange = () => {
     setIsShadow(!isShadow);
 
     updateOne({
-      id: selectedObject.id,
+      id: shapeId,
       data: { shadowEnabled: !isShadow, shadowOffsetX, shadowOffsetY, shadowBlur, shadowColor },
     });
   };
@@ -73,7 +74,7 @@ const Shadow = ({ selectedObject }: IProps) => {
     setShadowOffsetX(x);
 
     updateOne({
-      id: selectedObject.id,
+      id: shapeId,
       data: { shadowOffsetX: x },
     });
   };
@@ -82,7 +83,7 @@ const Shadow = ({ selectedObject }: IProps) => {
     setShadowOffsetY(y);
 
     updateOne({
-      id: selectedObject.id,
+      id: shapeId,
       data: { shadowOffsetY: y },
     });
   };
@@ -91,7 +92,7 @@ const Shadow = ({ selectedObject }: IProps) => {
     setShadowBlur(b);
 
     updateOne({
-      id: selectedObject.id,
+      id: shapeId,
       data: { shadowBlur: b },
     });
   };
@@ -101,7 +102,7 @@ const Shadow = ({ selectedObject }: IProps) => {
     setShadowColor(rgbaC);
 
     updateOne({
-      id: selectedObject.id,
+      id: shapeId,
       data: { shadowColor: rgbaC },
     });
   };

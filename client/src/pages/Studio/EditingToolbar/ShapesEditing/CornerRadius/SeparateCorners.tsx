@@ -11,10 +11,11 @@ const cornerIndexes = {
 };
 
 type IProps = {
+  shapeId: string;
   selectedObject: StageObjectData;
 };
 
-const SeparateCorners = ({ selectedObject }: IProps) => {
+const SeparateCorners = ({ shapeId, selectedObject }: IProps) => {
   const { updateOne } = useStageObject();
 
   const getSeparateCornerRadius = (index: number) => {
@@ -41,7 +42,7 @@ const SeparateCorners = ({ selectedObject }: IProps) => {
     setTopRightCornerRadius(getSeparateCornerRadius(cornerIndexes.topRight));
     setBottomLeftCornerRadius(getSeparateCornerRadius(cornerIndexes.bottomLeft));
     setBottomRightCornerRadius(getSeparateCornerRadius(cornerIndexes.bottomRight));
-  }, [selectedObject.id]);
+  }, [shapeId]);
 
   const handleSeparateCornersRadiusChange = (
     r: number,
@@ -60,7 +61,7 @@ const SeparateCorners = ({ selectedObject }: IProps) => {
     cornerRadiusArray[index] = r;
 
     updateOne({
-      id: selectedObject.id,
+      id: shapeId,
       data: { cornerRadius: cornerRadiusArray },
     });
   };

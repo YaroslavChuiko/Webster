@@ -4,10 +4,11 @@ import useStageObject from '~/hooks/use-stage-object';
 import { StageObjectData } from '~/types/stage-object';
 
 type IProps = {
+  shapeId: string;
   selectedObject: StageObjectData;
 };
 
-const AllCorners = ({ selectedObject }: IProps) => {
+const AllCorners = ({ shapeId, selectedObject }: IProps) => {
   const { updateOne } = useStageObject();
 
   const getAllCornerRadius = () => {
@@ -21,13 +22,13 @@ const AllCorners = ({ selectedObject }: IProps) => {
 
   useEffect(() => {
     setAllCornersRadius(getAllCornerRadius());
-  }, [selectedObject.id]);
+  }, [shapeId]);
 
   const handleAllCornersRadiusChange = (r: number) => {
     setAllCornersRadius(r);
 
     updateOne({
-      id: selectedObject.id,
+      id: shapeId,
       data: { cornerRadius: r },
     });
   };

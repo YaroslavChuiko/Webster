@@ -6,17 +6,18 @@ import { StageObjectData } from '~/types/stage-object';
 import { ShapeType } from '~/types/shape-type';
 
 type IProps = {
+  shapeId: string;
   selectedObject: StageObjectData;
 };
 
-const SolidColor = ({ selectedObject }: IProps) => {
+const SolidColor = ({ shapeId, selectedObject }: IProps) => {
   const { updateOne } = useStageObject();
 
   const [color, setColor] = useState(selectedObject.fill);
 
   useEffect(() => {
     setColor(selectedObject.fill);
-  }, [selectedObject.id]);
+  }, [shapeId]);
 
   const handleSolidColorChange = (c: ColorResult) => {
     const rgbaC = getRGBAString(c.rgb);
@@ -28,7 +29,7 @@ const SolidColor = ({ selectedObject }: IProps) => {
     }
 
     updateOne({
-      id: selectedObject.id,
+      id: shapeId,
       data: { fill: rgbaC, fillPriority: 'color', stroke },
     });
   };

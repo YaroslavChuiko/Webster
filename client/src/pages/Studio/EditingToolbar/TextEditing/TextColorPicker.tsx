@@ -3,10 +3,11 @@ import { StageObjectData } from '~/types/stage-object';
 import SolidColor from '../ShapesEditing/Color/SolidColor';
 
 type Props = {
+  id: string;
   selectedObject: StageObjectData;
 };
 
-const TextColorPicker = ({ selectedObject }: Props) => {
+const TextColorPicker = ({ id, selectedObject }: Props) => {
   return (
     <Menu>
       <Tooltip hasArrow label="Text color" placement="bottom" openDelay={500}>
@@ -26,7 +27,7 @@ const TextColorPicker = ({ selectedObject }: Props) => {
         </MenuButton>
       </Tooltip>
       <MenuList padding="0">
-        <SolidColor selectedObject={selectedObject} />
+        <SolidColor shapeId={id} selectedObject={selectedObject} />
       </MenuList>
     </Menu>
   );
