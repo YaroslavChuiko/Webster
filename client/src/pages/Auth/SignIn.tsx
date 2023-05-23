@@ -26,7 +26,7 @@ import { RootState } from '~/store/store';
 import { useSelector } from 'react-redux';
 import { ThunkDispatch } from '@reduxjs/toolkit';
 import { AnyAction } from 'redux';
-import {baseQuery} from "~/consts/api";
+import { baseQuery } from '~/consts/api';
 
 function SignIn() {
   const navigate = useNavigate();
@@ -73,7 +73,7 @@ function SignIn() {
               <Heading>Log in to your account</Heading>
               <HStack spacing="1" justify="center">
                 <Text color="muted">Dont have an account?</Text>
-                <Link as={RouterLink} color={'blue.400'} to="/auth/sign-up">
+                <Link as={RouterLink} color={'pink.500'} to="/auth/sign-up">
                   Sign Up
                 </Link>
               </HStack>
@@ -82,9 +82,10 @@ function SignIn() {
           <Box
             py={{ base: '0', sm: '8' }}
             px={{ base: '4', sm: '10' }}
-            bg={{ base: 'transparent', sm: 'bg-surface' }}
+            bg={{ base: 'transparent', sm: 'white' }}
             boxShadow={{ base: 'none', sm: 'md' }}
             borderRadius={{ base: 'none', sm: 'xl' }}
+            w={{ base: '100%', sm: '450px' }}
           >
             <Stack spacing="6">
               <Stack spacing="5">
@@ -115,13 +116,15 @@ function SignIn() {
                 </FormControl>
               </Stack>
               <HStack justify="space-between">
-                <Checkbox defaultChecked>Remember me</Checkbox>
-                <Button variant="link" colorScheme="blue" size="sm">
+                <Checkbox defaultChecked colorScheme="pink">
+                  Remember me
+                </Checkbox>
+                <Button variant="link" colorScheme="pink" size="sm">
                   Forgot password?
                 </Button>
               </HStack>
               <Stack spacing="6">
-                <Button type="submit" colorScheme="blue" isLoading={authState.loading}>
+                <Button type="submit" colorScheme="pink" isLoading={authState.loading}>
                   {authState.loading ? 'Signing in...' : 'Sign in'}
                 </Button>
               </Stack>
