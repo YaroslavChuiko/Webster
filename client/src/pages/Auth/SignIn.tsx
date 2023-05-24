@@ -91,7 +91,13 @@ function SignIn() {
               <Stack spacing="5">
                 <FormControl>
                   <FormLabel htmlFor="email">Email</FormLabel>
-                  <Input id="email" type="email" value={email} onChange={(event) => setEmail(event.target.value)} />
+                  <Input
+                    id="email"
+                    type="email"
+                    focusBorderColor="pink.500"
+                    value={email}
+                    onChange={(event) => setEmail(event.target.value)}
+                  />
                 </FormControl>
                 <FormControl>
                   <FormLabel htmlFor="password">Password</FormLabel>
@@ -110,6 +116,7 @@ function SignIn() {
                       name="password"
                       type={isOpen ? 'text' : 'password'}
                       autoComplete="current-password"
+                      focusBorderColor="pink.500"
                       required
                     />
                   </InputGroup>

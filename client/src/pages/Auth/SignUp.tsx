@@ -123,7 +123,7 @@ export default function SignUp() {
                     {({ field, form }) => (
                       <FormControl id="username" isRequired isInvalid={form.errors.username && form.touched.username}>
                         <FormLabel>Username</FormLabel>
-                        <Input {...field} type="text" />
+                        <Input {...field} type="text" focusBorderColor="pink.500" />
                         <ErrorMessage name="username" />
                       </FormControl>
                     )}
@@ -133,7 +133,7 @@ export default function SignUp() {
                   {({ field, form }) => (
                     <FormControl id="email" isRequired isInvalid={form.errors.email && form.touched.email}>
                       <FormLabel>Email address</FormLabel>
-                      <Input {...field} type="email" />
+                      <Input {...field} type="email" focusBorderColor="pink.500" />
                       <ErrorMessage name="email" />
                     </FormControl>
                   )}
@@ -143,7 +143,7 @@ export default function SignUp() {
                     <FormControl isInvalid={form.errors.password && form.touched.password}>
                       <FormLabel>Password</FormLabel>
                       <InputGroup>
-                        <Input {...field} type={showPassword ? 'text' : 'password'} />
+                        <Input {...field} type={showPassword ? 'text' : 'password'} focusBorderColor="pink.500" />
                         <InputRightElement h={'full'}>
                           <Button variant={'ghost'} onClick={() => setShowPassword((showPassword) => !showPassword)}>
                             {showPassword ? <ViewIcon /> : <ViewOffIcon />}
@@ -159,7 +159,7 @@ export default function SignUp() {
                     <FormControl isInvalid={form.errors.passwordConfirm && form.touched.passwordConfirm}>
                       <FormLabel>Password Confirm</FormLabel>
                       <InputGroup>
-                        <Input {...field} type={showPassword ? 'text' : 'password'} />
+                        <Input {...field} type={showPassword ? 'text' : 'password'} focusBorderColor="pink.500" />
                         <InputRightElement h={'full'}>
                           <Button variant={'ghost'} onClick={() => setShowPassword((showPassword) => !showPassword)}>
                             {showPassword ? <ViewIcon /> : <ViewOffIcon />}
