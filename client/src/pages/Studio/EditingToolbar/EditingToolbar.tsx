@@ -1,16 +1,17 @@
-import { Button, HStack } from '@chakra-ui/react';
-import { useAppSelector } from '~/hooks/use-app-selector';
-import { stageObjectSelector } from '~/store/slices/stage-object-slice';
-import ShapesEditing from './ShapesEditing/ShapesEditing';
-import { StageObjectType } from '~/types/stage-object';
-import { EDITING_TOOLBAR_HEIGHT } from '~/consts/components';
-import TextEditing from './TextEditing/TextEditing';
-import ImageEditing from './ImageEditing/ImageEditing';
-import useHistory from '~/hooks/use-history';
+import { HStack, Icon, IconButton, Tooltip } from '@chakra-ui/react';
 import { useEffect } from 'react';
 import { useHotkeys } from 'react-hotkeys-hook';
-import useStageResize from '~/hooks/use-stage-resize';
+import { HiOutlineRefresh, HiOutlineReply } from 'react-icons/hi';
+import { EDITING_TOOLBAR_HEIGHT } from '~/consts/components';
 import { KeyType } from '~/consts/keys';
+import { useAppSelector } from '~/hooks/use-app-selector';
+import useHistory from '~/hooks/use-history';
+import useStageResize from '~/hooks/use-stage-resize';
+import { stageObjectSelector } from '~/store/slices/stage-object-slice';
+import { StageObjectType } from '~/types/stage-object';
+import ImageEditing from './ImageEditing/ImageEditing';
+import ShapesEditing from './ShapesEditing/ShapesEditing';
+import TextEditing from './TextEditing/TextEditing';
 
 const EditingToolbar = () => {
   const stageObjects = useAppSelector(stageObjectSelector.selectAll);
@@ -57,16 +58,24 @@ const EditingToolbar = () => {
   };
 
   return (
-    <HStack h={`${EDITING_TOOLBAR_HEIGHT}px`} id="editing_toolbar" spacing={2} sx={{ px: 4 }}>
-      <Button colorScheme="blue" variant="outline" onClick={() => goBack()}>
-        Undo
-      </Button>
-      <Button colorScheme="blue" variant="outline" onClick={() => goForward()}>
-        Redo
-      </Button>
-      <Button colorScheme="blue" variant="outline" onClick={() => setStageSize()}>
-        Reset zoom
-      </Button>
+    <HStack h={`${EDITING_TOOLBAR_HEIGHT}px`} id="editing_toolbar" spacing={2} sx={{ px: 4 }} bgColor="white">
+      <Tooltip hasArrow label="Undo Ctrl + Z" placement="bottom" openDelay={500}>
+        <IconButton aria-label="Undo" icon={<Icon as={HiOutlineReply} boxSize={5} />} onClick={() => goBack()} />
+      </Tooltip>
+      <Tooltip hasArrow label="Redo Ctrl + Y" placement="bottom" openDelay={500}>
+        <IconButton
+          aria-label="Redo"
+          icon={<Icon as={HiOutlineReply} transform="scaleX(-1)" boxSize={5} />}
+          onClick={() => goForward()}
+        />
+      </Tooltip>
+      <Tooltip hasArrow label="Reset zoom" placement="bottom" openDelay={500}>
+        <IconButton
+          aria-label="Reset zoom"
+          icon={<Icon as={HiOutlineRefresh} boxSize={5} />}
+          onClick={() => setStageSize()}
+        />
+      </Tooltip>
       {renderEditing()}
     </HStack>
   );
