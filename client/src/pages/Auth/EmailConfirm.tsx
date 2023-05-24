@@ -3,7 +3,7 @@ import { useNavigate } from 'react-router-dom';
 import { Box, Button, Text, Container, Flex, Fade, SlideFade, useToast } from '@chakra-ui/react';
 import { useLocation } from 'react-router-dom';
 import Loader from '~/components/Loader/Loader';
-import {baseQuery} from "~/consts/api";
+import { baseQuery } from '~/consts/api';
 
 function EmailConfirm() {
   const navigate = useNavigate();
