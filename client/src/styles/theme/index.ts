@@ -10,30 +10,8 @@ const theme = extendTheme({
       primary: {
         default: 'pink.500',
       },
-      // hover: {
-      //   default: 'blue.800',
-      // },
-      // tertiary: {
-      //   default: 'purple.500',
-      // },
-      // text: {
-      //   default: 'white',
-      // },
     },
   },
-  // components: {
-  //   Button: {
-  //     variants: {
-  //       'navbar-transparent': {
-  //         color: 'white',
-  //         bg: 'transparent',
-  //         _hover: {
-  //           bg: 'pink.400',
-  //         },
-  //       },
-  //     },
-  //   },
-  // },
 });
 
 export default theme;
