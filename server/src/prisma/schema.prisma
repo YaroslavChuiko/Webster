@@ -5,14 +5,26 @@ datasource db {
 
 generator client {
   provider = "prisma-client-js"
+  previewFeatures = ["fullTextSearch", "extendedWhereUnique"]
 }
 
 model User {
-  id               String  @id @default(uuid()) @db.Uuid
-  email            String  @unique @db.VarChar(255)
-  username         String  @db.VarChar(50)
-  password         String  @db.VarChar(255)
-  isEmailConfirmed Boolean @default(false) @db.Boolean
-  // not sure if needed
-  // refreshToken     String? @db.VarChar(255)
+  id               String    @id @default(uuid()) @db.Uuid
+  email            String    @unique @db.VarChar(255)
+  username         String    @db.VarChar(50)
+  password         String    @db.VarChar(255)
+  isEmailConfirmed Boolean   @default(false) @db.Boolean
+  canvases         Canvas[]
 }
+
+model Canvas {
+  id          String    @id @default(uuid()) @db.Uuid
+  author      User      @relation(fields: [authorId], references: [id])
+  authorId    String    @db.Uuid
+  name        String    @db.VarChar(50)
+  description String    @db.VarChar(255)
+  content     Json
+  createdAt   DateTime? @default(now()) @db.Timestamp
+  updatedAt   DateTime? @default(now()) @db.Timestamp
+}
+
