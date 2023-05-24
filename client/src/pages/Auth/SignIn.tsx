@@ -26,7 +26,7 @@ import { RootState } from '~/store/store';
 import { useSelector } from 'react-redux';
 import { ThunkDispatch } from '@reduxjs/toolkit';
 import { AnyAction } from 'redux';
-import {baseQuery} from "~/consts/api";
+import { baseQuery } from '~/consts/api';
 
 function SignIn() {
   const navigate = useNavigate();

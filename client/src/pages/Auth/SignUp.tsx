@@ -20,7 +20,7 @@ import { Formik, Field, Form, ErrorMessage } from 'formik';
 import * as Yup from 'yup';
 import { useToast } from '@chakra-ui/react';
 import { Link as RouterLink, useNavigate } from 'react-router-dom';
-import {baseQuery} from "~/consts/api";
+import { baseQuery } from '~/consts/api';
 
 export default function SignUp() {
   const [showPassword, setShowPassword] = useState(false);
