@@ -1,6 +1,6 @@
-import { CloseIcon } from '@chakra-ui/icons';
-import { FormControl, HStack, IconButton, Input, InputGroup } from '@chakra-ui/react';
+import { FormControl, HStack, Icon, IconButton, Input, InputGroup, InputLeftElement } from '@chakra-ui/react';
 import { useForm } from 'react-hook-form';
+import { HiOutlineSearch, HiOutlineX } from 'react-icons/hi';
 
 export type TFilter = {
   query: string;
@@ -30,10 +30,24 @@ const SearchForm = ({ onSubmit, onReset, placeholder }: Props) => {
       <FormControl>
         <HStack>
           <InputGroup>
-            <Input id="query" placeholder={placeholder} {...register('query')} />
+            <InputLeftElement>
+              <Icon as={HiOutlineSearch} boxSize={5} />
+            </InputLeftElement>
+            <Input
+              id="query"
+              variant="filled"
+              focusBorderColor="pink.500"
+              placeholder={placeholder}
+              {...register('query')}
+            />
           </InputGroup>
           {isSubmitted && (
-            <IconButton type="button" onClick={resetHandler} aria-label="search-btn" icon={<CloseIcon />} />
+            <IconButton
+              type="button"
+              onClick={resetHandler}
+              aria-label="search-btn"
+              icon={<Icon as={HiOutlineX} boxSize={5} />}
+            />
           )}
         </HStack>
       </FormControl>

@@ -1,6 +1,6 @@
-import { SearchIcon } from '@chakra-ui/icons';
-import { FormControl, HStack, IconButton, Input, InputGroup } from '@chakra-ui/react';
+import { FormControl, HStack, Icon, IconButton, Input, InputGroup } from '@chakra-ui/react';
 import { useForm } from 'react-hook-form';
+import { HiOutlineSearch } from 'react-icons/hi';
 
 type IFilter = {
   query: string;
@@ -23,9 +23,16 @@ const SearchForm = ({ setSearch, setQueryReset }: Props) => {
       <FormControl>
         <HStack>
           <InputGroup>
-            <Input id="query" type="search" placeholder="Search photos" {...register('query')} />
+            <Input
+              id="query"
+              type="search"
+              variant="filled"
+              focusBorderColor="pink.500"
+              placeholder="Search photos"
+              {...register('query')}
+            />
           </InputGroup>
-          <IconButton type="submit" aria-label="search-btn" icon={<SearchIcon />} />
+          <IconButton type="submit" aria-label="search-btn" icon={<Icon as={HiOutlineSearch} boxSize={5} />} />
         </HStack>
       </FormControl>
     </form>

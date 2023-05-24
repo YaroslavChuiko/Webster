@@ -61,11 +61,11 @@ const Images = () => {
 
   return (
     <VStack id="imageGrid" spacing={3} sx={{ p: 4, position: 'relative', h: '100%', overflowY: 'auto' }}>
-      <VStack bgColor="gray.300" w="100%" spacing={3} sx={{ mt: '-4', py: '4', top: '-4', position: 'sticky' }}>
+      <VStack bgColor="white" w="100%" spacing={3} sx={{ mt: '-4', py: '4', top: '-4', position: 'sticky' }}>
         <SearchForm setSearch={setQuery} setQueryReset={setQueryReset} />
         <Text>
           View more on{' '}
-          <Link isExternal color="teal.500" as={RouterLink} to={UNSPLASH_URL}>
+          <Link isExternal color="pink.500" as={RouterLink} to={UNSPLASH_URL}>
             Unsplash
           </Link>
         </Text>
