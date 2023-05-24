@@ -37,7 +37,15 @@ const CustomNumberInput = ({ min, max, step, value, pattern = /^\d$/, mark, labe
           <NumberInputField px="5px" textAlign="center" />
         </NumberInput>
       </Flex>
-      <Slider focusThumbOnChange={false} min={min} max={max} step={step} value={value} onChange={onChange}>
+      <Slider
+        colorScheme="pink"
+        focusThumbOnChange={false}
+        min={min}
+        max={max}
+        step={step}
+        value={value}
+        onChange={onChange}
+      >
         {typeof mark === 'number' && (
           <SliderMark value={mark} fontSize="sm">
             {mark}

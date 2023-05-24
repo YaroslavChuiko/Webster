@@ -1,4 +1,5 @@
-import { Button, Menu, MenuButton, MenuList, Tooltip } from '@chakra-ui/react';
+import { Icon, IconButton, Menu, MenuButton, MenuList, Tooltip } from '@chakra-ui/react';
+import { HiOutlineAdjustments } from 'react-icons/hi';
 import LetterSpacingSettings from './LetterSpacingSettings';
 import LineSpacingSettings from './LineSpacingSetting';
 
@@ -12,7 +13,7 @@ const SpacingSettingsMenu = ({ id, letterSpacing, lineHeight }: Props) => {
   return (
     <Menu>
       <Tooltip hasArrow label="Spacing" placement="bottom" openDelay={500}>
-        <MenuButton as={Button} px="5px">
+        <MenuButton as={IconButton} aria-label="Spacing" icon={<Icon as={HiOutlineAdjustments} boxSize={5} />} px="5px">
           S
         </MenuButton>
       </Tooltip>

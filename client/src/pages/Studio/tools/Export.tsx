@@ -30,7 +30,11 @@ const Export = ({ stageRef }: IProps) => {
     }
   };
 
-  return <Button onClick={handleExport}>Export</Button>;
+  return (
+    <Button onClick={handleExport} w="100%">
+      Export
+    </Button>
+  );
 };
 
 export default Export;

@@ -1,4 +1,5 @@
-import { Button, Tooltip } from '@chakra-ui/react';
+import { Icon, IconButton, Tooltip } from '@chakra-ui/react';
+import { HiOutlineMenu, HiOutlineMenuAlt1, HiOutlineMenuAlt2, HiOutlineMenuAlt3 } from 'react-icons/hi';
 import useStageObject from '~/hooks/use-stage-object';
 import { StageTextData } from '~/types/stage-object';
 
@@ -30,16 +31,15 @@ const TextAlignment = ({ id, textAlign }: Props) => {
   };
 
   const getAlignmentIcon = (textAlign: StageTextData['align']) => {
-    //!! replace letters with icons
     switch (textAlign) {
       case 'center':
-        return 'C';
+        return HiOutlineMenuAlt1;
       case 'left':
-        return 'L';
+        return HiOutlineMenuAlt2;
       case 'right':
-        return 'R';
+        return HiOutlineMenuAlt3;
       case 'justify':
-        return 'J';
+        return HiOutlineMenu;
       default:
         break;
     }
@@ -47,9 +47,11 @@ const TextAlignment = ({ id, textAlign }: Props) => {
 
   return (
     <Tooltip hasArrow label="Alignment" placement="bottom" openDelay={500}>
-      <Button fontSize="xl" onClick={handleAlignmentClick}>
-        {getAlignmentIcon(textAlign)}
-      </Button>
+      <IconButton
+        aria-label="Alignment"
+        icon={<Icon as={getAlignmentIcon(textAlign)} boxSize={5} />}
+        onClick={handleAlignmentClick}
+      />
     </Tooltip>
   );
 };

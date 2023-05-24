@@ -25,7 +25,7 @@ const ImageUpload = () => {
       <InputGroup onClick={handleClick}>
         <input type={'file'} hidden accept="image/*" onChange={setFile} ref={inputRef} />
         <VStack overflow="hidden" align="center" w="100%">
-          <Button w="80%">Upload</Button>
+          <Button w="100%">Upload</Button>
         </VStack>
       </InputGroup>
       {images.length && <ImagesGrid images={images} />}

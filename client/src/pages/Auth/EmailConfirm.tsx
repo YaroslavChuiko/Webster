@@ -38,7 +38,7 @@ function EmailConfirm() {
 
   if (!token) {
     toast({
-      title: 'Error occured.',
+      title: 'Error occurred.',
       description: 'No token in the link.',
       status: 'error',
       duration: 9000,
@@ -46,7 +46,7 @@ function EmailConfirm() {
     });
     return (
       <Container maxW="lg" py={{ base: '12', md: '24' }} px={{ base: '0', sm: '8' }}>
-        <Flex height="100vh" justifyContent="center">
+        <Flex justifyContent="center">
           <SlideFade in={true}>
             <Box p={4} borderWidth="1px" borderRadius="md" backgroundColor="red.100">
               <Text color="red.700" fontWeight="bold" mb={2}>
@@ -64,7 +64,7 @@ function EmailConfirm() {
 
   return (
     <Container maxW="lg" py={{ base: '12', md: '24' }} px={{ base: '0', sm: '8' }}>
-      <Flex height="100vh" justifyContent="center">
+      <Flex justifyContent="center">
         {isLoading && <Loader />}
 
         {!isLoading && isSuccess && (

@@ -1,4 +1,4 @@
-import { Button, VStack } from '@chakra-ui/react';
+import { Button, Text, VStack } from '@chakra-ui/react';
 import { useEffect, useState } from 'react';
 import { DEFAULT_TEXT_OBJECT } from '~/consts/stage-object';
 import useStageObject from '~/hooks/use-stage-object';
@@ -11,7 +11,7 @@ import { GoogleFont } from '~/types/google-font-type';
 const defaultTextStylesButtons: Partial<StageTextData>[] = [
   {
     text: 'Add a heading',
-    fontSize: 78,
+    fontSize: 68,
     width: 600,
     fontStyle: 'bold',
   },
@@ -64,11 +64,11 @@ const Texts = () => {
 
   return (
     <VStack spacing={3} sx={{ p: 4, position: 'relative', h: '100%', overflowY: 'auto' }}>
-      <VStack bgColor="gray.300" w="100%" spacing={3} sx={{ mt: '-4', py: '4', top: '-4', position: 'sticky' }}>
+      <VStack bgColor="white" w="100%" spacing={3} sx={{ mt: '-4', py: '4', top: '-4', position: 'sticky' }}>
         <SearchForm placeholder="Search fonts" onSubmit={onSearchSubmit} onReset={onSearchReset} />
       </VStack>
 
-      {selectedFonts.length && query ? (
+      {selectedFonts.length && query.trim() ? (
         <VStack w="100%" sx={{ mt: '4' }}>
           {selectedFonts.map((font: any) => (
             <Button
@@ -94,14 +94,22 @@ const Texts = () => {
         </VStack>
       ) : (
         <VStack w="100%" spacing={3} sx={{ mt: '4' }}>
-          <Button w="100%" onClick={() => addTextToStage()}>
+          <Button w="100%" colorScheme="pink" onClick={() => addTextToStage()}>
             Add a text box
           </Button>
+          <Text w="100%" pt={2} textAlign="left" fontSize="14px" fontWeight="bold">
+            Default text styles
+          </Text>
           {defaultTextStylesButtons.map((data, i) => (
             <Button key={i} w="100%" onClick={() => addTextToStage(data)}>
               {data.text}
             </Button>
           ))}
+          {!selectedFonts.length && query.trim() && (
+            <Text pt="20px" fontSize="14px" textAlign="center">
+              Sorry, we couldn&apos;t find any text for {`"${query.trim()}"`}. Try searching something related.
+            </Text>
+          )}
         </VStack>
       )}
     </VStack>
