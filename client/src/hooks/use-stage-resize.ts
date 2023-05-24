@@ -46,8 +46,8 @@ const useStageResize = ({ stageRef }: Props) => {
   }, [width, height]);
 
   const setStageCoodrs = () => {
-    let x = Math.min(stageRef?.current?.attrs.x, 0);
-    let y = Math.min(stageRef?.current?.attrs.y, 0);
+    let x = Math.min(stageRef?.current?.attrs.x || 0, 0);
+    let y = Math.min(stageRef?.current?.attrs.y || 0, 0);
 
     const stageWidth = stageRef?.current?.attrs.width;
     if (stageWidth <= boxWidth) {
