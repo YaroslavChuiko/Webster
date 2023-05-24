@@ -10,4 +10,5 @@ export enum KeyType {
   UNDO = 'ctrl+z',
   REDO = 'ctrl+y',
   DRAG_STAGE = ' ', //space
+  UNSELECT = 'Esc',
 }
