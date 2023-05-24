@@ -9,6 +9,7 @@ import {
   Slider,
   SliderTrack,
   SliderThumb,
+  Box,
 } from '@chakra-ui/react';
 import useStageObject from '~/hooks/use-stage-object';
 import { StageObjectData } from '~/types/stage-object';
@@ -37,27 +38,29 @@ const StarRadius = ({ shapeId, selectedObject }: IProps) => {
   };
 
   return (
-    <Menu>
-      <MenuButton as={Button}>Raduis</MenuButton>
-      <MenuList paddingX="10px">
-        <FormControl>
-          <FormLabel htmlFor="inner-radius-slider" fontWeight="normal">
-            Inner radius:
-          </FormLabel>
-          <Slider
-            id="inner-radius-slider"
-            aria-label="inner-radius-slider"
-            value={innerRadius}
-            min={5}
-            max={selectedObject.outerRadius}
-            onChange={handleInnerRadiusChange}
-          >
-            <SliderTrack />
-            <SliderThumb />
-          </Slider>
-        </FormControl>
-      </MenuList>
-    </Menu>
+    <Box>
+      <Menu>
+        <MenuButton as={Button}>Raduis</MenuButton>
+        <MenuList paddingX="10px">
+          <FormControl>
+            <FormLabel htmlFor="inner-radius-slider" fontWeight="normal">
+              Inner radius:
+            </FormLabel>
+            <Slider
+              id="inner-radius-slider"
+              aria-label="inner-radius-slider"
+              value={innerRadius}
+              min={5}
+              max={selectedObject.outerRadius}
+              onChange={handleInnerRadiusChange}
+            >
+              <SliderTrack />
+              <SliderThumb />
+            </Slider>
+          </FormControl>
+        </MenuList>
+      </Menu>
+    </Box>
   );
 };
 

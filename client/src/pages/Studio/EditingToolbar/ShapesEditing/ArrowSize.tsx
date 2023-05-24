@@ -9,6 +9,7 @@ import {
   Slider,
   SliderTrack,
   SliderThumb,
+  Box,
 } from '@chakra-ui/react';
 import useStageObject from '~/hooks/use-stage-object';
 import { StageObjectData } from '~/types/stage-object';
@@ -63,61 +64,63 @@ const ArrowSize = ({ shapeId, selectedObject }: IProps) => {
   };
 
   return (
-    <Menu>
-      <MenuButton as={Button}>Size</MenuButton>
-      <MenuList paddingX="10px">
-        <FormControl>
-          <FormLabel htmlFor="arrow-length-slider" fontWeight="normal">
-            Arrow length:
-          </FormLabel>
-          <Slider
-            id="arrow-length-slider"
-            aria-label="arrow-length-slider"
-            value={arrowLength}
-            min={15}
-            max={selectedObject.width}
-            onChange={handleArrowLengthChange}
-          >
-            <SliderTrack />
-            <SliderThumb />
-          </Slider>
-        </FormControl>
+    <Box>
+      <Menu>
+        <MenuButton as={Button}>Size</MenuButton>
+        <MenuList paddingX="10px">
+          <FormControl>
+            <FormLabel htmlFor="arrow-length-slider" fontWeight="normal">
+              Arrow length:
+            </FormLabel>
+            <Slider
+              id="arrow-length-slider"
+              aria-label="arrow-length-slider"
+              value={arrowLength}
+              min={15}
+              max={selectedObject.width}
+              onChange={handleArrowLengthChange}
+            >
+              <SliderTrack />
+              <SliderThumb />
+            </Slider>
+          </FormControl>
 
-        <FormControl>
-          <FormLabel htmlFor="pointer-length-slider" fontWeight="normal">
-            Pointer length:
-          </FormLabel>
-          <Slider
-            id="pointer-length-slider"
-            aria-label="pointer-length-slider"
-            value={pointerLength}
-            min={15}
-            max={selectedObject.width / 2}
-            onChange={handlePointerLengthChange}
-          >
-            <SliderTrack />
-            <SliderThumb />
-          </Slider>
-        </FormControl>
+          <FormControl>
+            <FormLabel htmlFor="pointer-length-slider" fontWeight="normal">
+              Pointer length:
+            </FormLabel>
+            <Slider
+              id="pointer-length-slider"
+              aria-label="pointer-length-slider"
+              value={pointerLength}
+              min={15}
+              max={selectedObject.width / 2}
+              onChange={handlePointerLengthChange}
+            >
+              <SliderTrack />
+              <SliderThumb />
+            </Slider>
+          </FormControl>
 
-        <FormControl>
-          <FormLabel htmlFor="pointer-width-slider" fontWeight="normal">
-            Pointer width:
-          </FormLabel>
-          <Slider
-            id="pointer-width-slider"
-            aria-label="pointer-width-slider"
-            value={pointerWidth}
-            min={15}
-            max={selectedObject.width / 2}
-            onChange={handlePointerWidthChange}
-          >
-            <SliderTrack />
-            <SliderThumb />
-          </Slider>
-        </FormControl>
-      </MenuList>
-    </Menu>
+          <FormControl>
+            <FormLabel htmlFor="pointer-width-slider" fontWeight="normal">
+              Pointer width:
+            </FormLabel>
+            <Slider
+              id="pointer-width-slider"
+              aria-label="pointer-width-slider"
+              value={pointerWidth}
+              min={15}
+              max={selectedObject.width / 2}
+              onChange={handlePointerWidthChange}
+            >
+              <SliderTrack />
+              <SliderThumb />
+            </Slider>
+          </FormControl>
+        </MenuList>
+      </Menu>
+    </Box>
   );
 };
 

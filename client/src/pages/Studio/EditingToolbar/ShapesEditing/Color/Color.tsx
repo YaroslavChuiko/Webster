@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react';
-import { Menu, MenuButton, MenuList, Button, Tabs, TabList, TabPanels, Tab, TabPanel } from '@chakra-ui/react';
+import { Menu, MenuButton, MenuList, Button, Tabs, TabList, TabPanels, Tab, TabPanel, Box } from '@chakra-ui/react';
 import SolidColor from './SolidColor';
 import LinearColor from './LinearColor';
 import RadialColor from './RadialColor';
@@ -56,37 +56,39 @@ const Color = ({ shapeId, selectedObject }: IProps) => {
   };
 
   return (
-    <Menu>
-      <MenuButton as={Button}>Color</MenuButton>
-      <MenuList padding="0">
-        <Tabs index={tabIndex} onChange={handleTabChange}>
-          <TabList>
-            <Tab>Solid</Tab>
-            {selectedObject.shapeType !== ShapeType.ARROW && (
-              <>
-                <Tab>Linear</Tab>
-                <Tab>Radial</Tab>
-              </>
-            )}
-          </TabList>
-          <TabPanels>
-            <TabPanel>
-              <SolidColor shapeId={shapeId} selectedObject={selectedObject} />
-            </TabPanel>
-            {selectedObject.shapeType !== ShapeType.ARROW && (
+    <Box>
+      <Menu>
+        <MenuButton as={Button}>Color</MenuButton>
+        <MenuList padding="0">
+          <Tabs index={tabIndex} onChange={handleTabChange}>
+            <TabList>
+              <Tab>Solid</Tab>
+              {selectedObject.shapeType !== ShapeType.ARROW && (
+                <>
+                  <Tab>Linear</Tab>
+                  <Tab>Radial</Tab>
+                </>
+              )}
+            </TabList>
+            <TabPanels>
               <TabPanel>
-                <LinearColor shapeId={shapeId} selectedObject={selectedObject} />
+                <SolidColor shapeId={shapeId} selectedObject={selectedObject} />
               </TabPanel>
-            )}
-            {selectedObject.shapeType !== ShapeType.ARROW && (
-              <TabPanel>
-                <RadialColor shapeId={shapeId} selectedObject={selectedObject} />
-              </TabPanel>
-            )}
-          </TabPanels>
-        </Tabs>
-      </MenuList>
-    </Menu>
+              {selectedObject.shapeType !== ShapeType.ARROW && (
+                <TabPanel>
+                  <LinearColor shapeId={shapeId} selectedObject={selectedObject} />
+                </TabPanel>
+              )}
+              {selectedObject.shapeType !== ShapeType.ARROW && (
+                <TabPanel>
+                  <RadialColor shapeId={shapeId} selectedObject={selectedObject} />
+                </TabPanel>
+              )}
+            </TabPanels>
+          </Tabs>
+        </MenuList>
+      </Menu>
+    </Box>
   );
 };
 

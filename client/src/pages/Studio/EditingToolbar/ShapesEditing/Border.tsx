@@ -10,6 +10,7 @@ import {
   Slider,
   SliderTrack,
   SliderThumb,
+  Box,
 } from '@chakra-ui/react';
 import { SketchPicker, ColorResult } from 'react-color';
 import useStageObject from '~/hooks/use-stage-object';
@@ -88,38 +89,40 @@ const Border = ({ shapeId, selectedObject }: IProps) => {
   };
 
   return (
-    <Menu>
-      <MenuButton as={Button}>Border</MenuButton>
-      <MenuList paddingX="10px">
-        <FormControl display="flex" alignItems="center">
-          <FormLabel htmlFor="border-switch">Border</FormLabel>
-          <Switch id="border-switch" isChecked={isBorder} onChange={handleIsBorderChange} />
-        </FormControl>
+    <Box>
+      <Menu>
+        <MenuButton as={Button}>Border</MenuButton>
+        <MenuList paddingX="10px">
+          <FormControl display="flex" alignItems="center">
+            <FormLabel htmlFor="border-switch">Border</FormLabel>
+            <Switch id="border-switch" isChecked={isBorder} onChange={handleIsBorderChange} />
+          </FormControl>
 
-        {isBorder && (
-          <>
-            <FormControl>
-              <FormLabel htmlFor="border-width-slider" fontWeight="normal">
-                Border width:
-              </FormLabel>
-              <Slider
-                id="border-width-slider"
-                aria-label="border-width-slider"
-                value={borderWidth}
-                min={1}
-                max={selectedObject.width}
-                onChange={handleBorderWidthChange}
-              >
-                <SliderTrack />
-                <SliderThumb />
-              </Slider>
-            </FormControl>
+          {isBorder && (
+            <>
+              <FormControl>
+                <FormLabel htmlFor="border-width-slider" fontWeight="normal">
+                  Border width:
+                </FormLabel>
+                <Slider
+                  id="border-width-slider"
+                  aria-label="border-width-slider"
+                  value={borderWidth}
+                  min={1}
+                  max={selectedObject.width}
+                  onChange={handleBorderWidthChange}
+                >
+                  <SliderTrack />
+                  <SliderThumb />
+                </Slider>
+              </FormControl>
 
-            <SketchPicker color={borderColor} onChangeComplete={handleSolidColorChange} />
-          </>
-        )}
-      </MenuList>
-    </Menu>
+              <SketchPicker color={borderColor} onChangeComplete={handleSolidColorChange} />
+            </>
+          )}
+        </MenuList>
+      </Menu>
+    </Box>
   );
 };
 
