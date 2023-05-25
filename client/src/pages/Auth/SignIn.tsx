@@ -27,6 +27,7 @@ import { useSelector } from 'react-redux';
 import { ThunkDispatch } from '@reduxjs/toolkit';
 import { AnyAction } from 'redux';
 import { baseQuery } from '~/consts/api';
+import Logo from './Logo';
 
 function SignIn() {
   const navigate = useNavigate();
@@ -68,11 +69,11 @@ function SignIn() {
       <form onSubmit={handleSubmit}>
         <Stack spacing="8">
           <Stack spacing="6">
-            {/*<Logo />*/}
+            <Logo />
             <Stack spacing={{ base: '2', md: '3' }} textAlign="center">
-              <Heading>Log in to your account</Heading>
+              <Heading fontSize="25px">Log in to your account</Heading>
               <HStack spacing="1" justify="center">
-                <Text color="muted">Dont have an account?</Text>
+                <Text color="muted">Don&apos;t have an account?</Text>
                 <Link as={RouterLink} color={'pink.500'} to="/auth/sign-up">
                   Sign Up
                 </Link>

@@ -19,6 +19,7 @@ import { useState } from 'react';
 import { Link as RouterLink, useNavigate } from 'react-router-dom';
 import * as Yup from 'yup';
 import { baseQuery } from '~/consts/api';
+import Logo from './Logo';
 
 export default function SignUp() {
   const [showPassword, setShowPassword] = useState(false);
@@ -70,9 +71,10 @@ export default function SignUp() {
   };
 
   return (
-    <Stack spacing={10} mx={'auto'} w="100%" maxW={'lg'} py={12} px={6}>
+    <Stack spacing={5} mx={'auto'} w="100%" maxW={'lg'} py={12} px={6}>
+      <Logo />
       <Stack align={'center'}>
-        <Heading fontSize={'4xl'} textAlign={'center'}>
+        <Heading fontSize="25px" textAlign={'center'}>
           Sign up
         </Heading>
         <Text fontSize={'lg'} color={'gray.600'}>
@@ -80,7 +82,6 @@ export default function SignUp() {
         </Text>
       </Stack>
       <Stack spacing="6">
-        {/*<Logo />*/}
         <Stack spacing={{ base: '2', md: '3' }} textAlign="center">
           <HStack spacing="1" justify="center">
             <Text color="muted">Already have an account?</Text>

@@ -1289,6 +1289,11 @@
   resolved "https://registry.yarnpkg.com/@fontsource-variable/inter/-/inter-5.0.1.tgz#df1a11f16ad482be3596b5bcdcd8196e557a20bc"
   integrity sha512-cqBEayOWZqERrWnwDUTyUsClZpN1Pv3w/1+NRxwKV4sRdy3RyyRL9DRIgauq8ySxNtJ5ZkNimxsZzCdoiR2Fcw==
 
+"@fontsource-variable/reem-kufi-fun@^5.0.1":
+  version "5.0.1"
+  resolved "https://registry.yarnpkg.com/@fontsource-variable/reem-kufi-fun/-/reem-kufi-fun-5.0.1.tgz#970135501788ce5a30d0ce4549543f486438618c"
+  integrity sha512-LZ5dL8cgK0vspc88zCQa7nFJiGMs+loBXfEwPZdcob3WgjENtYSEqVmTMw23Umg2rFUKkJzqX6idOwB2A91Jsw==
+
 "@humanwhocodes/config-array@^0.11.8":
   version "0.11.8"
   resolved "https://registry.yarnpkg.com/@humanwhocodes/config-array/-/config-array-0.11.8.tgz#03595ac2075a4dc0f191cc2131de14fbd7d410b9"

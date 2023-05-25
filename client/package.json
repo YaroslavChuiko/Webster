@@ -18,6 +18,7 @@
     "@emotion/sheet": "^1.2.2",
     "@emotion/styled": "^11.10.6",
     "@fontsource-variable/inter": "^5.0.1",
+    "@fontsource-variable/reem-kufi-fun": "^5.0.1",
     "@reduxjs/toolkit": "^1.9.5",
     "fontfaceobserver": "^2.3.0",
     "formik": "^2.2.9",
