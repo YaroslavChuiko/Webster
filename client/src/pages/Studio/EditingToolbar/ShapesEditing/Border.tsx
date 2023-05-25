@@ -95,7 +95,7 @@ const Border = ({ shapeId, selectedObject }: IProps) => {
         <MenuList paddingX="10px">
           <FormControl display="flex" alignItems="center">
             <FormLabel htmlFor="border-switch">Border</FormLabel>
-            <Switch id="border-switch" isChecked={isBorder} onChange={handleIsBorderChange} />
+            <Switch id="border-switch" colorScheme="pink" isChecked={isBorder} onChange={handleIsBorderChange} />
           </FormControl>
 
           {isBorder && (

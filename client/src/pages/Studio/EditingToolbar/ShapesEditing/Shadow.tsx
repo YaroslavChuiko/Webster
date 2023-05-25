@@ -115,7 +115,7 @@ const Shadow = ({ shapeId, selectedObject }: IProps) => {
         <MenuList paddingX="10px" overflowY="auto" maxH="400px">
           <FormControl display="flex" alignItems="center">
             <FormLabel htmlFor="shadow-switch">Shadow</FormLabel>
-            <Switch id="shadow-switch" isChecked={isShadow} onChange={handleIsShadowChange} />
+            <Switch colorScheme="pink" id="shadow-switch" isChecked={isShadow} onChange={handleIsShadowChange} />
           </FormControl>
 
           {isShadow && (
