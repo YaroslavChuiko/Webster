@@ -26,7 +26,8 @@ import { RootState } from '~/store/store';
 import { useSelector } from 'react-redux';
 import { ThunkDispatch } from '@reduxjs/toolkit';
 import { AnyAction } from 'redux';
-import {baseQuery} from "~/consts/api";
+import { baseQuery } from '~/consts/api';
+import Logo from './Logo';
 
 function SignIn() {
   const navigate = useNavigate();
@@ -47,7 +48,7 @@ function SignIn() {
   const handleSubmit = async (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault();
     const password = inputRef.current.value;
-    const response = await fetch(`${baseQuery}/auth/auth/sign-in`, {
+    const response = await fetch(`${baseQuery}/auth/sign-in`, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
@@ -68,12 +69,12 @@ function SignIn() {
       <form onSubmit={handleSubmit}>
         <Stack spacing="8">
           <Stack spacing="6">
-            {/*<Logo />*/}
+            <Logo />
             <Stack spacing={{ base: '2', md: '3' }} textAlign="center">
-              <Heading>Log in to your account</Heading>
+              <Heading fontSize="25px">Log in to your account</Heading>
               <HStack spacing="1" justify="center">
-                <Text color="muted">Dont have an account?</Text>
-                <Link as={RouterLink} color={'blue.400'} to="/auth/sign-up">
+                <Text color="muted">Don&apos;t have an account?</Text>
+                <Link as={RouterLink} color={'pink.500'} to="/auth/sign-up">
                   Sign Up
                 </Link>
               </HStack>
@@ -82,15 +83,22 @@ function SignIn() {
           <Box
             py={{ base: '0', sm: '8' }}
             px={{ base: '4', sm: '10' }}
-            bg={{ base: 'transparent', sm: 'bg-surface' }}
+            bg={{ base: 'transparent', sm: 'white' }}
             boxShadow={{ base: 'none', sm: 'md' }}
             borderRadius={{ base: 'none', sm: 'xl' }}
+            w={{ base: '100%', sm: '450px' }}
           >
             <Stack spacing="6">
               <Stack spacing="5">
                 <FormControl>
                   <FormLabel htmlFor="email">Email</FormLabel>
-                  <Input id="email" type="email" value={email} onChange={(event) => setEmail(event.target.value)} />
+                  <Input
+                    id="email"
+                    type="email"
+                    focusBorderColor="pink.500"
+                    value={email}
+                    onChange={(event) => setEmail(event.target.value)}
+                  />
                 </FormControl>
                 <FormControl>
                   <FormLabel htmlFor="password">Password</FormLabel>
@@ -109,19 +117,22 @@ function SignIn() {
                       name="password"
                       type={isOpen ? 'text' : 'password'}
                       autoComplete="current-password"
+                      focusBorderColor="pink.500"
                       required
                     />
                   </InputGroup>
                 </FormControl>
               </Stack>
               <HStack justify="space-between">
-                <Checkbox defaultChecked>Remember me</Checkbox>
-                <Button variant="link" colorScheme="blue" size="sm">
+                <Checkbox defaultChecked colorScheme="pink">
+                  Remember me
+                </Checkbox>
+                <Button variant="link" colorScheme="pink" size="sm">
                   Forgot password?
                 </Button>
               </HStack>
               <Stack spacing="6">
-                <Button type="submit" colorScheme="blue" isLoading={authState.loading}>
+                <Button type="submit" colorScheme="pink" isLoading={authState.loading}>
                   {authState.loading ? 'Signing in...' : 'Sign in'}
                 </Button>
               </Stack>

@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react';
-import { Menu, MenuButton, MenuList, Button, Switch, FormControl, FormLabel } from '@chakra-ui/react';
+import { Menu, MenuButton, MenuList, Button, Switch, FormControl, FormLabel, Box } from '@chakra-ui/react';
 import useStageObject from '~/hooks/use-stage-object';
 import { StageObjectData } from '~/types/stage-object';
 
@@ -38,28 +38,30 @@ const ArrowPointerPosition = ({ shapeId, selectedObject }: IProps) => {
   };
 
   return (
-    <Menu>
-      <MenuButton as={Button}>Pointer position</MenuButton>
-      <MenuList paddingX="10px">
-        <FormControl display="flex" alignItems="center">
-          <FormLabel htmlFor="pointer-at-beginning-switch">Pointer at beginning</FormLabel>
-          <Switch
-            id="pointer-at-beginning-switch"
-            isChecked={isPointerAtBeginning}
-            onChange={handleIsPointerAtBeginningChange}
-          />
-        </FormControl>
+    <Box>
+      <Menu>
+        <MenuButton as={Button}>Pointer position</MenuButton>
+        <MenuList paddingX="10px">
+          <FormControl display="flex" alignItems="center">
+            <FormLabel htmlFor="pointer-at-beginning-switch">Pointer at beginning</FormLabel>
+            <Switch
+              id="pointer-at-beginning-switch"
+              isChecked={isPointerAtBeginning}
+              onChange={handleIsPointerAtBeginningChange}
+            />
+          </FormControl>
 
-        <FormControl display="flex" alignItems="center">
-          <FormLabel htmlFor="pointer-at-ending-switch">Pointer at ending</FormLabel>
-          <Switch
-            id="pointer-at-ending-switch"
-            isChecked={isPointerAtEnding}
-            onChange={handleIsPointerAtEndingChange}
-          />
-        </FormControl>
-      </MenuList>
-    </Menu>
+          <FormControl display="flex" alignItems="center">
+            <FormLabel htmlFor="pointer-at-ending-switch">Pointer at ending</FormLabel>
+            <Switch
+              id="pointer-at-ending-switch"
+              isChecked={isPointerAtEnding}
+              onChange={handleIsPointerAtEndingChange}
+            />
+          </FormControl>
+        </MenuList>
+      </Menu>
+    </Box>
   );
 };
 

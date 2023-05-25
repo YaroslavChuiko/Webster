@@ -12,6 +12,7 @@ import {
   Switch,
   Text,
   VStack,
+  Box,
 } from '@chakra-ui/react';
 import React, { useEffect, useState } from 'react';
 import useStageObject from '~/hooks/use-stage-object';
@@ -73,63 +74,65 @@ const ImageFilters = ({ imageId, data }: Props) => {
   }, [filters, filterMap]);
 
   return (
-    <Menu>
-      <MenuButton as={Button} rightIcon={<ChevronDownIcon />}>
-        Filters
-      </MenuButton>
-      <MenuList sx={{ p: 6 }}>
-        {ALTERABLE_FILTERS.map((f, i) => (
-          <HStack spacing={4} key={i} mb="4">
-            <Text>{f.name}</Text>
-            <Slider
-              id={f.name}
-              aria-label="slider-ex-1"
-              min={f.min || -100}
-              max={f.max || 100}
-              step={f.step || 1}
-              value={filterMap[f.name.toLowerCase() as keyof typeof filterMap]}
-              onChange={(value) => handleSliderChange(value, f.name)}
-            >
-              <SliderTrack>
-                <SliderFilledTrack />
-              </SliderTrack>
-              <SliderThumb />
-            </Slider>
-          </HStack>
-        ))}
-        {BOOLEAN_FILTERS.map((f, i) => (
-          <VStack key={i} spacing={4} align="flex-start" mb={i === BOOLEAN_FILTERS.length - 1 ? 0 : 4}>
-            <HStack spacing={4}>
+    <Box>
+      <Menu>
+        <MenuButton as={Button} rightIcon={<ChevronDownIcon />}>
+          Filters
+        </MenuButton>
+        <MenuList sx={{ p: 6 }}>
+          {ALTERABLE_FILTERS.map((f, i) => (
+            <HStack spacing={4} key={i} mb="4">
               <Text>{f.name}</Text>
-              <Switch isChecked={getFilterByName(f.name)} onChange={() => handleSwitchChange(f.name)} />
+              <Slider
+                id={f.name}
+                aria-label="slider-ex-1"
+                min={f.min || -100}
+                max={f.max || 100}
+                step={f.step || 1}
+                value={filterMap[f.name.toLowerCase() as keyof typeof filterMap]}
+                onChange={(value) => handleSliderChange(value, f.name)}
+              >
+                <SliderTrack>
+                  <SliderFilledTrack />
+                </SliderTrack>
+                <SliderThumb />
+              </Slider>
             </HStack>
-            {f.name === FilterName.rgb && getFilterByName(f.name) && (
-              <>
-                {RGB_FILTERS.map((rgbName) => (
-                  <React.Fragment key={rgbName}>
-                    <Text>{rgbName}</Text>
-                    <Slider
-                      id={rgbName}
-                      aria-label="slider-ex-1"
-                      min={f.min || -100}
-                      max={f.max || 100}
-                      step={f.step || 1}
-                      value={filterMap[rgbName.toLowerCase() as keyof typeof filterMap]}
-                      onChange={(value) => handleSliderChange(value, rgbName)}
-                    >
-                      <SliderTrack>
-                        <SliderFilledTrack />
-                      </SliderTrack>
-                      <SliderThumb />
-                    </Slider>
-                  </React.Fragment>
-                ))}
-              </>
-            )}
-          </VStack>
-        ))}
-      </MenuList>
-    </Menu>
+          ))}
+          {BOOLEAN_FILTERS.map((f, i) => (
+            <VStack key={i} spacing={4} align="flex-start" mb={i === BOOLEAN_FILTERS.length - 1 ? 0 : 4}>
+              <HStack spacing={4}>
+                <Text>{f.name}</Text>
+                <Switch isChecked={getFilterByName(f.name)} onChange={() => handleSwitchChange(f.name)} />
+              </HStack>
+              {f.name === FilterName.rgb && getFilterByName(f.name) && (
+                <>
+                  {RGB_FILTERS.map((rgbName) => (
+                    <React.Fragment key={rgbName}>
+                      <Text>{rgbName}</Text>
+                      <Slider
+                        id={rgbName}
+                        aria-label="slider-ex-1"
+                        min={f.min || -100}
+                        max={f.max || 100}
+                        step={f.step || 1}
+                        value={filterMap[rgbName.toLowerCase() as keyof typeof filterMap]}
+                        onChange={(value) => handleSliderChange(value, rgbName)}
+                      >
+                        <SliderTrack>
+                          <SliderFilledTrack />
+                        </SliderTrack>
+                        <SliderThumb />
+                      </Slider>
+                    </React.Fragment>
+                  ))}
+                </>
+              )}
+            </VStack>
+          ))}
+        </MenuList>
+      </Menu>
+    </Box>
   );
 };
 

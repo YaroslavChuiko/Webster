@@ -1,40 +1,45 @@
-import { Flex, SystemStyleObject, Tab, TabList, TabPanel, TabPanels, Tabs } from '@chakra-ui/react';
-import Resize from './tools/Resize';
-import Export from './tools/Export';
-import Images from './tools/Images/Images';
-import Shapes from './tools/Shapes/Shapes';
+import { Flex, Icon, Tab, TabList, TabPanel, TabPanels, Tabs } from '@chakra-ui/react';
 import Konva from 'konva';
-import { NAVBAR_HEIGHT, TOOLBAR_TABS } from '~/consts/components';
-import Texts from './tools/Text/Texts';
+import { TOOLBAR_TABS } from '~/consts/components';
+import Export from './tools/Export';
 import ImageUpload from './tools/ImageUpload/ImageUpload';
+import Images from './tools/Images/Images';
+import Resize from './tools/Resize';
+import Shapes from './tools/Shapes/Shapes';
+import Texts from './tools/Text/Texts';
+import HotkeysList from './tools/Hotkeys/Hotkeys';
 
 type Props = {
   stageRef: React.RefObject<Konva.Stage>;
 };
 
-const styles: SystemStyleObject = {
-  position: 'fixed',
-  left: 0,
-  top: `${NAVBAR_HEIGHT}px`,
-  h: `calc(100vh - ${NAVBAR_HEIGHT}px)`,
-  bottom: 0,
-  flexShrink: 0,
-};
-
 const Toolbar = ({ stageRef }: Props) => {
   return (
-    <Flex sx={styles}>
-      <Tabs orientation="vertical" variant="line" colorScheme="blue" h="100%" id="toolbar">
+    <Flex h="100%" borderRight="2px" borderColor="gray.200">
+      <Tabs orientation="vertical" variant="line" colorScheme="pink" h="100%" id="toolbar" bgColor="gray.100">
         <TabList>
           {TOOLBAR_TABS.map((t, i) => (
-            <Tab px="6" py="4" key={i}>
-              {/* <Icon as={t.icon} mr="2" /> */}
+            <Tab
+              px="4"
+              py="4"
+              key={i}
+              bgColor="gray.100"
+              display="flex"
+              flexDir="column"
+              alignItems="center"
+              justifyContent="center"
+              fontSize="12px"
+              fontWeight="600"
+              _selected={{ bgColor: 'white', color: 'pink.500' }}
+              _hover={{ color: 'pink.500' }}
+            >
+              <Icon as={t.icon} boxSize={6} />
               {t.title}
             </Tab>
           ))}
         </TabList>
 
-        <TabPanels minW="350px" maxW="350px" bgColor="gray.300" overflowY="auto">
+        <TabPanels minW="350px" maxW="350px" bgColor="white" overflowY="auto">
           <TabPanel>
             <Resize />
           </TabPanel>
@@ -52,6 +57,9 @@ const Toolbar = ({ stageRef }: Props) => {
           </TabPanel>
           <TabPanel>
             <Shapes />
+          </TabPanel>
+          <TabPanel>
+            <HotkeysList />
           </TabPanel>
         </TabPanels>
       </Tabs>

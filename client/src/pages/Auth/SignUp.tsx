@@ -1,26 +1,25 @@
+import { ViewIcon, ViewOffIcon } from '@chakra-ui/icons';
 import {
-  Flex,
   Box,
+  Button,
   FormControl,
   FormLabel,
+  HStack,
+  Heading,
   Input,
   InputGroup,
-  HStack,
   InputRightElement,
-  Stack,
-  Button,
-  Heading,
-  Text,
-  useColorModeValue,
   Link,
+  Stack,
+  Text,
+  useToast,
 } from '@chakra-ui/react';
+import { ErrorMessage, Field, Form, Formik } from 'formik';
 import { useState } from 'react';
-import { ViewIcon, ViewOffIcon } from '@chakra-ui/icons';
-import { Formik, Field, Form, ErrorMessage } from 'formik';
-import * as Yup from 'yup';
-import { useToast } from '@chakra-ui/react';
 import { Link as RouterLink, useNavigate } from 'react-router-dom';
-import {baseQuery} from "~/consts/api";
+import * as Yup from 'yup';
+import { baseQuery } from '~/consts/api';
+import Logo from './Logo';
 
 export default function SignUp() {
   const [showPassword, setShowPassword] = useState(false);
@@ -72,128 +71,121 @@ export default function SignUp() {
   };
 
   return (
-    <Flex minH={'100vh'} align={'center'} justify={'center'} bg={useColorModeValue('gray.50', 'gray.800')}>
-      <Stack spacing={10} mx={'auto'} maxW={'lg'} py={12} px={6}>
-        <Stack align={'center'}>
-          <Heading fontSize={'4xl'} textAlign={'center'}>
-            Sign up
-          </Heading>
-          <Text fontSize={'lg'} color={'gray.600'}>
-            to enjoy all of our cool features ✌️
-          </Text>
-        </Stack>
-        <Stack spacing="6">
-          {/*<Logo />*/}
-          <Stack spacing={{ base: '2', md: '3' }} textAlign="center">
-            <HStack spacing="1" justify="center">
-              <Text color="muted">Already have an account?</Text>
-              <Link as={RouterLink} color={'blue.400'} to="/auth/sign-in">
-                Sign In
-              </Link>
-            </HStack>
-          </Stack>
-        </Stack>
-        <Box w="500px" rounded={'lg'} bg={useColorModeValue('white', 'gray.700')} boxShadow={'lg'} p={8}>
-          <Formik
-            initialValues={{
-              username: '',
-              email: '',
-              password: '',
-              passwordConfirm: '',
-            }}
-            validationSchema={Yup.object({
-              username: Yup.string().max(15, 'Must be 15 characters or less').required('Required'),
-              email: Yup.string().email('Invalid email address').required('Required'),
-              password: Yup.string().min(6, 'Password must be at least 6 characters').required('Required'),
-              passwordConfirm: Yup.string()
-                .oneOf([Yup.ref('password'), null], 'Passwords must match')
-                .required('Required'),
-            })}
-            onSubmit={handleSubmit}
-          >
-            {(formik) => (
-              <Form>
-                <Stack spacing={4}>
-                  <HStack>
-                    <Field name="username">
-                      {({ field, form }) => (
-                        <FormControl id="username" isRequired isInvalid={form.errors.username && form.touched.username}>
-                          <FormLabel>Username</FormLabel>
-                          <Input {...field} type="text" />
-                          <ErrorMessage name="username" />
-                        </FormControl>
-                      )}
-                    </Field>
-                  </HStack>
-                  <Field name="email">
-                    {({ field, form }) => (
-                      <FormControl id="email" isRequired isInvalid={form.errors.email && form.touched.email}>
-                        <FormLabel>Email address</FormLabel>
-                        <Input {...field} type="email" />
-                        <ErrorMessage name="email" />
-                      </FormControl>
-                    )}
-                  </Field>
-                  <Field name="password">
-                    {({ field, form }) => (
-                      <FormControl isInvalid={form.errors.password && form.touched.password}>
-                        <FormLabel>Password</FormLabel>
-                        <InputGroup>
-                          <Input {...field} type={showPassword ? 'text' : 'password'} />
-                          <InputRightElement h={'full'}>
-                            <Button variant={'ghost'} onClick={() => setShowPassword((showPassword) => !showPassword)}>
-                              {showPassword ? <ViewIcon /> : <ViewOffIcon />}
-                            </Button>
-                          </InputRightElement>
-                        </InputGroup>
-                        <ErrorMessage name="password" />
-                      </FormControl>
-                    )}
-                  </Field>
-                  <Field name="passwordConfirm">
-                    {({ field, form }) => (
-                      <FormControl isInvalid={form.errors.passwordConfirm && form.touched.passwordConfirm}>
-                        <FormLabel>Password Confirm</FormLabel>
-                        <InputGroup>
-                          <Input {...field} type={showPassword ? 'text' : 'password'} />
-                          <InputRightElement h={'full'}>
-                            <Button variant={'ghost'} onClick={() => setShowPassword((showPassword) => !showPassword)}>
-                              {showPassword ? <ViewIcon /> : <ViewOffIcon />}
-                            </Button>
-                          </InputRightElement>
-                        </InputGroup>
-                        <ErrorMessage name="passwordConfirm" />
-                      </FormControl>
-                    )}
-                  </Field>
-                </Stack>
-                <Stack spacing={10} pt={2}>
-                  <Button
-                    disabled={!formik.isValid || formik.isSubmitting}
-                    type="submit"
-                    loadingText="Submitting"
-                    size="lg"
-                    bg={'blue.400'}
-                    color={'white'}
-                    _disabled={{
-                      bg: 'gray.400',
-                      cursor: 'not-allowed',
-                      _hover: {
-                        bg: 'gray.400',
-                      },
-                    }}
-                    _hover={{
-                      bg: 'blue.500',
-                    }}
-                  >
-                    Sign up
-                  </Button>
-                </Stack>
-              </Form>
-            )}
-          </Formik>
-        </Box>
+    <Stack spacing={5} mx={'auto'} w="100%" maxW={'lg'} py={12} px={6}>
+      <Logo />
+      <Stack align={'center'}>
+        <Heading fontSize="25px" textAlign={'center'}>
+          Sign up
+        </Heading>
+        <Text fontSize={'lg'} color={'gray.600'}>
+          to enjoy all of our cool features ✌️
+        </Text>
       </Stack>
-    </Flex>
+      <Stack spacing="6">
+        <Stack spacing={{ base: '2', md: '3' }} textAlign="center">
+          <HStack spacing="1" justify="center">
+            <Text color="muted">Already have an account?</Text>
+            <Link as={RouterLink} color={'pink.500'} to="/auth/sign-in">
+              Sign In
+            </Link>
+          </HStack>
+        </Stack>
+      </Stack>
+      <Box
+        py={{ base: '0', sm: '8' }}
+        px={{ base: '4', sm: '10' }}
+        bg={{ base: 'transparent', sm: 'white' }}
+        boxShadow={{ base: 'none', sm: 'md' }}
+        borderRadius={{ base: 'none', sm: 'xl' }}
+        w={{ base: '100%', sm: '450px' }}
+      >
+        <Formik
+          initialValues={{
+            username: '',
+            email: '',
+            password: '',
+            passwordConfirm: '',
+          }}
+          validationSchema={Yup.object({
+            username: Yup.string().max(15, 'Must be 15 characters or less').required('Required'),
+            email: Yup.string().email('Invalid email address').required('Required'),
+            password: Yup.string().min(6, 'Password must be at least 6 characters').required('Required'),
+            passwordConfirm: Yup.string()
+              .oneOf([Yup.ref('password'), null], 'Passwords must match')
+              .required('Required'),
+          })}
+          onSubmit={handleSubmit}
+        >
+          {(formik) => (
+            <Form>
+              <Stack spacing={3} mb="20px">
+                <HStack>
+                  <Field name="username">
+                    {({ field, form }) => (
+                      <FormControl id="username" isRequired isInvalid={form.errors.username && form.touched.username}>
+                        <FormLabel>Username</FormLabel>
+                        <Input {...field} type="text" focusBorderColor="pink.500" />
+                        <ErrorMessage name="username" />
+                      </FormControl>
+                    )}
+                  </Field>
+                </HStack>
+                <Field name="email">
+                  {({ field, form }) => (
+                    <FormControl id="email" isRequired isInvalid={form.errors.email && form.touched.email}>
+                      <FormLabel>Email address</FormLabel>
+                      <Input {...field} type="email" focusBorderColor="pink.500" />
+                      <ErrorMessage name="email" />
+                    </FormControl>
+                  )}
+                </Field>
+                <Field name="password">
+                  {({ field, form }) => (
+                    <FormControl isInvalid={form.errors.password && form.touched.password}>
+                      <FormLabel>Password</FormLabel>
+                      <InputGroup>
+                        <Input {...field} type={showPassword ? 'text' : 'password'} focusBorderColor="pink.500" />
+                        <InputRightElement h={'full'}>
+                          <Button variant={'ghost'} onClick={() => setShowPassword((showPassword) => !showPassword)}>
+                            {showPassword ? <ViewIcon /> : <ViewOffIcon />}
+                          </Button>
+                        </InputRightElement>
+                      </InputGroup>
+                      <ErrorMessage name="password" />
+                    </FormControl>
+                  )}
+                </Field>
+                <Field name="passwordConfirm">
+                  {({ field, form }) => (
+                    <FormControl isInvalid={form.errors.passwordConfirm && form.touched.passwordConfirm}>
+                      <FormLabel>Password Confirm</FormLabel>
+                      <InputGroup>
+                        <Input {...field} type={showPassword ? 'text' : 'password'} focusBorderColor="pink.500" />
+                        <InputRightElement h={'full'}>
+                          <Button variant={'ghost'} onClick={() => setShowPassword((showPassword) => !showPassword)}>
+                            {showPassword ? <ViewIcon /> : <ViewOffIcon />}
+                          </Button>
+                        </InputRightElement>
+                      </InputGroup>
+                      <ErrorMessage name="passwordConfirm" />
+                    </FormControl>
+                  )}
+                </Field>
+              </Stack>
+              <Stack spacing={10} pt={2}>
+                <Button
+                  isDisabled={!formik.isValid || formik.isSubmitting}
+                  type="submit"
+                  loadingText="Submitting"
+                  colorScheme="pink"
+                >
+                  Sign up
+                </Button>
+              </Stack>
+            </Form>
+          )}
+        </Formik>
+      </Box>
+    </Stack>
   );
 }

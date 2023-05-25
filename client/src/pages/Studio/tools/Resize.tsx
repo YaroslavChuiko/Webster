@@ -1,8 +1,8 @@
+import { Button, FormControl, FormLabel, Input, VStack } from '@chakra-ui/react';
 import React, { useState } from 'react';
-import { VStack, Text, Input, FormControl, FormLabel } from '@chakra-ui/react';
 import { useDispatch } from 'react-redux';
-import { setSize } from '~/store/slices/frame-slice';
 import { useAppSelector } from '~/hooks/use-app-selector';
+import { setSize } from '~/store/slices/frame-slice';
 
 const sizes = [
   {
@@ -166,6 +166,7 @@ const Resize = () => {
           type="number"
           width="100px"
           value={width}
+          focusBorderColor="pink.500"
           onChange={handleChangeWidth}
           onBlur={handleBlurWidth}
         />
@@ -180,21 +181,23 @@ const Resize = () => {
           type="number"
           width="100px"
           value={height}
+          focusBorderColor="pink.500"
           onChange={handleChangeHeight}
           onBlur={handleBlurHeight}
         />
       </FormControl>
 
       {sizes.map((size, index) => (
-        <Text
+        <Button
           key={index}
           onClick={() => {
             handleResize(index);
           }}
-          cursor="pointer"
+          size="sm"
+          w="100%"
         >
           {size.name} {size.width} x {size.height} px
-        </Text>
+        </Button>
       ))}
     </VStack>
   );

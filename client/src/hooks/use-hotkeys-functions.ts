@@ -31,6 +31,14 @@ const useHotkeysFunctions = ({ ...transformers }: Props) => {
     resetObjectSelect();
   };
 
+  const onUnselectKey = () => {
+    if (!selected.length) {
+      return;
+    }
+
+    resetObjectSelect();
+  };
+
   const onCopyKey = () => {
     if (!selected.length && !stageObjects) {
       return;
@@ -117,7 +125,16 @@ const useHotkeysFunctions = ({ ...transformers }: Props) => {
       });
   };
 
-  return { onDeleteKey, onCopyKey, onPasteKey, onCutKey, onDuplicateKey, onZIndexUpKey, onZIndexDownKey };
+  return {
+    onDeleteKey,
+    onUnselectKey,
+    onCopyKey,
+    onPasteKey,
+    onCutKey,
+    onDuplicateKey,
+    onZIndexUpKey,
+    onZIndexDownKey,
+  };
 };
 
 export default useHotkeysFunctions;

@@ -10,6 +10,7 @@ import {
   Slider,
   SliderTrack,
   SliderThumb,
+  Box,
 } from '@chakra-ui/react';
 import { SketchPicker, ColorResult } from 'react-color';
 import useStageObject from '~/hooks/use-stage-object';
@@ -108,72 +109,74 @@ const Shadow = ({ shapeId, selectedObject }: IProps) => {
   };
 
   return (
-    <Menu>
-      <MenuButton as={Button}>Shadow</MenuButton>
-      <MenuList paddingX="10px" overflowY="auto" maxH="400px">
-        <FormControl display="flex" alignItems="center">
-          <FormLabel htmlFor="shadow-switch">Shadow</FormLabel>
-          <Switch id="shadow-switch" isChecked={isShadow} onChange={handleIsShadowChange} />
-        </FormControl>
+    <Box>
+      <Menu>
+        <MenuButton as={Button}>Shadow</MenuButton>
+        <MenuList paddingX="10px" overflowY="auto" maxH="400px">
+          <FormControl display="flex" alignItems="center">
+            <FormLabel htmlFor="shadow-switch">Shadow</FormLabel>
+            <Switch colorScheme="pink" id="shadow-switch" isChecked={isShadow} onChange={handleIsShadowChange} />
+          </FormControl>
 
-        {isShadow && (
-          <>
-            <FormControl>
-              <FormLabel htmlFor="shadow-offset-x-slider" fontWeight="normal">
-                Shadow offset x:
-              </FormLabel>
-              <Slider
-                id="shadow-offset-x-slider"
-                aria-label="shadow-offset-x-slider"
-                value={shadowOffsetX}
-                min={-selectedObject.width}
-                max={selectedObject.width}
-                onChange={handleShadowOffsetXChange}
-              >
-                <SliderTrack />
-                <SliderThumb />
-              </Slider>
-            </FormControl>
+          {isShadow && (
+            <>
+              <FormControl>
+                <FormLabel htmlFor="shadow-offset-x-slider" fontWeight="normal">
+                  Shadow offset x:
+                </FormLabel>
+                <Slider
+                  id="shadow-offset-x-slider"
+                  aria-label="shadow-offset-x-slider"
+                  value={shadowOffsetX}
+                  min={-selectedObject.width}
+                  max={selectedObject.width}
+                  onChange={handleShadowOffsetXChange}
+                >
+                  <SliderTrack />
+                  <SliderThumb />
+                </Slider>
+              </FormControl>
 
-            <FormControl>
-              <FormLabel htmlFor="shadow-offset-y-slider" fontWeight="normal">
-                Shadow offset y:
-              </FormLabel>
-              <Slider
-                id="shadow-offset-y-slider"
-                aria-label="shadow-offset-y-slider"
-                value={shadowOffsetY}
-                min={-selectedObject.height}
-                max={selectedObject.height}
-                onChange={handleShadowOffsetYChange}
-              >
-                <SliderTrack />
-                <SliderThumb />
-              </Slider>
-            </FormControl>
+              <FormControl>
+                <FormLabel htmlFor="shadow-offset-y-slider" fontWeight="normal">
+                  Shadow offset y:
+                </FormLabel>
+                <Slider
+                  id="shadow-offset-y-slider"
+                  aria-label="shadow-offset-y-slider"
+                  value={shadowOffsetY}
+                  min={-selectedObject.height}
+                  max={selectedObject.height}
+                  onChange={handleShadowOffsetYChange}
+                >
+                  <SliderTrack />
+                  <SliderThumb />
+                </Slider>
+              </FormControl>
 
-            <FormControl>
-              <FormLabel htmlFor="shadow-blur-slider" fontWeight="normal">
-                Shadow blur:
-              </FormLabel>
-              <Slider
-                id="shadow-blur-slider"
-                aria-label="shadow-blur-slider"
-                value={shadowBlur}
-                min={0}
-                max={selectedObject.width}
-                onChange={handleShadowBlurChange}
-              >
-                <SliderTrack />
-                <SliderThumb />
-              </Slider>
-            </FormControl>
+              <FormControl>
+                <FormLabel htmlFor="shadow-blur-slider" fontWeight="normal">
+                  Shadow blur:
+                </FormLabel>
+                <Slider
+                  id="shadow-blur-slider"
+                  aria-label="shadow-blur-slider"
+                  value={shadowBlur}
+                  min={0}
+                  max={selectedObject.width}
+                  onChange={handleShadowBlurChange}
+                >
+                  <SliderTrack />
+                  <SliderThumb />
+                </Slider>
+              </FormControl>
 
-            <SketchPicker color={shadowColor} onChangeComplete={handleColorChange} />
-          </>
-        )}
-      </MenuList>
-    </Menu>
+              <SketchPicker color={shadowColor} onChangeComplete={handleColorChange} />
+            </>
+          )}
+        </MenuList>
+      </Menu>
+    </Box>
   );
 };
 

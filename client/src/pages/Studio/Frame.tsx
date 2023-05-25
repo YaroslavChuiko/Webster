@@ -21,9 +21,9 @@ type IProps = {
 
 const Frame = ({ stageRef }: IProps) => {
   const { stageObjects } = useStageObject();
-  const { transformer: imageTransformer, onTransformerEnd: onImageTransformerEnd } = useTransformer();
-  const { transformer: textTransformer, onTransformerEnd: onTextTransformerEnd } = useTransformer();
-  const { transformer: multiTransformer, onTransformerEnd: onMultiTransformerEnd } = useTransformer();
+  const { transformer: imageTransformer, onTransformerEnd: onImageTransformerEnd } = useTransformer({ stageRef });
+  const { transformer: textTransformer, onTransformerEnd: onTextTransformerEnd } = useTransformer({ stageRef });
+  const { transformer: multiTransformer, onTransformerEnd: onMultiTransformerEnd } = useTransformer({ stageRef });
 
   const transformers = { imageTransformer, textTransformer, multiTransformer };
 
