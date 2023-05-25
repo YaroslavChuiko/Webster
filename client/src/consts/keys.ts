@@ -11,6 +11,7 @@ export enum KeyType {
   REDO = 'Ctrl+Y',
   DRAG_STAGE = ' ', //space
   UNSELECT = 'Esc',
+  ZOOM = 'Mouse wheel',
 }
 
 export type KeyWithDescriptionType = {
@@ -26,8 +27,10 @@ export const KeysWithDescription: KeyWithDescriptionType[] = [
   { key: KeyType.CUT, description: 'Cut an object from the stage.' },
   { key: KeyType.DUPLICATE, description: 'Duplicate an object.' },
   { key: KeyType.Z_INDEX_UP, description: 'Bring an object forward.' },
+  { key: KeyType.Z_INDEX_DOWN, description: 'Bring an object backward.' },
   { key: KeyType.UNDO, description: 'Undo the last action.' },
   { key: KeyType.REDO, description: 'Redo the last action.' },
   { key: KeyType.DRAG_STAGE, description: 'Drag the stage.' },
   { key: KeyType.UNSELECT, description: 'Unselect an object.' },
+  { key: KeyType.ZOOM, description: 'Zoom in / Zoom out.' },
 ];
