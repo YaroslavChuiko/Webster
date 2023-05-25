@@ -7,16 +7,18 @@ import stageObjectReducer from './slices/stage-object-slice';
 import selectedObjectReducer from './slices/selected-objects-slice';
 import authReducer from './slices/auth-slice';
 import copiedObjectReducer from './slices/copied-objects-slice';
+import { apiSlice } from './slices/canvas-slice';
 
 const persistConfig = {
   key: 'root',
   storage,
-  blacklist: ['selected', 'fontList', 'copied'],
+  blacklist: ['selected', 'fontList', 'copied', 'api'],
 };
 
 const persistedReducer = persistReducer(
   persistConfig,
   combineReducers({
+    [apiSlice.reducerPath]: apiSlice.reducer,
     frame: frameReducer,
     stage: stageObjectReducer,
     selected: selectedObjectReducer,
@@ -33,7 +35,7 @@ export const store = configureStore({
       serializableCheck: false,
       // immutableCheck: { warnAfter: 128 },
       immutableCheck: false,
-    }),
+    }).concat(apiSlice.middleware),
 });
 
 export type RootState = ReturnType<typeof store.getState>;
