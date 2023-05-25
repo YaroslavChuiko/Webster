@@ -9,7 +9,6 @@ function App() {
   return (
     <Routes>
       <Route path="/" element={<Studio />} />
-      <Route path="/home" element={<div>HOME</div>} />
       <Route element={<AuthLayout />}>
         <Route path="/auth/sign-in" element={<SignIn />} />
         <Route path="/auth/sign-up" element={<SignUp />} />

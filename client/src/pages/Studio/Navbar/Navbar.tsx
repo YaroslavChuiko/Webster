@@ -1,25 +1,22 @@
-import { Box, Button, Flex, Icon, Spacer } from '@chakra-ui/react';
-import { HiChevronLeft } from 'react-icons/hi';
+import { Box, Button, Flex, Heading, Spacer } from '@chakra-ui/react';
 import { Link } from 'react-router-dom';
+import { LOGO_FONT } from '~/consts/components';
 
 function Navbar() {
   return (
     <Flex bgGradient="linear(to-r, pink.500, purple.500)" py="2" align="center" id="navbar">
       <Box>
-        <Button
-          leftIcon={<Icon as={HiChevronLeft} boxSize={6} />}
-          mr="4"
-          ml="1"
-          as={Link}
-          to="/home"
+        <Heading
+          fontSize="28px"
+          fontWeight="400"
+          userSelect="none"
           color="white"
-          bgColor="transparent"
-          _hover={{
-            bg: 'pink.400',
-          }}
+          ml="20px"
+          mb="0"
+          fontFamily={LOGO_FONT}
         >
-          Home
-        </Button>
+          Webster
+        </Heading>
       </Box>
       <Spacer />
       <Box>

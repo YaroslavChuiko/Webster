@@ -8,6 +8,7 @@ import App from './App.tsx';
 import './styles/index.css';
 import theme from './styles/theme/index.ts';
 import '@fontsource-variable/inter';
+import '@fontsource-variable/reem-kufi-fun';
 
 ReactDOM.createRoot(document.getElementById('root') as HTMLElement).render(
   <Provider store={store}>
