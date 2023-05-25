@@ -48,7 +48,7 @@ function SignIn() {
   const handleSubmit = async (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault();
     const password = inputRef.current.value;
-    const response = await fetch(`${baseQuery}/auth/auth/sign-in`, {
+    const response = await fetch(`${baseQuery}/auth/sign-in`, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',

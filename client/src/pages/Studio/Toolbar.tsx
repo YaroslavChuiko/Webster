@@ -7,6 +7,7 @@ import Images from './tools/Images/Images';
 import Resize from './tools/Resize';
 import Shapes from './tools/Shapes/Shapes';
 import Texts from './tools/Text/Texts';
+import HotkeysList from './tools/Hotkeys/Hotkeys';
 
 type Props = {
   stageRef: React.RefObject<Konva.Stage>;
@@ -56,6 +57,9 @@ const Toolbar = ({ stageRef }: Props) => {
           </TabPanel>
           <TabPanel>
             <Shapes />
+          </TabPanel>
+          <TabPanel>
+            <HotkeysList />
           </TabPanel>
         </TabPanels>
       </Tabs>
