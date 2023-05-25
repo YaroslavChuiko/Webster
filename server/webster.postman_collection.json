@@ -1,0 +1,217 @@
+{
+	"info": {
+		"_postman_id": "54eda5d8-13d6-4552-ae75-efd7334dc48e",
+		"name": "webster",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "23737891"
+	},
+	"item": [
+		{
+			"name": "auth",
+			"item": [
+				{
+					"name": "Sign In",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"email\": \"nosov2205@gmail.com\",\n    \"password\": \"qwerty123\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "localhost:8080/auth/sign-in",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"auth",
+								"sign-in"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Sign Up",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "localhost:8080/auth/sign-up",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"auth",
+								"sign-up"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "canvas",
+			"item": [
+				{
+					"name": "Create Canvas",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6ImMwY2U0YWIyLWFmYzQtNGRjZS1iMTk2LTBmYjRlNWE2ZDIxOSIsImlhdCI6MTY4NDk1NzA0NSwiZXhwIjoxNjg0OTYwNjQ1fQ.PWVCxIeweFFvGPkwe7jvGllNqVzGxzCLWA1cvwTyrmA",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"name\": \"aboba\",\n    \"description\": \"amogus\",\n    \"content\": \"{\\\"browsers\\\":{\\\"chrome\\\":{\\\"name\\\":\\\"chrome\\\",\\\"pref_url\\\":\\\"about:config\\\",\\\"releases\\\":{\\\"1\\\":{\\\"release_date\\\":\\\"2004-11-09\\\",\\\"status\\\":\\\"retired\\\",\\\"engine\\\":\\\"Gecko\\\",\\\"engine_version\\\":\\\"1.7\\\"}}}}}\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "localhost:8080/canvas",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"canvas"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get Canvas",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6ImMwY2U0YWIyLWFmYzQtNGRjZS1iMTk2LTBmYjRlNWE2ZDIxOSIsImlhdCI6MTY4NDk1NzA0NSwiZXhwIjoxNjg0OTYwNjQ1fQ.PWVCxIeweFFvGPkwe7jvGllNqVzGxzCLWA1cvwTyrmA",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "localhost:8080/canvas/7656c239-35a3-4934-8e3c-caa9540ad79c",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"canvas",
+								"7656c239-35a3-4934-8e3c-caa9540ad79c"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Update canvas",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6ImMwY2U0YWIyLWFmYzQtNGRjZS1iMTk2LTBmYjRlNWE2ZDIxOSIsImlhdCI6MTY4NDk1NzA0NSwiZXhwIjoxNjg0OTYwNjQ1fQ.PWVCxIeweFFvGPkwe7jvGllNqVzGxzCLWA1cvwTyrmA",
+									"type": "string"
+								}
+							]
+						},
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"name\": \"aboba\",\n    \"description\": \"amogus\",\n    \"content\": \"{\\\"browsers\\\":{\\\"chrome\\\":{\\\"name\\\":\\\"chrome\\\",\\\"pref_url\\\":\\\"about:config\\\",\\\"releases\\\":{\\\"1\\\":{\\\"release_date\\\":\\\"2004-11-09\\\",\\\"status\\\":\\\"retired\\\",\\\"engine\\\":\\\"Gecko\\\",\\\"engine_version\\\":\\\"1.7\\\"}}}}}\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "localhost:8080/canvas/7656c239-35a3-4934-8e3c-caa9540ad79c",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"canvas",
+								"7656c239-35a3-4934-8e3c-caa9540ad79c"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Delete Canvas",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6ImMwY2U0YWIyLWFmYzQtNGRjZS1iMTk2LTBmYjRlNWE2ZDIxOSIsImlhdCI6MTY4NDk1NzA0NSwiZXhwIjoxNjg0OTYwNjQ1fQ.PWVCxIeweFFvGPkwe7jvGllNqVzGxzCLWA1cvwTyrmA",
+									"type": "string"
+								}
+							]
+						},
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "localhost:8080/canvas/7656c239-35a3-4934-8e3c-caa9540ad79c",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"canvas",
+								"7656c239-35a3-4934-8e3c-caa9540ad79c"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get List Canvases",
+					"request": {
+						"method": "GET",
+						"header": []
+					},
+					"response": []
+				}
+			]
+		}
+	]
+}
