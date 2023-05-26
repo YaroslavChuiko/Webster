@@ -15,8 +15,8 @@ function EmailConfirm() {
   const toast = useToast();
 
   useEffect(() => {
-    const simulateApiRequest = async () => {
-      const response = await fetch(`${baseQuery}/auth/auth/verify-email`, {
+    const confirmEmail = async () => {
+      const response = await fetch(`${baseQuery}/auth/verify-email`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -32,7 +32,7 @@ function EmailConfirm() {
       }
     };
     if (token) {
-      simulateApiRequest();
+      confirmEmail();
     }
   }, []);
 
