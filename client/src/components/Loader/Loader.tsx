@@ -10,8 +10,8 @@ const Loader = ({ isFullScreen = false }: Props) => {
   }
 
   return (
-    <Center>
-      <Spinner sx={{ w: 100, h: 100 }} speed=".6s" thickness="4px" />
+    <Center sx={{ h: '100vh' }}>
+      <Spinner color="pink.500" sx={{ w: 100, h: 100 }} speed=".6s" thickness="4px" />
     </Center>
   );
 };

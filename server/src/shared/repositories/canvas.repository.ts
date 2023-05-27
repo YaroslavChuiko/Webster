@@ -33,28 +33,35 @@ export class CanvasRepository {
   async getList(
     where?: GetAllCanvasesWhereType,
     options?: GetAllCanvasesOptionsType,
-  ): Promise<Omit<Canvas, 'content'>[]> {
-    return this.prisma.canvas.findMany({
-      ...options,
-      where: {
-        name: {
-          search: where?.name,
-        },
-        description: {
-          search: where?.description,
-        },
-        authorId: {
-          equals: where?.authorId,
-        },
+  ): Promise<{ canvases: Omit<Canvas, 'content'>[]; count: number }> {
+    const whereOptions = {
+      name: {
+        search: where?.name,
       },
-      select: {
-        id: true,
-        name: true,
-        description: true,
-        authorId: true,
-        createdAt: true,
-        updatedAt: true,
+      description: {
+        search: where?.description,
       },
-    });
+      authorId: {
+        equals: where?.authorId,
+      },
+    };
+
+    const [canvases, count] = await this.prisma.$transaction([
+      this.prisma.canvas.findMany({
+        ...options,
+        where: whereOptions,
+        select: {
+          id: true,
+          name: true,
+          description: true,
+          authorId: true,
+          createdAt: true,
+          updatedAt: true,
+        },
+      }),
+      this.prisma.canvas.count({ where: whereOptions }),
+    ]);
+
+    return { canvases, count };
   }
 }

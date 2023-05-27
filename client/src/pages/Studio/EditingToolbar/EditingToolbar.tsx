@@ -1,4 +1,4 @@
-import { HStack, Icon, IconButton, Tooltip } from '@chakra-ui/react';
+import { HStack, Icon, IconButton, Spacer, Tooltip } from '@chakra-ui/react';
 import { useEffect } from 'react';
 import { useHotkeys } from 'react-hotkeys-hook';
 import { HiOutlineRefresh, HiOutlineReply } from 'react-icons/hi';
@@ -12,10 +12,11 @@ import { StageObjectType } from '~/types/stage-object';
 import ImageEditing from './ImageEditing/ImageEditing';
 import ShapesEditing from './ShapesEditing/ShapesEditing';
 import TextEditing from './TextEditing/TextEditing';
+import CanvasContentSave from '../canvas-actions/CanvasContentSave';
 
 const EditingToolbar = () => {
   const stageObjects = useAppSelector(stageObjectSelector.selectAll);
-  const { selected } = useAppSelector((state) => state.selected);
+  const { selected, isLoggedIn } = useAppSelector((state) => ({ ...state.selected, ...state.auth }));
 
   const { savePast, goBack, goForward } = useHistory();
 
@@ -77,6 +78,12 @@ const EditingToolbar = () => {
         />
       </Tooltip>
       {renderEditing()}
+      {isLoggedIn && (
+        <>
+          <Spacer />
+          <CanvasContentSave />
+        </>
+      )}
     </HStack>
   );
 };

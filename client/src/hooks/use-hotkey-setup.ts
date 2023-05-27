@@ -3,6 +3,7 @@ import { useHotkeys } from 'react-hotkeys-hook';
 import useHotkeysFunctions from './use-hotkeys-functions';
 import Konva from 'konva';
 import { KeyType } from '~/consts/keys';
+import useSaveContent from './use-save-content';
 
 type Props = {
   imageTransformer?: RefObject<Konva.Transformer>;
@@ -21,6 +22,7 @@ const useHotkeySetup = ({ ...transformers }: Props) => {
     onZIndexUpKey,
     onZIndexDownKey,
   } = useHotkeysFunctions(transformers);
+  const { saveHandler } = useSaveContent();
 
   useHotkeys(KeyType.DELETE, () => onDeleteKey());
   useHotkeys(KeyType.UNSELECT, () => onUnselectKey());
@@ -30,6 +32,7 @@ const useHotkeySetup = ({ ...transformers }: Props) => {
   useHotkeys(KeyType.DUPLICATE, () => onDuplicateKey());
   useHotkeys(KeyType.Z_INDEX_UP, () => onZIndexUpKey());
   useHotkeys(KeyType.Z_INDEX_DOWN, () => onZIndexDownKey());
+  useHotkeys(KeyType.SAVE, () => saveHandler());
 };
 
 export default useHotkeySetup;

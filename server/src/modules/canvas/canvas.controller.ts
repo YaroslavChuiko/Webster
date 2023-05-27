@@ -73,7 +73,7 @@ export class CanvasController {
       }),
     )
     query: GetListCanvasQueryDto,
-  ): Promise<Omit<Canvas, 'content'>[]> {
+  ): Promise<{ canvases: Omit<Canvas, 'content'>[]; count: number }> {
     const cursor = query?.cursor ? { id: query?.cursor } : undefined;
     return this.canvasService.getListCanvases(
       {

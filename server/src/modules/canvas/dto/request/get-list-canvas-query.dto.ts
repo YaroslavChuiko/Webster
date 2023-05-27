@@ -1,10 +1,4 @@
-import {
-  IsInt,
-  IsOptional,
-  IsPositive,
-  IsString,
-  IsUUID,
-} from 'class-validator';
+import { IsInt, IsOptional, IsString, IsUUID, Min } from 'class-validator';
 import { Type } from 'class-transformer';
 
 export class GetListCanvasQueryDto {
@@ -22,13 +16,13 @@ export class GetListCanvasQueryDto {
 
   @Type(() => Number)
   @IsInt()
-  @IsPositive()
+  @Min(0)
   @IsOptional()
   skip?: number;
 
   @Type(() => Number)
   @IsInt()
-  @IsPositive()
+  @Min(0)
   @IsOptional()
   take?: number;
 

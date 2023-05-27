@@ -20,7 +20,7 @@ type IProps = {
 };
 
 const Frame = ({ stageRef }: IProps) => {
-  const { stageObjects } = useStageObject();
+  const { stageObjects, resetAll, replaceAll } = useStageObject();
   const { transformer: imageTransformer, onTransformerEnd: onImageTransformerEnd } = useTransformer({ stageRef });
   const { transformer: textTransformer, onTransformerEnd: onTextTransformerEnd } = useTransformer({ stageRef });
   const { transformer: multiTransformer, onTransformerEnd: onMultiTransformerEnd } = useTransformer({ stageRef });
@@ -31,7 +31,7 @@ const Frame = ({ stageRef }: IProps) => {
 
   useHotkeySetup(transformers);
 
-  const { width, height, scale } = useAppSelector((state) => state.frame);
+  const { width, height, scale, stage } = useAppSelector((state) => state.frame);
   const { boxWidth, boxHeight, handleZoom, handleDragMoveStage } = useStageResize({ stageRef });
 
   useEffect(() => {
@@ -43,6 +43,20 @@ const Frame = ({ stageRef }: IProps) => {
 
     resetObjectSelect();
   }, []);
+
+  useEffect(() => {
+    const content = stage.content;
+    resetObjectSelect();
+    if (JSON.stringify(content) === JSON.stringify(stageObjects)) {
+      return;
+    }
+    if (content === null || content === undefined || content === '""' || !content.length) {
+      resetAll();
+      return;
+    }
+
+    replaceAll(content as StageObject[]);
+  }, [stage.id, stage.content]);
 
   const checkDeselect = (e: KonvaEventObject<MouseEvent> | KonvaEventObject<TouchEvent>) => {
     const clickedOnEmpty = e.target === e.target.getStage();

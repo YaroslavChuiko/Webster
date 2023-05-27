@@ -12,6 +12,7 @@ export enum KeyType {
   DRAG_STAGE = ' ', //space
   UNSELECT = 'Esc',
   ZOOM = 'Mouse wheel',
+  SAVE = 'Alt+S',
 }
 
 export type KeyWithDescriptionType = {
@@ -33,4 +34,5 @@ export const KeysWithDescription: KeyWithDescriptionType[] = [
   { key: KeyType.DRAG_STAGE, description: 'Drag the stage.' },
   { key: KeyType.UNSELECT, description: 'Unselect an object.' },
   { key: KeyType.ZOOM, description: 'Zoom in / Zoom out.' },
+  { key: KeyType.SAVE, description: 'Save recent changes to the stage.' },
 ];
