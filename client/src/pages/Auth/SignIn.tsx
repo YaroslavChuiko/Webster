@@ -11,7 +11,6 @@ import {
   Stack,
   HStack,
   Text,
-  Checkbox,
   Container,
   useDisclosure,
   InputGroup,
@@ -123,14 +122,6 @@ function SignIn() {
                   </InputGroup>
                 </FormControl>
               </Stack>
-              <HStack justify="space-between">
-                <Checkbox defaultChecked colorScheme="pink">
-                  Remember me
-                </Checkbox>
-                <Button variant="link" colorScheme="pink" size="sm">
-                  Forgot password?
-                </Button>
-              </HStack>
               <Stack spacing="6">
                 <Button type="submit" colorScheme="pink" isLoading={authState.loading}>
                   {authState.loading ? 'Signing in...' : 'Sign in'}
