@@ -8,9 +8,9 @@ const CanvasCreate = () => {
   return (
     <Box sx={{ w: '100%' }}>
       <Button variant="ghost" colorScheme="pink" onClick={onOpen} sx={{ w: '100%' }}>
-        Create a stage
+        Create a canvas
       </Button>
-      <DrawerWrapper isOpen={isOpen} onClose={onClose} title="Create a Stage">
+      <DrawerWrapper isOpen={isOpen} onClose={onClose} title="Create a Canvas">
         <CanvasCreateForm />
       </DrawerWrapper>
     </Box>

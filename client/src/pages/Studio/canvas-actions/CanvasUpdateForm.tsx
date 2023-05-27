@@ -39,7 +39,7 @@ const CanvasUpdateForm = () => {
     });
 
     toast({
-      title: 'Your stage was successfully updated.',
+      title: 'Your canvas was successfully updated.',
       status: 'success',
       duration: 5000,
       isClosable: true,

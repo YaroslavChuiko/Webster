@@ -51,7 +51,7 @@ function Navbar() {
           <>
             <Box>
               <Text display="inline" fontSize="15px" fontWeight="500" color="white" pr="2">
-                {id && name ? 'Current Stage:' : 'No stage selected'}
+                {id && name ? 'Current Canvas:' : 'No canvas selected'}
               </Text>
               {id && name && (
                 <Text display="inline" fontSize="16px" fontWeight="600" color="white">

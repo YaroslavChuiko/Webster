@@ -28,7 +28,7 @@ const CanvasViewItem = ({ id, name, description, updatedAt, onClose }: Props) =>
       .then(() => {
         dispatch(resetStage());
         toast({
-          title: 'Your stage was successfully removed.',
+          title: 'Your canvas was successfully removed.',
           status: 'success',
           duration: 5000,
           isClosable: true,

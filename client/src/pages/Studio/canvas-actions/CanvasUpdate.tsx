@@ -8,9 +8,9 @@ const CanvasUpdate = () => {
   return (
     <Box sx={{ w: '100%' }}>
       <Button variant="ghost" colorScheme="pink" onClick={onOpen} sx={{ w: '100%' }}>
-        Update this stage
+        Update this canvas
       </Button>
-      <DrawerWrapper isOpen={isOpen} onClose={onClose} title="Update this Stage">
+      <DrawerWrapper isOpen={isOpen} onClose={onClose} title="Update This Canvas">
         <CanvasUpdateForm />
       </DrawerWrapper>
     </Box>

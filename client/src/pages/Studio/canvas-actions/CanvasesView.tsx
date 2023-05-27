@@ -42,13 +42,13 @@ const CanvasesView = () => {
   return (
     <Box sx={{ w: '100%' }}>
       <Button variant="ghost" colorScheme="pink" onClick={onOpen} sx={{ w: '100%' }}>
-        View all stages
+        View all canvases
       </Button>
 
       <Modal isOpen={isOpen} onClose={onClose} isCentered scrollBehavior="inside">
         <ModalOverlay />
         <ModalContent sx={{ p: 4 }}>
-          <ModalHeader>All Created Stages</ModalHeader>
+          <ModalHeader>All Created Canvases</ModalHeader>
           <ModalCloseButton />
           <ModalBody>
             {isLoading ? (
@@ -67,7 +67,7 @@ const CanvasesView = () => {
                     />
                   </>
                 ) : (
-                  <NothingFound message="You have no stages. Please create one." />
+                  <NothingFound message="You have no canvases. Please create one." />
                 )}
               </VStack>
             )}
