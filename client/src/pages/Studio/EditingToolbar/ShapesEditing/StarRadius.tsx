@@ -40,7 +40,7 @@ const StarRadius = ({ shapeId, selectedObject }: IProps) => {
   return (
     <Box>
       <Menu>
-        <MenuButton as={Button}>Raduis</MenuButton>
+        <MenuButton as={Button}>Radius</MenuButton>
         <MenuList paddingX="10px">
           <FormControl>
             <FormLabel htmlFor="inner-radius-slider" fontWeight="normal">
