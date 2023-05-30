@@ -23,6 +23,9 @@
 
 <div align="center">
   <h3>A simple graphic-design application.</h3>
+    
+  <h3>Demo</h3>
+  <p><a href="https://youtu.be/zDJ3vSZpoSA" target="_blank">Demo video</a></p>
 </div>
 
 <br/>
@@ -32,3 +35,34 @@
 [Client](client/README.md)
 
 [Server](server/README.md)
+
+<br/>
+
+## Deployment diagram
+
+![use_case](https://github.com/YaroslavChuiko/Webster/assets/32570823/6a2ed391-ebb9-4658-80bc-8a40f8c91260)
+
+## Entity-relationship diagram
+
+![Entity-relationship diagram](https://github.com/YaroslavChuiko/Webster/assets/32570823/f4057db3-eb7b-44fd-a83e-42e7c41ca826)
+
+## Use-case diagram
+
+![use_case](https://github.com/YaroslavChuiko/Webster/assets/32570823/7f126bf8-ff3e-4f58-aa52-9a16c1d0a98a)
+
+<br/>
+
+## Snapshots
+### Login
+![2022-12-08](https://github.com/YaroslavChuiko/Webster/assets/32570823/33f6efda-9215-4d3c-aef6-f759c2f55b18)
+
+### Register
+![2022-12-08](https://github.com/YaroslavChuiko/Webster/assets/32570823/5ff5899d-978c-43e4-8534-4c094072d3bf)
+
+
+### Studio
+![2022-12-08 (3)](https://github.com/YaroslavChuiko/Webster/assets/32570823/08ae8525-0d6e-48c6-8573-f6dbe4a190e2)
+
+![2022-12-08 (3)](https://github.com/YaroslavChuiko/Webster/assets/32570823/b305cbb0-0f47-4807-b8e6-7c193962ecfe)
+
+
