@@ -17,7 +17,8 @@
   <img alt="nestjs" src="https://img.shields.io/badge/-nestjs-E0234E.svg?style=for-the-badge&logo=nestjs&logoColor=white" />
   <img alt="postgresql" src="https://img.shields.io/badge/-postgresql-4169E1.svg?style=for-the-badge&logo=postgresql&logoColor=white" />
   <img alt="Prisma" src="https://img.shields.io/badge/-Prisma-2D3748.svg?style=for-the-badge&logo=prisma&logoColor=white" />
-  <img alt="Passport JWT" src="https://img.shields.io/badge/-passport%20JWT-34E27A.svg?style=for-the-badge&logo=passport&logoColor=white" />
+  <img alt="Passport" src="https://img.shields.io/badge/-passport-34E27A.svg?style=for-the-badge&logo=passport&logoColor=white" />
+  <img alt="JSON Web Tokens" src="https://img.shields.io/badge/-JWT-000000.svg?style=for-the-badge&logo=JSONWebTokens&logoColor=white" />
   <img alt=".ENV" src="https://img.shields.io/badge/-.ENV-ECD53F.svg?style=for-the-badge&logo=.ENV&logoColor=black" />
 </div>
 
