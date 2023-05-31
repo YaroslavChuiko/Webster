@@ -23,7 +23,7 @@
 </div>
 
 <div align="center">
-  <h3>A simple graphic-design application.</h3>
+  <h3>A simple design editor.</h3>
     
   <h3>Demo</h3>
   <p><a href="https://youtu.be/zDJ3vSZpoSA" target="_blank">Demo video</a></p>
@@ -62,8 +62,14 @@
 
 
 ### Studio
-![2022-12-08 (3)](https://github.com/YaroslavChuiko/Webster/assets/32570823/08ae8525-0d6e-48c6-8573-f6dbe4a190e2)
+![2022-12-08 (3)](https://github.com/YaroslavChuiko/Webster/assets/32570823/ebebcadd-e831-4996-945c-d101b1e5938e)
 
-![2022-12-08 (3)](https://github.com/YaroslavChuiko/Webster/assets/32570823/b305cbb0-0f47-4807-b8e6-7c193962ecfe)
+#### Image search
+![image](https://github.com/YaroslavChuiko/Webster/assets/32570823/4b659145-1984-4db8-b51a-9e3a79007b7c)
+
+#### Font search
+![image](https://github.com/YaroslavChuiko/Webster/assets/32570823/933c335c-0c0c-480c-bfea-f5b1ea37f5f6)
+
+
 
 
