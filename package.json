@@ -1,0 +1,27 @@
+{
+  "name": "webster",
+  "version": "1.0.0",
+  "description": "<head>\r     <div align=\"center\">\r         <h1 align=\"center\">Webster</h1>\r     </div>\r </head>",
+  "main": "index.js",
+  "scripts": {
+    "build": "yarn workspace server run prisma:prepare && yarn workspaces run build",
+    "start-client": "yarn workspace client run preview",
+    "start-server": "yarn workspace server run start:prod",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/YaroslavChuiko/Webster.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/YaroslavChuiko/Webster/issues"
+  },
+  "homepage": "https://github.com/YaroslavChuiko/Webster#readme",
+  "private": true,
+  "workspaces": [
+    "client",
+    "server"
+  ]
+}
