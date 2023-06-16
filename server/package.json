@@ -6,7 +6,7 @@
   "private": true,
   "license": "UNLICENSED",
   "scripts": {
-    "build": "nest build",
+    "build": "yarn run prisma:prepare && nest build",
     "format": "prettier --write \"src/**/*.ts\" \"test/**/*.ts\"",
     "prepush": "yarn build && yarn lint",
     "prepack": "pinst --disable",
@@ -26,7 +26,8 @@
     "prebuild": "rimraf dist",
     "prisma:prepare": "prisma generate --schema ./src/prisma/schema.prisma",
     "prisma:format": "prisma format --schema ./src/prisma/schema.prisma",
-    "migrate:dev": "prisma migrate dev --schema ./src/prisma/schema.prisma"
+    "migrate:dev": "prisma migrate dev --schema ./src/prisma/schema.prisma",
+    "migrate:prod": "prisma migrate deploy --schema ./src/prisma/schema.prisma"
   },
   "dependencies": {
     "@fastify/helmet": "^10.1.0",

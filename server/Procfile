@@ -1,0 +1,3 @@
+web: yarn run start:prod
+
+release: yarn run migrate:prod
