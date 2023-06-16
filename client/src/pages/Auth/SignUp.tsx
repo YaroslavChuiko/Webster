@@ -14,7 +14,7 @@ import {
   Text,
   useToast,
 } from '@chakra-ui/react';
-import { ErrorMessage, Field, Form, Formik } from 'formik';
+import { ErrorMessage, Field, Form, Formik, FormikValues } from 'formik';
 import { useState } from 'react';
 import { Link as RouterLink, useNavigate } from 'react-router-dom';
 import * as Yup from 'yup';
@@ -26,7 +26,7 @@ export default function SignUp() {
   const navigate = useNavigate();
   const toast = useToast();
 
-  const handleSubmit = async (values, { setSubmitting }) => {
+  const handleSubmit = async (values: FormikValues, { setSubmitting }: any) => {
     setSubmitting(true);
     const response = await fetch(`${baseQuery}/auth/sign-up`, {
       method: 'POST',
@@ -111,7 +111,7 @@ export default function SignUp() {
             email: Yup.string().email('Invalid email address').required('Required'),
             password: Yup.string().min(6, 'Password must be at least 6 characters').required('Required'),
             passwordConfirm: Yup.string()
-              .oneOf([Yup.ref('password'), null], 'Passwords must match')
+              .oneOf([Yup.ref('password'), undefined], 'Passwords must match')
               .required('Required'),
           })}
           onSubmit={handleSubmit}
@@ -121,7 +121,9 @@ export default function SignUp() {
               <Stack spacing={3} mb="20px">
                 <HStack>
                   <Field name="username">
-                    {({ field, form }) => (
+                    {(
+                      { field, form }: any, // FieldProps
+                    ) => (
                       <FormControl id="username" isRequired isInvalid={form.errors.username && form.touched.username}>
                         <FormLabel>Username</FormLabel>
                         <Input {...field} type="text" focusBorderColor="pink.500" />
@@ -131,7 +133,7 @@ export default function SignUp() {
                   </Field>
                 </HStack>
                 <Field name="email">
-                  {({ field, form }) => (
+                  {({ field, form }: any) => (
                     <FormControl id="email" isRequired isInvalid={form.errors.email && form.touched.email}>
                       <FormLabel>Email address</FormLabel>
                       <Input {...field} type="email" focusBorderColor="pink.500" />
@@ -140,7 +142,7 @@ export default function SignUp() {
                   )}
                 </Field>
                 <Field name="password">
-                  {({ field, form }) => (
+                  {({ field, form }: any) => (
                     <FormControl isInvalid={form.errors.password && form.touched.password}>
                       <FormLabel>Password</FormLabel>
                       <InputGroup>
@@ -156,7 +158,7 @@ export default function SignUp() {
                   )}
                 </Field>
                 <Field name="passwordConfirm">
-                  {({ field, form }) => (
+                  {({ field, form }: any) => (
                     <FormControl isInvalid={form.errors.passwordConfirm && form.touched.passwordConfirm}>
                       <FormLabel>Password Confirm</FormLabel>
                       <InputGroup>

@@ -22,17 +22,17 @@ import { HiEye, HiEyeOff } from 'react-icons/hi';
 
 import { loginFail, loginSuccess } from '~/store/slices/auth-slice';
 import { RootState } from '~/store/store';
-import { useSelector } from 'react-redux';
 import { ThunkDispatch } from '@reduxjs/toolkit';
 import { AnyAction } from 'redux';
 import { baseQuery } from '~/consts/api';
 import Logo from './Logo';
+// import { useAppSelector } from '~/hooks/use-app-selector';
 
 function SignIn() {
   const navigate = useNavigate();
   const [email, setEmail] = useState('');
   const { isOpen, onToggle } = useDisclosure();
-  const inputRef = useRef<HTMLInputElement>('' as HTMLInputElement);
+  const inputRef = useRef<HTMLInputElement>(null);
 
   const onClickReveal = () => {
     onToggle();
@@ -42,10 +42,12 @@ function SignIn() {
   };
 
   const dispatch = useDispatch<ThunkDispatch<RootState, undefined, AnyAction>>();
-  const authState = useSelector((state: RootState) => state.auth);
+  // const authState = useAppSelector((state) => state.auth);
 
   const handleSubmit = async (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault();
+    if (!inputRef.current) return;
+
     const password = inputRef.current.value;
     const response = await fetch(`${baseQuery}/auth/sign-in`, {
       method: 'POST',
@@ -123,8 +125,8 @@ function SignIn() {
                 </FormControl>
               </Stack>
               <Stack spacing="6">
-                <Button type="submit" colorScheme="pink" isLoading={authState.loading}>
-                  {authState.loading ? 'Signing in...' : 'Sign in'}
+                <Button type="submit" colorScheme="pink">
+                  {'Sign in'}
                 </Button>
               </Stack>
             </Stack>
