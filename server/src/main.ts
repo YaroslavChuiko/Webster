@@ -5,13 +5,14 @@ import {
 } from '@nestjs/platform-fastify';
 import { AppModule } from './app.module';
 import { LoggerService } from './modules/logger/logger.service';
-import { appConfig } from './shared/configs/app.config';
+// import { appConfig } from './shared/configs/app.config';
 import { fastifyHelmet } from '@fastify/helmet';
 import { PrismaService } from './shared/services/prisma.service';
 import { ValidationPipe } from './shared/pipes';
 import { AllExceptionsFilter } from './shared/filters';
 
-const port = appConfig.getPort();
+// const port = appConfig.getPort();
+const port = process.env.PORT || 8080;
 async function bootstrap() {
   const app = await NestFactory.create<NestFastifyApplication>(
     AppModule,
