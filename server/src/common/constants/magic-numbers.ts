@@ -1,5 +1,5 @@
 // common
-export const defaultPort = 5000;
+export const defaultPort = 3000;
 // auth
 export const minLengthPasswordValidation = 8;
 export const minLengthUsernameValidation = 4;
