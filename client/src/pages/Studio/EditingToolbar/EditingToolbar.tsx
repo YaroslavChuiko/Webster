@@ -16,7 +16,8 @@ import CanvasContentSave from '../canvas-actions/CanvasContentSave';
 
 const EditingToolbar = () => {
   const stageObjects = useAppSelector(stageObjectSelector.selectAll);
-  const { selected, isLoggedIn } = useAppSelector((state) => ({ ...state.selected, ...state.auth }));
+  const { selected } = useAppSelector((state) => state.selected);
+  const { isLoggedIn } = useAppSelector((state) => state.auth);
 
   const { savePast, goBack, goForward } = useHistory();
 

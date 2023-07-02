@@ -14,7 +14,8 @@ import { resetStage, setStage } from '~/store/slices/frame-slice';
 
 function Navbar() {
   const dispatch = useDispatch();
-  const { isLoggedIn, stage } = useAppSelector((state) => ({ ...state.auth, ...state.frame }));
+  const { stage } = useAppSelector((state) => state.frame);
+  const { isLoggedIn } = useAppSelector((state) => state.auth);
   const { id, name } = stage;
   const [getStage] = useLazyGetCanvasQuery();
 
