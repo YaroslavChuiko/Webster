@@ -1,73 +1,63 @@
-import { useState, FormEvent, useRef } from 'react';
-import { Link as RouterLink, useNavigate } from 'react-router-dom';
-import { useDispatch } from 'react-redux';
 import {
   Box,
-  Heading,
+  Button,
+  Container,
   FormControl,
   FormLabel,
-  Input,
-  Button,
-  Stack,
   HStack,
-  Text,
-  Container,
-  useDisclosure,
+  Heading,
+  IconButton,
+  Input,
   InputGroup,
   InputRightElement,
-  IconButton,
   Link,
+  Stack,
+  Text,
+  useDisclosure,
 } from '@chakra-ui/react';
 import { HiEye, HiEyeOff } from 'react-icons/hi';
+import { Link as RouterLink, useNavigate } from 'react-router-dom';
 
-import { loginFail, loginSuccess } from '~/store/slices/auth-slice';
-import { RootState } from '~/store/store';
-import { ThunkDispatch } from '@reduxjs/toolkit';
-import { AnyAction } from 'redux';
-import { baseQuery } from '~/consts/api';
+import { useForm } from 'react-hook-form';
+import useCustomToast from '~/hooks/use-custom-toast';
+import { useLoginMutation } from '~/store/api/auth-slice';
 import Logo from './Logo';
-// import { useAppSelector } from '~/hooks/use-app-selector';
+
+type FormValues = {
+  email: string;
+  password: string;
+};
 
 function SignIn() {
   const navigate = useNavigate();
-  const [email, setEmail] = useState('');
   const { isOpen, onToggle } = useDisclosure();
-  const inputRef = useRef<HTMLInputElement>(null);
+  const { toast } = useCustomToast();
 
-  const onClickReveal = () => {
-    onToggle();
-    if (inputRef.current) {
-      inputRef.current.focus({ preventScroll: true });
-    }
-  };
+  const [login, { isLoading }] = useLoginMutation();
 
-  const dispatch = useDispatch<ThunkDispatch<RootState, undefined, AnyAction>>();
-  // const authState = useAppSelector((state) => state.auth);
+  const {
+    handleSubmit,
+    register,
+    // formState: { errors, isSubmitting },
+  } = useForm({
+    defaultValues: {
+      email: '',
+      password: '',
+    },
+  });
 
-  const handleSubmit = async (event: FormEvent<HTMLFormElement>) => {
-    event.preventDefault();
-    if (!inputRef.current) return;
-
-    const password = inputRef.current.value;
-    const response = await fetch(`${baseQuery}/auth/sign-in`, {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify({ email, password }),
-    });
-    const data = await response.json();
-    if (response.status === 200) {
-      dispatch(loginSuccess(data.accessToken));
+  const onSubmit = async (values: FormValues) => {
+    try {
+      await login(values).unwrap();
       navigate('/');
-    } else {
-      dispatch(loginFail(response.statusText));
+    } catch (error: any) {
+      toast(error?.data.message, 'error');
     }
   };
 
   return (
     <Container maxW="lg" py={{ base: '12', md: '24' }} px={{ base: '0', sm: '8' }}>
-      <form onSubmit={handleSubmit}>
+      <form onSubmit={handleSubmit(onSubmit)}>
         <Stack spacing="8">
           <Stack spacing="6">
             <Logo />
@@ -97,8 +87,12 @@ function SignIn() {
                     id="email"
                     type="email"
                     focusBorderColor="pink.500"
-                    value={email}
-                    onChange={(event) => setEmail(event.target.value)}
+                    // value={email}
+                    // onChange={(event) => setEmail(event.target.value)}
+                    {...register('email', {
+                      required: 'This is required',
+                      minLength: { value: 4, message: 'Minimum length should be 4' },
+                    })}
                   />
                 </FormControl>
                 <FormControl>
@@ -106,26 +100,29 @@ function SignIn() {
                   <InputGroup>
                     <InputRightElement>
                       <IconButton
+                        tabIndex={-1}
                         variant="link"
                         aria-label={isOpen ? 'Mask password' : 'Reveal password'}
                         icon={isOpen ? <HiEyeOff /> : <HiEye />}
-                        onClick={onClickReveal}
+                        onClick={onToggle}
                       />
                     </InputRightElement>
                     <Input
                       id="password"
-                      ref={inputRef}
-                      name="password"
                       type={isOpen ? 'text' : 'password'}
                       autoComplete="current-password"
                       focusBorderColor="pink.500"
                       required
+                      {...register('password', {
+                        required: 'This is required',
+                        minLength: { value: 4, message: 'Minimum length should be 4' },
+                      })}
                     />
                   </InputGroup>
                 </FormControl>
               </Stack>
               <Stack spacing="6">
-                <Button type="submit" colorScheme="pink">
+                <Button type="submit" colorScheme="pink" isLoading={isLoading}>
                   {'Sign in'}
                 </Button>
               </Stack>
