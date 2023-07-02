@@ -1,4 +1,4 @@
-import { useUpdateCanvasMutation } from '~/store/slices/canvas-slice';
+import { useUpdateCanvasMutation } from '~/store/api/canvas-slice';
 import { useAppSelector } from './use-app-selector';
 import { useCallback, useEffect, useState } from 'react';
 import { useToast } from '@chakra-ui/react';

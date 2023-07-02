@@ -2,7 +2,7 @@ import { VStack, FormControl, FormLabel, Input, FormErrorMessage, Button } from 
 import { zodResolver } from '@hookform/resolvers/zod';
 import { useForm } from 'react-hook-form';
 import { useDispatch } from 'react-redux';
-import { useCreateCanvasMutation } from '~/store/slices/canvas-slice';
+import { useCreateCanvasMutation } from '~/store/api/canvas-slice';
 import { setStage } from '~/store/slices/frame-slice';
 import { ICreate, createSchema } from '~/validation/canvas';
 

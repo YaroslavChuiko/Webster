@@ -9,7 +9,7 @@ import CanvasCreate from '../canvas-actions/CanvasCreate';
 import { useEffect } from 'react';
 import CanvasesView from '../canvas-actions/CanvasesView';
 import CanvasUpdate from '../canvas-actions/CanvasUpdate';
-import { useLazyGetCanvasQuery } from '~/store/slices/canvas-slice';
+import { useLazyGetCanvasQuery } from '~/store/api/canvas-slice';
 import { resetStage, setStage } from '~/store/slices/frame-slice';
 
 function Navbar() {
@@ -29,6 +29,10 @@ function Navbar() {
       .then((stage) => dispatch(setStage({ ...stage })))
       .catch((err) => console.error(err));
   }, [isLoggedIn, id]);
+
+  const handleLogout = async () => {
+    dispatch(logout());
+  };
 
   return (
     <Flex bgGradient="linear(to-r, pink.500, purple.500)" py="2" align="center" id="navbar">
@@ -73,7 +77,7 @@ function Navbar() {
                 </MenuList>
               </Menu>
             </Box>
-            <Button colorScheme="gray" mr="4" onClick={() => dispatch(logout())}>
+            <Button colorScheme="gray" mr="4" onClick={handleLogout}>
               Logout
             </Button>
           </>

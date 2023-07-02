@@ -3,7 +3,7 @@ import { zodResolver } from '@hookform/resolvers/zod';
 import { useForm } from 'react-hook-form';
 import { useAppSelector } from '~/hooks/use-app-selector';
 import useRequestHandler from '~/hooks/use-request-handler';
-import { useUpdateCanvasMutation } from '~/store/slices/canvas-slice';
+import { useUpdateCanvasMutation } from '~/store/api/canvas-slice';
 import { ICanvasPayload } from '~/types/canvas';
 import { ICreate, createSchema } from '~/validation/canvas';
 
