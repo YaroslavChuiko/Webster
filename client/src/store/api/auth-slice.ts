@@ -41,11 +41,11 @@ export const extendedApiSlice = apiSlice.injectEndpoints({
         }
       },
     }),
-    verifyEmail: builder.mutation({
-      query: ({ confirmToken }) => ({
+    verifyEmail: builder.mutation<any, string>({
+      query: (token) => ({
         url: `auth/verify-email`,
         method: 'POST',
-        body: { token: confirmToken },
+        body: { token },
       }),
     }),
   }),

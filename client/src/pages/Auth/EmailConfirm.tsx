@@ -1,61 +1,58 @@
-import { useState, useEffect } from 'react';
-import { useNavigate } from 'react-router-dom';
-import { Box, Button, Text, Container, Flex, Fade, SlideFade, useToast } from '@chakra-ui/react';
-import { useLocation } from 'react-router-dom';
+import { Button, Container, Fade, Flex, SlideFade, Text } from '@chakra-ui/react';
+import { useEffect, useState } from 'react';
+import { useLocation, useNavigate } from 'react-router-dom';
 import Loader from '~/components/Loader/Loader';
-import { baseQuery } from '~/consts/api';
+import useCustomToast from '~/hooks/use-custom-toast';
+import { useVerifyEmailMutation } from '~/store/api/auth-slice';
 
 function EmailConfirm() {
   const navigate = useNavigate();
-  const [isLoading, setIsLoading] = useState(true);
   const [isSuccess, setIsSuccess] = useState(false);
   const location = useLocation();
   const queryParams = new URLSearchParams(location.search);
   const token = queryParams.get('token');
-  const toast = useToast();
+  const { toast } = useCustomToast();
+
+  const [verifyEmail, { isLoading }] = useVerifyEmailMutation();
 
   useEffect(() => {
-    const confirmEmail = async () => {
-      const response = await fetch(`${baseQuery}/auth/verify-email`, {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({ token }),
-      });
-      if (response.status === 200) {
-        setIsLoading(false);
+    const confirmEmail = async (token: string | null) => {
+      if (!token) {
+        return;
+      }
+      try {
+        await verifyEmail(token).unwrap();
         setIsSuccess(true);
-      } else {
-        setIsLoading(false);
-        setIsSuccess(false);
+      } catch (error: any) {
+        toast('Error occurred', error?.data.message, 'error');
       }
     };
-    if (token) {
-      confirmEmail();
-    }
+
+    confirmEmail(token);
   }, []);
 
   if (!token) {
-    toast({
-      title: 'Error occurred.',
-      description: 'No token in the link.',
-      status: 'error',
-      duration: 9000,
-      isClosable: true,
-    });
+    toast('Error occurred', 'No token in the link', 'error');
+
     return (
       <Container maxW="lg" py={{ base: '12', md: '24' }} px={{ base: '0', sm: '8' }}>
         <Flex justifyContent="center">
           <SlideFade in={true}>
-            <Box p={4} borderWidth="1px" borderRadius="md" backgroundColor="red.100">
+            <Flex
+              p={4}
+              borderWidth="1px"
+              flexDirection="column"
+              alignItems="center"
+              borderRadius="md"
+              backgroundColor="red.100"
+            >
               <Text color="red.700" fontWeight="bold" mb={2}>
                 Link is not valid.
               </Text>
               <Button onClick={() => navigate('/')} colorScheme="red">
                 Go to Sign Up Page
               </Button>
-            </Box>
+            </Flex>
           </SlideFade>
         </Flex>
       </Container>
@@ -69,27 +66,41 @@ function EmailConfirm() {
 
         {!isLoading && isSuccess && (
           <Fade in={true}>
-            <Box p={4} borderWidth="1px" borderRadius="md" backgroundColor="green.100">
+            <Flex
+              p={4}
+              borderWidth="1px"
+              flexDirection="column"
+              alignItems="center"
+              borderRadius="md"
+              backgroundColor="green.100"
+            >
               <Text color="green.700" fontWeight="bold" mb={2}>
                 Email confirmed successfully!
               </Text>
-              <Button onClick={() => navigate('/auth/sign-in')} colorScheme="blue">
+              <Button onClick={() => navigate('/auth/sign-in')} colorScheme="green">
                 Go to Login Page
               </Button>
-            </Box>
+            </Flex>
           </Fade>
         )}
 
         {!isLoading && !isSuccess && (
           <SlideFade in={true}>
-            <Box p={4} borderWidth="1px" borderRadius="md" backgroundColor="red.100">
+            <Flex
+              p={4}
+              borderWidth="1px"
+              flexDirection="column"
+              alignItems="center"
+              borderRadius="md"
+              backgroundColor="red.100"
+            >
               <Text color="red.700" fontWeight="bold" mb={2}>
                 Failed to confirm email. Token expired.
               </Text>
               <Button onClick={() => navigate('/auth/sign-up')} colorScheme="red">
                 Go to Sign Up Page
               </Button>
-            </Box>
+            </Flex>
           </SlideFade>
         )}
       </Flex>
