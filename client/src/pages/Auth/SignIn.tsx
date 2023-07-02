@@ -51,7 +51,7 @@ function SignIn() {
       await login(values).unwrap();
       navigate('/');
     } catch (error: any) {
-      toast(error?.data.message, 'error');
+      toast('Error occurred', error?.data.message, 'error');
     }
   };
 
@@ -83,17 +83,7 @@ function SignIn() {
               <Stack spacing="5">
                 <FormControl>
                   <FormLabel htmlFor="email">Email</FormLabel>
-                  <Input
-                    id="email"
-                    type="email"
-                    focusBorderColor="pink.500"
-                    // value={email}
-                    // onChange={(event) => setEmail(event.target.value)}
-                    {...register('email', {
-                      required: 'This is required',
-                      minLength: { value: 4, message: 'Minimum length should be 4' },
-                    })}
-                  />
+                  <Input id="email" type="email" focusBorderColor="pink.500" {...register('email')} />
                 </FormControl>
                 <FormControl>
                   <FormLabel htmlFor="password">Password</FormLabel>
@@ -113,10 +103,7 @@ function SignIn() {
                       autoComplete="current-password"
                       focusBorderColor="pink.500"
                       required
-                      {...register('password', {
-                        required: 'This is required',
-                        minLength: { value: 4, message: 'Minimum length should be 4' },
-                      })}
+                      {...register('password')}
                     />
                   </InputGroup>
                 </FormControl>

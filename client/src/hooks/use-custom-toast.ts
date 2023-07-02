@@ -7,8 +7,9 @@ const useCustomToast = () => {
   const createToast = useToast();
 
   const toast = useCallback(
-    (description: string, status: TStatus) => {
+    (title: string, description: string, status: TStatus) => {
       createToast({
+        title,
         description,
         duration: 9000,
         isClosable: true,

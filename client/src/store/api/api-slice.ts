@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-unused-vars */
 import { createApi } from '@reduxjs/toolkit/query/react';
 import baseQueryWithReauth from './baseQuery';
 
