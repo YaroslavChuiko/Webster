@@ -1,7 +1,7 @@
 import { Card, VStack, Box, Text, IconButton, useToast } from '@chakra-ui/react';
 import { HiOutlineTrash } from 'react-icons/hi';
 import { useDispatch } from 'react-redux';
-import { useDeleteCanvasMutation } from '~/store/slices/canvas-slice';
+import { useDeleteCanvasMutation } from '~/store/api/canvas-slice';
 import { IStageState, resetStage, setStage } from '~/store/slices/frame-slice';
 import { ICanvas } from '~/types/canvas';
 

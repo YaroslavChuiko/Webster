@@ -4,7 +4,7 @@ import { useAppSelector } from '~/hooks/use-app-selector';
 import CanvasCreateForm from './CanvasCreateForm';
 import useStageObject from '~/hooks/use-stage-object';
 import { useEffect, useState } from 'react';
-import { useUpdateCanvasMutation } from '~/store/slices/canvas-slice';
+import { useUpdateCanvasMutation } from '~/store/api/canvas-slice';
 
 const CanvasContentSave = () => {
   const { stageObjects } = useStageObject();

@@ -7,7 +7,7 @@ import stageObjectReducer from './slices/stage-object-slice';
 import selectedObjectReducer from './slices/selected-objects-slice';
 import authReducer from './slices/auth-slice';
 import copiedObjectReducer from './slices/copied-objects-slice';
-import { apiSlice } from './slices/canvas-slice';
+import { apiSlice } from './api/api-slice';
 
 const persistConfig = {
   key: 'root',

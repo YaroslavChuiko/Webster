@@ -69,10 +69,10 @@ class AppConfig {
     return this.getValue('STRIPE_WH', true);
   }
 
-  getMailTrapConfig(): any {
+  getMailConfig(): any {
     return {
-      user: this.getValue('MAILTRAP_USER', true),
-      password: this.getValue('MAILTRAP_PASSWORD', true),
+      user: this.getValue('MAIL_USER', true),
+      password: this.getValue('MAIL_PASSWORD', true),
     };
   }
 }
@@ -83,8 +83,8 @@ const appConfig = new AppConfig(process.env).ensureValues([
   'JWT_EXPIRED',
   'PEPPER',
   'CLIENT_URL',
-  'MAILTRAP_USER',
-  'MAILTRAP_PASSWORD',
+  'MAIL_USER',
+  'MAIL_PASSWORD',
 ]);
 
 export { appConfig };

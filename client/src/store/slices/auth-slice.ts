@@ -1,53 +1,34 @@
-interface AuthState {
-  token: string | null;
+import { createSlice } from '@reduxjs/toolkit';
+
+type IAuthState = {
   isLoggedIn: boolean;
-  error: string | null;
-}
-
-interface LoginSuccessAction {
-  type: 'LOGIN_SUCCESS';
-  payload: { token: string };
-}
-
-interface LogoutAction {
-  type: 'LOGOUT';
-}
-
-interface LoginFailAction {
-  type: 'LOGIN_FAIL';
-  payload: { error: string };
-}
-
-type AuthAction = LoginSuccessAction | LogoutAction | LoginFailAction;
-
-const authReducer = (
-  state: AuthState = { token: null, isLoggedIn: false, error: null },
-  action: AuthAction,
-): AuthState => {
-  switch (action.type) {
-    case 'LOGIN_SUCCESS':
-      return { token: action.payload.token, isLoggedIn: true, error: null };
-    case 'LOGOUT':
-      return { token: null, isLoggedIn: false, error: null };
-    case 'LOGIN_FAIL':
-      return { token: null, isLoggedIn: false, error: action.payload.error };
-    default:
-      return state;
-  }
+  token: string | null;
 };
 
-export const loginSuccess = (token: string): LoginSuccessAction => ({
-  type: 'LOGIN_SUCCESS',
-  payload: { token },
+const initialState: IAuthState = {
+  isLoggedIn: false,
+  token: null,
+};
+
+const authSlice = createSlice({
+  name: 'auth',
+  initialState,
+  reducers: {
+    login(state, { payload }) {
+      const { accessToken } = payload;
+      state.token = accessToken;
+      state.isLoggedIn = true;
+    },
+    // setToken(state, { payload }) {
+    //   const { token } = payload;
+    //   state.token = token;
+    // },
+    logout(state) {
+      state.isLoggedIn = initialState.isLoggedIn;
+      state.token = null;
+    },
+  },
 });
 
-export const logout = (): LogoutAction => ({
-  type: 'LOGOUT',
-});
-
-export const loginFail = (error: string): LoginFailAction => ({
-  type: 'LOGIN_FAIL',
-  payload: { error },
-});
-
-export default authReducer;
+export const { login, logout } = authSlice.actions;
+export default authSlice.reducer;

@@ -6,13 +6,14 @@ import EmailConfirm from '~/pages/Auth/EmailConfirm';
 import AuthLayout from './pages/Auth/AuthLayout';
 import { useAppSelector } from './hooks/use-app-selector';
 import { useEffect } from 'react';
-import { useLazyGetCanvasesQuery } from './store/slices/canvas-slice';
+import { useLazyGetCanvasesQuery } from './store/api/canvas-slice';
 import Loader from './components/Loader/Loader';
 import { useDispatch } from 'react-redux';
 import { setStage } from './store/slices/frame-slice';
 
 function App() {
-  const { isLoggedIn, stage } = useAppSelector((state) => ({ ...state.auth, ...state.frame }));
+  const { stage } = useAppSelector((state) => state.frame);
+  const { isLoggedIn } = useAppSelector((state) => state.auth);
   const dispatch = useDispatch();
   const [getCanvases, { isLoading }] = useLazyGetCanvasesQuery();
 

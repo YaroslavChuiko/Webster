@@ -12,7 +12,7 @@ import {
 } from '@chakra-ui/react';
 import Loader from '~/components/Loader/Loader';
 import NothingFound from '~/components/NothingFound/NothingFound';
-import { useGetCanvasesQuery } from '~/store/slices/canvas-slice';
+import { useGetCanvasesQuery } from '~/store/api/canvas-slice';
 import CanvasViewItem from './CanvasViewItem';
 import Pagination from '~/components/Pagination/Pagination';
 import { useEffect, useState } from 'react';
