@@ -4,22 +4,22 @@ import { appConfig } from '../configs/app.config';
 @Injectable()
 export class EmailService {
   async sendEmail(email: string, confirmUrl: string) {
-    const mailtrap = appConfig.getMailTrapConfig();
-    console.log(mailtrap);
+    const mail = appConfig.getMailConfig();
+
     const transport = nodemailer.createTransport({
-      host: 'sandbox.smtp.mailtrap.io',
-      port: 25,
+      service: 'gmail',
       auth: {
-        user: mailtrap.user,
-        pass: mailtrap.password,
+        user: mail.user,
+        pass: mail.password,
       },
     });
 
     const mailOptions = {
       from: 'webster@gmail.com',
       to: email,
-      subject: 'Test Email',
+      subject: 'Webster email verification',
       text: confirmUrl,
+      html: `<p>You must follow this link to verify your email</p> <p>Press <a href="${confirmUrl}"> here </a> to verify your email. Thanks.</p>`,
     };
 
     return transport.sendMail(mailOptions, function (error, info) {
