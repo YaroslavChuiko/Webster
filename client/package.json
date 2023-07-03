@@ -4,9 +4,10 @@
   "version": "0.0.0",
   "type": "module",
   "scripts": {
-    "start": "vite preview --host 0.0.0.0 --port $PORT",
+    "start": "vite preview",
     "dev": "vite",
     "build": "tsc && vite build",
+    "preview": "vite preview --host 0.0.0.0 --port $PORT",
     "lint": "eslint src --ext ts,tsx --report-unused-disable-directives --max-warnings 0",
     "format": "prettier --write \"src/**/*.{js,jsx,ts,tsx,css,md,json}\" --config ./.prettierrc",
     "prepare": "cd .. && husky install client/.husky"
@@ -22,7 +23,6 @@
     "@hookform/resolvers": "^3.1.0",
     "@reduxjs/toolkit": "^1.9.5",
     "fontfaceobserver": "^2.3.0",
-    "formik": "^2.2.9",
     "framer-motion": "^10.12.4",
     "konva": "^9.0.1",
     "react": "^18.2.0",
@@ -40,7 +40,6 @@
     "react-textarea-autosize": "^8.4.1",
     "redux-persist": "^6.0.0",
     "unsplash-js": "^7.0.15",
-    "yup": "^1.1.1",
     "zod": "^3.21.4"
   },
   "devDependencies": {
