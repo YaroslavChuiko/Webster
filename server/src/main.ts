@@ -38,10 +38,8 @@ async function bootstrap() {
   await app.useGlobalFilters(new AllExceptionsFilter());
 
   app.enableCors({
-    allowedHeaders: '*',
     origin: process.env.CLIENT_URL,
     credentials: true,
-    methods: 'GET, POST, PUT, PATCH, DELETE',
   });
 
   await app
