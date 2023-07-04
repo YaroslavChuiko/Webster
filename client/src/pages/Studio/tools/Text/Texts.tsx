@@ -63,56 +63,57 @@ const Texts = () => {
   };
 
   return (
-    <VStack spacing={3} sx={{ p: 4, position: 'relative', h: '100%', overflowY: 'auto' }}>
-      <VStack bgColor="white" w="100%" spacing={3} sx={{ mt: '-4', py: '4', top: '-4', position: 'sticky' }}>
+    <>
+      <VStack bgColor="white" w="100%" spacing={3} p={4}>
         <SearchForm placeholder="Search fonts" onSubmit={onSearchSubmit} onReset={onSearchReset} />
       </VStack>
-
-      {selectedFonts.length && query.trim() ? (
-        <VStack w="100%" sx={{ mt: '4' }}>
-          {selectedFonts.map((font: any) => (
-            <Button
-              key={font.family}
-              fontFamily={font.family}
-              w="100%"
-              fontSize={25}
-              fontWeight={400}
-              onClick={() =>
-                addTextToStage({
-                  text: font.family,
-                  fontFamily: font.family,
-                  fontVariants: font.variants, // set variants that available to load from Google Fonts
-                  webFont: true,
-                  fontSize: 50,
-                  fontStyle: 'normal',
-                })
-              }
-            >
-              {font.family}
+      <VStack spacing={3} sx={{ p: 4, position: 'relative', h: '100%', overflowY: 'auto' }}>
+        {selectedFonts.length && query.trim() ? (
+          <VStack w="100%" sx={{ mt: '4' }}>
+            {selectedFonts.map((font: any) => (
+              <Button
+                key={font.family}
+                fontFamily={font.family}
+                w="100%"
+                fontSize={25}
+                fontWeight={400}
+                onClick={() =>
+                  addTextToStage({
+                    text: font.family,
+                    fontFamily: font.family,
+                    fontVariants: font.variants, // set variants that available to load from Google Fonts
+                    webFont: true,
+                    fontSize: 50,
+                    fontStyle: 'normal',
+                  })
+                }
+              >
+                {font.family}
+              </Button>
+            ))}
+          </VStack>
+        ) : (
+          <VStack w="100%" spacing={3} sx={{ mt: '4' }}>
+            <Button w="100%" colorScheme="pink" onClick={() => addTextToStage()}>
+              Add a text box
             </Button>
-          ))}
-        </VStack>
-      ) : (
-        <VStack w="100%" spacing={3} sx={{ mt: '4' }}>
-          <Button w="100%" colorScheme="pink" onClick={() => addTextToStage()}>
-            Add a text box
-          </Button>
-          <Text w="100%" pt={2} textAlign="left" fontSize="14px" fontWeight="bold">
-            Default text styles
-          </Text>
-          {defaultTextStylesButtons.map((data, i) => (
-            <Button key={i} w="100%" onClick={() => addTextToStage(data)}>
-              {data.text}
-            </Button>
-          ))}
-          {!selectedFonts.length && query.trim() && (
-            <Text pt="20px" fontSize="14px" textAlign="center">
-              Sorry, we couldn&apos;t find any text for {`"${query.trim()}"`}. Try searching something related.
+            <Text w="100%" pt={2} textAlign="left" fontSize="14px" fontWeight="bold">
+              Default text styles
             </Text>
-          )}
-        </VStack>
-      )}
-    </VStack>
+            {defaultTextStylesButtons.map((data, i) => (
+              <Button key={i} w="100%" onClick={() => addTextToStage(data)}>
+                {data.text}
+              </Button>
+            ))}
+            {!selectedFonts.length && query.trim() && (
+              <Text pt="20px" fontSize="14px" textAlign="center">
+                Sorry, we couldn&apos;t find any text for {`"${query.trim()}"`}. Try searching something related.
+              </Text>
+            )}
+          </VStack>
+        )}
+      </VStack>
+    </>
   );
 };
 

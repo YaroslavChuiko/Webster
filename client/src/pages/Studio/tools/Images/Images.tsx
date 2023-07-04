@@ -60,8 +60,8 @@ const Images = () => {
   }, [queryReset]);
 
   return (
-    <VStack id="imageGrid" spacing={3} sx={{ p: 4, position: 'relative', h: '100%', overflowY: 'auto' }}>
-      <VStack bgColor="white" w="100%" spacing={3} sx={{ mt: '-4', py: '4', top: '-4', position: 'sticky' }}>
+    <>
+      <VStack bgColor="white" w="100%" spacing={3} p="4">
         <SearchForm setSearch={setQuery} setQueryReset={setQueryReset} />
         <Text>
           View more on{' '}
@@ -70,16 +70,18 @@ const Images = () => {
           </Link>
         </Text>
       </VStack>
-      {!images?.length ? (
-        <NothingFound message="No images were found." />
-      ) : (
-        <>
-          <InfiniteWrapper fetchItems={fetchImages} count={images?.length || 10}>
-            <ImagesGrid images={images} />
-          </InfiniteWrapper>
-        </>
-      )}
-    </VStack>
+      <VStack id="imageGrid" spacing={3} sx={{ p: 4, position: 'relative', h: '100%', overflowY: 'auto' }}>
+        {!images?.length ? (
+          <NothingFound message="No images were found." />
+        ) : (
+          <>
+            <InfiniteWrapper fetchItems={fetchImages} count={images?.length || 10}>
+              <ImagesGrid images={images} />
+            </InfiniteWrapper>
+          </>
+        )}
+      </VStack>
+    </>
   );
 };
 
