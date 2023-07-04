@@ -16,7 +16,16 @@ type Props = {
 const Toolbar = ({ stageRef }: Props) => {
   return (
     <Flex h="100%" borderRight="2px" borderColor="gray.200">
-      <Tabs orientation="vertical" variant="line" colorScheme="pink" h="100%" id="toolbar" bgColor="gray.100">
+      <Tabs
+        isLazy
+        lazyBehavior="keepMounted"
+        orientation="vertical"
+        variant="line"
+        colorScheme="pink"
+        h="100%"
+        id="toolbar"
+        bgColor="gray.100"
+      >
         <TabList>
           {TOOLBAR_TABS.map((t, i) => (
             <Tab
@@ -46,13 +55,13 @@ const Toolbar = ({ stageRef }: Props) => {
           <TabPanel>
             <Export stageRef={stageRef} />
           </TabPanel>
-          <TabPanel p="0" h="100%">
+          <TabPanel p="0" h="100%" overflow="hidden">
             <Images />
           </TabPanel>
           <TabPanel>
             <ImageUpload />
           </TabPanel>
-          <TabPanel p="0" h="100%">
+          <TabPanel p="0" h="100%" overflow="hidden">
             <Texts />
           </TabPanel>
           <TabPanel>
