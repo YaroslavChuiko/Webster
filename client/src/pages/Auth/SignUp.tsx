@@ -54,6 +54,7 @@ export default function SignUp() {
   });
 
   const onSubmit = async (values: FormValues) => {
+    // eslint-disable-next-line @typescript-eslint/no-unused-vars
     const { passwordConfirm: _, ...rest } = values;
     try {
       await registerMutation(rest).unwrap();
