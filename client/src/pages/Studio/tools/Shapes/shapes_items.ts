@@ -1,63 +1,72 @@
 import { ShapeType } from '~/types/shape-type';
 import { INIT_HEX_COLOR } from '~/consts/stage-object';
+import squareUrl from '~/assets/shapes/square.png';
+import circleUrl from '~/assets/shapes/circle.png';
+import triangleUrl from '~/assets/shapes/triangle.png';
+import pentagonUrl from '~/assets/shapes/pentagon.png';
+import hexagonUrl from '~/assets/shapes/hexagon.png';
+import heptagonUrl from '~/assets/shapes/heptagon.png';
+import octagonUrl from '~/assets/shapes/octagon.png';
+import star4Url from '~/assets/shapes/star-4.png';
+import star5Url from '~/assets/shapes/star-5.png';
+import star6Url from '~/assets/shapes/star-6.png';
+import arrowUrl from '~/assets/shapes/arrow.png';
 
 export type shapeItemType = {
   name: string;
   shapeType: ShapeType;
 };
 
-const SHAPES_FOLDER_PATH = '/shapes';
-
 export const shapesItems = [
   {
-    src: `${SHAPES_FOLDER_PATH}/square.png`,
+    src: squareUrl,
     name: 'Square',
     shapeType: ShapeType.RECT,
     strokeScaleEnabled: false,
   },
   {
-    src: `${SHAPES_FOLDER_PATH}/circle.png`,
+    src: circleUrl,
     name: 'Circle',
     shapeType: ShapeType.CIRCLE,
     strokeScaleEnabled: false,
   },
   {
-    src: `${SHAPES_FOLDER_PATH}/trianle.png`,
-    name: 'Trianle',
+    src: triangleUrl,
+    name: 'Triangle',
     shapeType: ShapeType.POLYGON,
     sides: 3,
     strokeScaleEnabled: false,
   },
   {
-    src: `${SHAPES_FOLDER_PATH}/pentagon.png`,
+    src: pentagonUrl,
     name: 'Pentagon',
     shapeType: ShapeType.POLYGON,
     sides: 5,
     strokeScaleEnabled: false,
   },
   {
-    src: `${SHAPES_FOLDER_PATH}/hexagon.png`,
+    src: hexagonUrl,
     name: 'Hexagon',
     shapeType: ShapeType.POLYGON,
     sides: 6,
     strokeScaleEnabled: false,
   },
   {
-    src: `${SHAPES_FOLDER_PATH}/heptagon.png`,
+    src: heptagonUrl,
     name: 'Heptagon',
     shapeType: ShapeType.POLYGON,
     sides: 7,
     strokeScaleEnabled: false,
   },
   {
-    src: `${SHAPES_FOLDER_PATH}/octagon.png`,
+    src: octagonUrl,
     name: 'Octagon',
     shapeType: ShapeType.POLYGON,
     sides: 8,
     strokeScaleEnabled: false,
   },
   {
-    src: `${SHAPES_FOLDER_PATH}/star-4.png`,
+    src: star4Url,
     name: 'Star 4',
     shapeType: ShapeType.STAR,
     numPoints: 4,
@@ -66,7 +75,7 @@ export const shapesItems = [
     strokeScaleEnabled: false,
   },
   {
-    src: `${SHAPES_FOLDER_PATH}/star-5.png`,
+    src: star5Url,
     name: 'Star 5',
     shapeType: ShapeType.STAR,
     numPoints: 5,
@@ -75,7 +84,7 @@ export const shapesItems = [
     strokeScaleEnabled: false,
   },
   {
-    src: `${SHAPES_FOLDER_PATH}/star-6.png`,
+    src: star6Url,
     name: 'Star 6',
     shapeType: ShapeType.STAR,
     numPoints: 6,
@@ -84,7 +93,7 @@ export const shapesItems = [
     strokeScaleEnabled: false,
   },
   {
-    src: `${SHAPES_FOLDER_PATH}/arrow.png`,
+    src: arrowUrl,
     name: 'Arrow',
     shapeType: ShapeType.ARROW,
     points: [0, 0, 50, 0],
