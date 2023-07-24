@@ -4,6 +4,7 @@ import useGetFontListQuery from '~/hooks/use-get-font-list-query';
 import useStageObject from '~/hooks/use-stage-object';
 import { GoogleFont } from '~/types/google-font-type';
 import FontFamilyMenuList from './FontFamilyMenuList';
+import { useCallback } from 'react';
 
 type Props = {
   id: string;
@@ -15,17 +16,20 @@ const FontFamilyMenu = ({ id, fontFamily }: Props) => {
   const { fontList, isLoaded } = useGetFontListQuery();
   const { isOpen: isMenuOpen, onOpen: openMenu, onClose: closeMenu } = useDisclosure();
 
-  const handleMenuItemClick = (font: GoogleFont) => {
-    updateOne({
-      id,
-      data: {
-        fontFamily: font.family,
-        fontVariants: font.variants,
-        webFont: true,
-      },
-    });
-    closeMenu();
-  };
+  const handleMenuItemClick = useCallback(
+    (font: GoogleFont) => {
+      updateOne({
+        id,
+        data: {
+          fontFamily: font.family,
+          fontVariants: font.variants,
+          webFont: true,
+        },
+      });
+      closeMenu();
+    },
+    [id],
+  );
 
   return (
     <Menu isOpen={isMenuOpen} onOpen={openMenu} onClose={closeMenu}>
